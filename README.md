@@ -1,3 +1,4 @@
+
 To change postgres password
 ---------------------------
 1) enter your phppgadmin page, http://127.0.0.1/phppgadmin/
