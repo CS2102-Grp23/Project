@@ -1,0 +1,38 @@
+LOG:  database system was shut down at 2017-02-23 13:40:44 MYT
+LOG:  MultiXact member wraparound protections are now enabled
+LOG:  database system is ready to accept connections
+LOG:  autovacuum launcher started
+LOG:  using stale statistics instead of current ones because stats collector is not responding
+FATAL:  password authentication failed for user "postgres"
+DETAIL:  Password does not match for user "postgres".
+	Connection matched pg_hba.conf line 84: "host    all             all             127.0.0.1/32            md5"
+ERROR:  column "email" contains null values
+STATEMENT:  ALTER TABLE "public"."user" ADD COLUMN "email" character varying(80) NOT NULL
+ERROR:  syntax error at or near "<" at character 316
+STATEMENT:  CREATE TABLE "public"."Project" ("projectID" SERIAL, "title" character varying(254) NOT NULL, "description" character varying(508), "category" character varying(254), "startDate" date NOT NULL, "endDate" date, "targetAmount" money NOT NULL, "currentAmount" money, "imageURL" character varying(254) NOT NULL DEFAULT <path to default image>, "username" character varying(254) NOT NULL, PRIMARY KEY ("projectID")) WITHOUT OIDS
+ERROR:  syntax error at or near "to" at character 323
+STATEMENT:  CREATE TABLE "public"."Project" ("projectID" SERIAL, "title" character varying(254) NOT NULL, "description" character varying(508), "category" character varying(254), "startDate" date NOT NULL, "endDate" date, "targetAmount" money NOT NULL, "currentAmount" money, "imageURL" character varying(254) NOT NULL DEFAULT change to path of default image, "username" character varying(254) NOT NULL, PRIMARY KEY ("projectID")) WITHOUT OIDS
+ERROR:  column "defaultimagepath" does not exist
+STATEMENT:  CREATE TABLE "public"."Project" ("projectID" SERIAL, "title" character varying(254) NOT NULL, "description" character varying(508), "category" character varying(254), "startDate" date NOT NULL, "endDate" date, "targetAmount" money NOT NULL, "currentAmount" money, "imageURL" character varying(254) NOT NULL DEFAULT DefaultImagePath, "username" character varying(254) NOT NULL, PRIMARY KEY ("projectID")) WITHOUT OIDS
+ERROR:  syntax error at or near "TABLE" at character 38
+STATEMENT:  SELECT COUNT(*) AS total FROM (ALTER TABLE public.Project
+	   ADD CONSTRAINT fk_userProject
+	   FOREIGN KEY (username) 
+	   REFERENCES User(username)) AS sub
+ERROR:  syntax error at or near "User" at character 92
+STATEMENT:  ALTER TABLE public.Project ADD CONSTRAINT fk_userProject FOREIGN KEY (username) REFERENCES User(username);
+ERROR:  relation "public.project" does not exist
+STATEMENT:  ALTER TABLE public.Project ADD CONSTRAINT fk_userProject FOREIGN KEY (username) REFERENCES public.User(username);
+ERROR:  constraint "fk_contriuserproject" for relation "Contribute" already exists
+STATEMENT:  ALTER TABLE "public"."Contribute" ADD CONSTRAINT fk_contriUserProject FOREIGN KEY (projectID) REFERENCES "public"."Project"(projectID);
+ERROR:  column "projectid" referenced in foreign key constraint does not exist
+STATEMENT:  ALTER TABLE "public"."Contribute" ADD CONSTRAINT fk_contriProject FOREIGN KEY (projectID) REFERENCES "public"."Project"(projectID);
+ERROR:  column "projectid" referenced in foreign key constraint does not exist
+STATEMENT:  ALTER TABLE "public"."Contribute" ADD CONSTRAINT fk_contributeProject FOREIGN KEY (projectID) REFERENCES "public"."Project"(projectID);
+ERROR:  column "projectid" referenced in foreign key constraint does not exist
+STATEMENT:  ALTER TABLE "public"."Contribute" ADD CONSTRAINT fk_contributeProject FOREIGN KEY (projectID) REFERENCES "public"."Project"(projectID);
+LOG:  received fast shutdown request
+LOG:  aborting any active transactions
+LOG:  autovacuum launcher shutting down
+LOG:  shutting down
+LOG:  database system is shut down
