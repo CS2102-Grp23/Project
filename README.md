@@ -1,3 +1,4 @@
+Put webpages inside apps, feel free to remove mine (since it's just for pre-alpha) or just use a new directory. Config probably will be different for mac and windows since they use different paths
 
 To change postgres password
 ---------------------------
