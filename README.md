@@ -12,5 +12,5 @@ alter role postgres with encrypted password 'cs2102';
 
 Before executing the PHP files
 ---------------------------
-1) Go to dbconnect.php to set up your credentials
-2) AS the directory paths for Mac and Windows are different, kindly configure the path at line 109 in create_project.php
+1) Go to dbconnect.php to set up your credentials<br>
+2) As the directory paths for Mac and Windows are different, kindly configure the path at line 109 in create_project.php
