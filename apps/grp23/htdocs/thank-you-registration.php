@@ -10,6 +10,6 @@
 
     echo "<br><h2>Thanks for registering!</h2>
         Your registration is now complete.
-        <p><a href='login.php'>Click here to login</a>"
+        <p><a href='index.php'>Click here to login</a>"
 
 ?>

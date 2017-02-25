@@ -44,10 +44,11 @@
         }
         else {
             // check username exist or not
-            $query = "SELECT userID FROM users WHERE userEmail='$userName'";
+            $query = "SELECT username FROM \"public\".\"User\" WHERE username='$userName'";
             $result = pg_query($query);
             $count = pg_num_rows($result);
-            if($count!=0){
+			
+            if($count>0){
                 $error = true;
                 $emailError = "Username is already in use.";
             }
@@ -59,7 +60,7 @@
             $emailError = "Please enter your email address.";
         } else {
             // check email exist or not
-            $query = "SELECT userEmail FROM users WHERE userEmail='$email'";
+            $query = "SELECT email FROM \"public\".\"User\" WHERE email='$email'";
             $result = pg_query($query);
             $count = pg_num_rows($result);
             if($count!=0){
@@ -86,7 +87,7 @@
 
         // if there's no error, continue to signup
         if( !$error ) {
-            $query = "INSERT INTO users VALUES('$userName', '$password', 'FALSE', '$email','$name')";
+            $query = "INSERT INTO \"public\".\"User\" VALUES('$userName', '$password', 'FALSE', '$email','$name')";
 
             $res = pg_query($query) or die('Query failed: ' . pg_last_error());
 
