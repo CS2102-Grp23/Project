@@ -27,15 +27,16 @@ After the cloning the repo,
 1. At the root directory, run `composer install` to install laravel dependencies.If you do not have composer, check https://getcomposer.org/doc/00-intro.md
 2. Run `npm install` to install node dependencies
 3. Start your postgres server (preferably with Bitnami)
-4. Customize the `.env` file at the root to use your database.Run grp23.sql
-5. Start server with `php artisan serve`
-6. Go to the url shown
+4. Customize the `.env` file at the root to use your database. Run grp23.sql
+5. Run `php artisan key:generate`
+6. Start server with `php artisan serve`
+7. Go to the url shown
 
 ### Option 2
 1. Copy all the files into `/apache2/frameworks/laravel`
 2. Start apache server
 3. Start postgres server
-4. Customize the `.env` file at the root to use your database.Run grp23.sql
+4. Customize the `.env` file at the root to use your database. Run grp23.sql
 3. Go to `http:localhost/laravel`
 
 Note that option 2 is not recommended for development as Apache caches the framework and does not refresh after making changes to the files.
