@@ -1,0 +1,35 @@
+.btn, .btn-large, .btn-flat {
+  line-height: 40px;
+}
+
+nav .input-field label.active i {
+	margin-top: -8px;
+}
+
+nav, navbar-fixed {
+	min-height: 64px;
+}
+
+.input-field label:not(.label-icon).active {
+	position: relative;
+	font-size: 1.5rem;
+}
+
+input[type=text], input[type=password], input[type=email], input[type=url], input[type=time], input[type=date], input[type=datetime], input[type=datetime-local], input[type=tel], input[type=number], input[type=search], textarea.materialize-textarea {
+	border-bottom: 1px solid grey;
+	margin: 10px 0;
+	padding: 0 5px;
+}
+
+.card .card-action {
+	padding: 5px;
+}
+
+.waves-input-wrapper {
+  padding: 0;
+  width: 100px;
+}
+
+.row {
+  margin-bottom: 0;
+}
