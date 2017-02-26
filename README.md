@@ -8,7 +8,11 @@ To change postgres password
 4) enter the following and execute:  
 alter role postgres with encrypted password 'cs2102';  
 5) restart postgres server  
-
+  
+Restoring postgres dump  
+-----------------------  
+https://www.postgresql.org/docs/8.1/static/backup.html#BACKUP-DUMP-RESTORE  
+  
 
 Before executing the PHP files
 ---------------------------
