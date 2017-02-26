@@ -40,7 +40,42 @@ html, body {
   font: caption;
   margin: 0;
 	height: 44px;
-	color: grey; 
+	color: grey;
+}
+
+#drawer-toggle {
+
+}
+
+#drawer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  background: salmon;
+  color: teal;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 20px;
+  z-index: 1000;
+  -webkit-overflow-scrolling: touch;
+}
+
+#drawer-toggle-label {
+  font-size: 36px;
+}
+
+#drawer-toggle:checked ~ #drawer-toggle-label {
+  background: rgba(128, 128, 128, 0.5);
+  width: 120%;
+  height: 100vh;
+  position: absolute;
+  transition: background 0.25s ease-in-out;
+}
+
+#drawer-toggle:checked ~ #drawer {
+  left: 300px;
+  transition: left .25s ease-in-out;
 }
 
 #filter {

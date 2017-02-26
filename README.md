@@ -29,8 +29,9 @@ After the cloning the repo,
 3. Start your postgres server (preferably with Bitnami)
 4. Customize the `.env` file at the root to use your database. Run grp23.sql
 5. Run `php artisan key:generate`
-6. Start server with `php artisan serve`
-7. Go to the url shown
+6. Run `npm run watch`. This is to ensure the public folder is up to date.
+7. Start server with `php artisan serve`
+8. Go to the url shown
 
 ### Option 2
 1. Copy all the files into `/apache2/frameworks/laravel`

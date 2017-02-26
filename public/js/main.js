@@ -54683,7 +54683,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": "#!"
     }
-  }, [_vm._v("CS2102")]), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('div', {
+  }, [_vm._v("CS2102")]), _vm._v(" "), _c('input', {
+    staticClass: "hide-on-large-only",
+    attrs: {
+      "type": "checkbox",
+      "id": "drawer-toggle"
+    }
+  }), _c('i', {
+    staticClass: "material-icons hide-on-large-only",
+    attrs: {
+      "id": "drawer-toggle-label",
+      "for": "drawer-toggle"
+    }
+  }, [_vm._v("menu")]), _vm._v(" "), _c('div', {
     attrs: {
       "id": "search-filter-form"
     }
@@ -54714,16 +54726,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchQuery = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('a', {
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('a', {
     staticClass: "dropdown-button btn",
     attrs: {
       "id": "filter",
       "href": "#",
       "data-activates": "dropdown-filter"
     }
-  }, [_vm._v("Filter")]), _vm._v(" "), _vm._m(2)])]), _vm._v(" "), _c('ul', {
+  }, [_vm._v("Filter")]), _vm._v(" "), _vm._m(1)])]), _vm._v(" "), _c('ul', {
     staticClass: "right hide-on-med-and-down"
-  }, [_vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), (!_vm.user) ? _c('li', [_c('a', {
+  }, [_vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), (!_vm.user) ? _c('li', [_c('a', {
     attrs: {
       "href": "/#/register"
     }
@@ -54740,9 +54752,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Logout")])]) : _vm._e()]), _vm._v(" "), _c('ul', {
     staticClass: "side-nav",
     attrs: {
-      "id": "mobile-demo"
+      "id": "drawer"
     }
-  }, [_vm._m(5), _vm._v(" "), _vm._m(6), _vm._v(" "), (!_vm.user) ? _c('li', [_c('a', {
+  }, [_vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), (!_vm.user) ? _c('li', [_c('a', {
     attrs: {
       "href": "/#/register"
     }
@@ -54758,16 +54770,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("Logout")])]) : _vm._e()])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "button-collapse",
-    attrs: {
-      "href": "#",
-      "data-activates": "mobile-demo"
-    }
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("menu")])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('label', {
     staticClass: "label-icon",
     attrs: {

@@ -3,7 +3,7 @@
 		<nav id="header-bar">
 			<div id="header-nav-wrapper" class="nav-wrapper">
 				<a href="#!" class="brand-logo hide-on-med-and-down">CS2102</a>
-				<a href="#" class="button-collapse" data-activates="mobile-demo"><i class="material-icons">menu</i></a>
+				<input type="checkbox" id="drawer-toggle" class="hide-on-large-only" /><i id="drawer-toggle-label" for="drawer-toggle" class="material-icons hide-on-large-only">menu</i>
 				<div id="search-filter-form">
 					<div id="search-filter-bar" class="input-field">
 						<input id="search" type="search" placeholder="Search" v-model="searchQuery" debounce="500">
@@ -22,7 +22,7 @@
 					<li v-if="!user"><a href="/#/register">Login</a></li>
 					<li v-if="user"><a href="#" @click.prevent="signOut">Logout</a></li>
 				</ul>
-				<ul class="side-nav" id="mobile-demo">
+				<ul class="side-nav" id="drawer">
 					<li><a href="/#/projects">Projects</a></li>
 					<li><a href="/#/profile">Profile</a></li>
 					<li v-if="!user"><a href="/#/register">Login</a></li>
