@@ -22,14 +22,14 @@ COMMENT ON DATABASE postgres IS 'default administrative connection database';
 
 
 --
--- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
+-- Name: plpgsql; Type: EXTENSION; Schema: -; Owner:
 --
 
 CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
+-- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner:
 --
 
 COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
@@ -45,34 +45,34 @@ SET default_with_oids = false;
 -- Name: Contribute; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "Contribute" (
+CREATE TABLE "contribute" (
     "projectID" integer NOT NULL,
     username character varying(254) NOT NULL,
     amount money NOT NULL
 );
 
 
-ALTER TABLE "Contribute" OWNER TO postgres;
+ALTER TABLE "contribute" OWNER TO postgres;
 
 --
--- Name: COLUMN "Contribute"."projectID"; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN "contribute"."projectID"; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "Contribute"."projectID" IS 'foreign key constraint';
+COMMENT ON COLUMN "contribute"."projectID" IS 'foreign key constraint';
 
 
 --
--- Name: COLUMN "Contribute".username; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN "contribute".username; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "Contribute".username IS 'foreign key constraint';
+COMMENT ON COLUMN "contribute".username IS 'foreign key constraint';
 
 
 --
 -- Name: Project; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "Project" (
+CREATE TABLE "project" (
     "projectID" integer NOT NULL,
     title character varying(254) NOT NULL,
     description character varying(508),
@@ -85,41 +85,41 @@ CREATE TABLE "Project" (
 );
 
 
-ALTER TABLE "Project" OWNER TO postgres;
+ALTER TABLE "project" OWNER TO postgres;
 
 --
--- Name: COLUMN "Project"."projectID"; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN "project"."projectID"; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "Project"."projectID" IS '4-byte signed integer that is auto-incrementing';
-
-
---
--- Name: COLUMN "Project".category; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN "Project".category IS '##constraint check if belong to { pre-defined categories }';
+COMMENT ON COLUMN "project"."projectID" IS '4-byte signed integer that is auto-incrementing';
 
 
 --
--- Name: COLUMN "Project"."endDate"; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN "project".category; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "Project"."endDate" IS '##constraint check if endDate > startDate';
-
-
---
--- Name: COLUMN "Project"."imageURL"; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN "Project"."imageURL" IS '##during retrieval if null use default image?';
+COMMENT ON COLUMN "project".category IS '##constraint check if belong to { pre-defined categories }';
 
 
 --
--- Name: COLUMN "Project".username; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN "project"."endDate"; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "Project".username IS 'foreign key constraint';
+COMMENT ON COLUMN "project"."endDate" IS '##constraint check if endDate > startDate';
+
+
+--
+-- Name: COLUMN "project"."imageURL"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "project"."imageURL" IS '##during retrieval if null use default image?';
+
+
+--
+-- Name: COLUMN "project".username; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "project".username IS 'foreign key constraint';
 
 
 --
@@ -140,14 +140,14 @@ ALTER TABLE "Project_projectID_seq" OWNER TO postgres;
 -- Name: Project_projectID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE "Project_projectID_seq" OWNED BY "Project"."projectID";
+ALTER SEQUENCE "Project_projectID_seq" OWNED BY "project"."projectID";
 
 
 --
 -- Name: User; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "User" (
+CREATE TABLE "users" (
     username character varying(24) NOT NULL,
     password character(64) NOT NULL,
     accesslevel boolean DEFAULT false NOT NULL,
@@ -156,41 +156,41 @@ CREATE TABLE "User" (
 );
 
 
-ALTER TABLE "User" OWNER TO postgres;
+ALTER TABLE "users" OWNER TO postgres;
 
 --
--- Name: TABLE "User"; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE "users"; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON TABLE "User" IS 'username, password, accesslevel';
-
-
---
--- Name: COLUMN "User".password; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN "User".password IS 'hashed password';
+COMMENT ON TABLE "users" IS 'username, password, accesslevel';
 
 
 --
--- Name: COLUMN "User".accesslevel; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN "users".password; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "User".accesslevel IS 'admin(true) or user(false)';
+COMMENT ON COLUMN "users".password IS 'hashed password';
+
+
+--
+-- Name: COLUMN "users".accesslevel; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN "users".accesslevel IS 'admin(true) or user(false)';
 
 
 --
 -- Name: Project projectID; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "Project" ALTER COLUMN "projectID" SET DEFAULT nextval('"Project_projectID_seq"'::regclass);
+ALTER TABLE ONLY "project" ALTER COLUMN "projectID" SET DEFAULT nextval('"Project_projectID_seq"'::regclass);
 
 
 --
 -- Data for Name: Contribute; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Contribute" ("projectID", username, amount) FROM stdin;
+COPY "contribute" ("projectID", username, amount) FROM stdin;
 77	test21	+$6.00
 1	test22	+$4.00
 17	test22	+$7.00
@@ -238,7 +238,7 @@ COPY "Contribute" ("projectID", username, amount) FROM stdin;
 -- Data for Name: Project; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "Project" ("projectID", title, description, category, "startDate", "endDate", "targetAmount", "imageURL", username) FROM stdin;
+COPY "project" ("projectID", title, description, category, "startDate", "endDate", "targetAmount", "imageURL", username) FROM stdin;
 1	Pixel 2.0 - The Arduino compatible smart display	The Pixel is an Arduino Zero compatible a smart display! It features a 32bit 48MHz Arm Cortex M0+ microcontroller with 32K of RAM, a 1.5 128x128 color OLED screen and a MicroSD slot. There are many things you can do with a board like this, like create wearables, attach sensors and display data with text or graphics, and even make simple retro video games!	technology	2017-02-26	2017-06-26	+$5,000.00	C:\\temp\\Pixel.jpg	AdamGan
 2	New Project Title by test0	Sample description here!	technology	2017-11-24	2018-03-24	+$8,471.00	C:\\temp\\proj2.jpg	test0
 3	New Project Title by test0	Sample description here!	technology	2017-08-27	2017-01-27	+$1,070.00	C:\\temp\\proj3.jpg	test0
@@ -374,7 +374,7 @@ SELECT pg_catalog.setval('"Project_projectID_seq"', 121, true);
 -- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "User" (username, password, accesslevel, email, name) FROM stdin;
+COPY "users" (username, password, accesslevel, email, name) FROM stdin;
 AdamGan	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	adamgan0527@gmail.com	Adam Gan
 HaoJie	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	haojie@nus.edu.sg	Hao Jie
 EricEwe	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	Eric@nus.edu.sg	Eric Ewe
@@ -419,7 +419,7 @@ test29	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test29
 -- Name: Contribute Contribute_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "Contribute"
+ALTER TABLE ONLY "contribute"
     ADD CONSTRAINT "Contribute_pkey" PRIMARY KEY ("projectID", username);
 
 
@@ -427,7 +427,7 @@ ALTER TABLE ONLY "Contribute"
 -- Name: Project Project_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "Project"
+ALTER TABLE ONLY "project"
     ADD CONSTRAINT "Project_pkey" PRIMARY KEY ("projectID");
 
 
@@ -435,7 +435,7 @@ ALTER TABLE ONLY "Project"
 -- Name: User user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "User"
+ALTER TABLE ONLY "users"
     ADD CONSTRAINT user_pkey PRIMARY KEY (username);
 
 
@@ -443,27 +443,26 @@ ALTER TABLE ONLY "User"
 -- Name: Contribute fk_contributeProject; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "Contribute"
-    ADD CONSTRAINT "fk_contributeProject" FOREIGN KEY ("projectID") REFERENCES "Project"("projectID");
+ALTER TABLE ONLY "contribute"
+    ADD CONSTRAINT "fk_contributeProject" FOREIGN KEY ("projectID") REFERENCES "project"("projectID");
 
 
 --
 -- Name: Contribute fk_contributeuser; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "Contribute"
-    ADD CONSTRAINT fk_contributeuser FOREIGN KEY (username) REFERENCES "User"(username);
+ALTER TABLE ONLY "contribute"
+    ADD CONSTRAINT fk_contributeuser FOREIGN KEY (username) REFERENCES "users"(username);
 
 
 --
 -- Name: Project fk_userproject; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "Project"
-    ADD CONSTRAINT fk_userproject FOREIGN KEY (username) REFERENCES "User"(username);
+ALTER TABLE ONLY "project"
+    ADD CONSTRAINT fk_userproject FOREIGN KEY (username) REFERENCES "users"(username);
 
 
 --
 -- PostgreSQL database dump complete
 --
-
