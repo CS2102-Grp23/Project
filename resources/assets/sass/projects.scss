@@ -1,0 +1,49 @@
+#projects-body {
+	margin: 20px auto;
+}
+
+#project-card {
+	padding: 10px;
+}
+
+.project {
+  min-width: 300px;
+}
+
+.project-info {
+	font-weight: 400;
+}
+
+.info-name {
+	font-weight: bold;
+	color: teal;
+}
+
+form.create-project {
+	padding: 10px;
+  position: relative;
+  width: 90%;
+  margin: 40px auto 15px;
+  background: lightseagreen;
+  border-radius: 2px;
+  box-shadow: 0 3px 8px grey;
+}
+
+form.create-project input {
+  width: 100%;
+  outline: none;
+  font-size: 20px;
+	font-weight: 400;
+  color: white;
+  padding: 1px 10px;
+  box-sizing: inherit;
+	border-bottom: 1px solid white;
+}
+
+form.create-project button {
+  position: absolute;
+  right: 15px;
+  bottom: -20px;
+  background: none;
+  border: none;
+}

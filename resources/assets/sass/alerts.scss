@@ -1,0 +1,33 @@
+.alerts {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  left: 0;
+  z-index: 1;
+}
+.alerts div {
+  background: #bbb;
+  overflow: hidden;
+}
+.alerts div.error {
+  background: #e03c3c;
+  color: #fff;
+}
+.alerts div.success {
+  background: #41b883;
+  color: #fff;
+}
+.alerts p {
+  width: 480px;
+  margin: 0 auto;
+  padding: 4px;
+  text-align: center;
+  font-size: 14px;
+}
+.expand-transition {
+  max-height: 200px;
+  transition: max-height 0.5s ease;
+}
+.expand-enter, .expand-leave {
+  max-height: 0;
+}
