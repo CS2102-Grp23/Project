@@ -14,11 +14,28 @@ class projectController extends BaseController {
   use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
   public function test() {
-    echo 'hello world';
+    $getProjectID = 'SELECT "projectID" FROM project ORDER BY "projectID" DESC LIMIT 1';
+    return DB::select($getProjectID);
+    if ($resID) {
+        $projectID = $resID[0]->projectID + 1;
+    }
+    
+    return $projectID;
+    /*
+    $projectTitle = 'title';
+    $shortBlurb = 'huh';
+    $startDate = '12/12/2018';
+    $endDate = '1/12/2018';
+    $targetAmt = '500';
+    $category = 'art';
+    $imgUrl = 'C:/test/';
+    $userName = 'turkey'; // make sure your database has a user named turkey
+    $query = "INSERT INTO project VALUES('$projectID', '$projectTitle','$shortBlurb','$category','$startDate', '$endDate', '$targetAmt', '$imgUrl', '$userName')";
+    return DB::insert($query*/
   }
 
   public function getAll() {
-    $query = "SELECT * FROM project";
+    $query = 'SELECT * FROM project ORDER BY "projectID" DESC';
 
     return DB::select($query);
   }
@@ -41,10 +58,12 @@ class projectController extends BaseController {
     if ($resID) {
         $projectID = $resID[0]->projectID + 1;
     }
-//    echo $projectID;
+    
+    //$imgUrl = file_get_contents($imgUrl);
+    $imgUrl = '';
 
     /*
-    if(isset($_FILES['image'])){
+    if($imgUrl){
         $errors= array();
         $file_name = $_FILES['image']['name'];
         $file_size =$_FILES['image']['size'];
@@ -67,37 +86,39 @@ class projectController extends BaseController {
     }*/
 
     // project title validation
-  /*  if (empty($projectTitle)) {
+    if (empty($projectTitle)) {
         $error = true;
-        $projectTitleError = "Please enter your project title.";
+        return "Please enter your project title.";
     }
     // project description validation
     if (empty($shortBlurb)) {
         $error = true;
-        $shortBlurbError = "Please enter your project description.";
+        return "Please enter your project description.";
     }
+    
+    /*
     if (empty($startDate)) {
         $error = true;
-        $startDateError = "Please enter your project start date.";
+        return "Please enter your project start date.";
     }
     else if (empty($endDate)) {
         $error = true;
-        $endDateError = "Please enter your project end date.";
+        return "Please enter your project end date.";
     }
     else if ($endDate < $startDate || $startDate < date("d.m.y")) {
         $error = true;
-        $endDateError = "Please enter a valid date.";
-    }
+        return "Please enter a valid date.";
+    } */
 
     // project description validation
     if (empty($targetAmt)) {
         $error = true;
-        $targetAmtError = "Please enter an amount.";
+        return "Please enter an amount.";
     }
     else if (!preg_match("/^[1-9][0-9]*$/", $targetAmt)) {
         $error = true;
-        $targetAmtError = "Please enter a valid amount";
-    }
+        return "Please enter a valid amount";
+    } 
 
     /*
     // redirect to sign up page if a non-member of the website is trying to create a project.
@@ -110,7 +131,7 @@ class projectController extends BaseController {
 
     // if there's no error, continue to signup
     if( !$error ) {
-        $query = "INSERT INTO project VALUES('$projectID', '$projectTitle','$shortBlurb','$category','$startDate', '$endDate', '$targetAmt', '0', '$imgUrl', '$userName')";
+        $query = "INSERT INTO project VALUES('$projectID', '$projectTitle','$shortBlurb','$category','$startDate', '$endDate', '$targetAmt', '$imgUrl', '$userName')";
         if (DB::insert($query)) {
             /*
             move_uploaded_file($file_tmp,"./image/".$newfilename);

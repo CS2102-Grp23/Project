@@ -17,15 +17,15 @@
 					</div>
 				</div>
 				<ul class="right hide-on-med-and-down">
-					<li><a href="/#/projects">Projects</a></li>
-					<li><a href="/#/profile">Profile</a></li>
-					<li v-if="!user"><a href="/#/register">Login</a></li>
+					<li><a href="/projects">Projects</a></li>
+					<li><a href="/profile">Profile</a></li>
+					<li v-if="!user"><a href="/register">Login</a></li>
 					<li v-if="user"><a href="#" @click.prevent="signOut">Logout</a></li>
 				</ul>
 				<ul class="side-nav" id="drawer">
-					<li><a href="/#/projects">Projects</a></li>
-					<li><a href="/#/profile">Profile</a></li>
-					<li v-if="!user"><a href="/#/register">Login</a></li>
+					<li><a href="/projects">Projects</a></li>
+					<li><a href="/profile">Profile</a></li>
+					<li v-if="!user"><a href="/register">Login</a></li>
 					<li v-if="user"><a href="#" @click.prevent="signOut">Logout</a></li>
 				</ul>
 			</div>

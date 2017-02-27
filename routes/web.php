@@ -15,6 +15,15 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('/register', function () {
+    return view('welcome');
+});
+Route::get('/projects', function () {
+    return view('welcome');
+});
+Route::get('/profile', function () {
+    return view('welcome');
+});
 
 // get routes
 Route::get('/projects/all', 'projectController@getAll');

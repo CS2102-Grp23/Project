@@ -19978,6 +19978,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.use(__WEBPACK_IMPORTED_MODULE_2_vue_
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router___default.a({
+  mode: 'history',
   routes: [{ path: '/projects', name: 'projects', component: __WEBPACK_IMPORTED_MODULE_5__components_Projects___default.a, alias: '/', auth: true }, { path: '/profile', name: 'profile', component: __WEBPACK_IMPORTED_MODULE_6__components_Profile___default.a, auth: true }, { path: '/register', name: 'register', component: __WEBPACK_IMPORTED_MODULE_4__components_Register___default.a, auth: true }]
 });
 /*
@@ -21338,6 +21339,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 	},
 
 	methods: {
+		onFileChange: function onFileChange(e) {
+			var files = e.target.files || e.dataTransfer.files;
+			if (!files.length) return;
+			this.imageUrl = files;
+		},
 		createProject: function createProject() {
 			var _this = this;
 
@@ -21350,7 +21356,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				targetAmount: this.targetAmount,
 				category: this.category
 			};
-			//console.log(postData);
+			console.log(postData);
+			//console.log(postData.imageUrl);
 			this.$http.post('/projects/create', postData).then(function (response) {
 				console.log(response.data);
 				if (response.data == 'SUCCESS') {
@@ -21549,25 +21556,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    remove: function remove() {
-      var _this = this;
-
-      __WEBPACK_IMPORTED_MODULE_0__data_ProjectRepository__["a" /* default */].remove(this.project, function (err) {
-        if (err) {
-          return _this.$eventHub.$emit('alert', { type: 'error', message: 'Failed to delete project' });
-        }
-        return _this.$eventHub.$emit('alert', { type: 'success', message: 'Project successfully deleted' });
-      });
-    },
-    update: function update() {
-      var _this2 = this;
-
-      __WEBPACK_IMPORTED_MODULE_0__data_ProjectRepository__["a" /* default */].update(this.project, function (err) {
-        if (err) {
-          return _this2.$eventHub.$emit('alert', { type: 'error', message: 'Failed to update project' });
-        }
-        return _this2.$eventHub.$emit('alert', { type: 'success', message: 'Project successfully updated' });
-      });
+    contribute: function contribute() {
+      console.log();
     }
   }
 };
@@ -54487,7 +54477,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "id": "description",
-      "ame": "description",
+      "name": "description",
       "placeholder": "Project Description"
     },
     domProps: {
@@ -54611,36 +54601,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col s6"
   }, [_c('div', {
     staticClass: "file-field input-field"
-  }, [_vm._m(0), _vm._v(" "), _c('div', {
-    staticClass: "file-path-wrapper"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.imageUrl),
-      expression: "imageUrl"
-    }],
-    staticClass: "file-path validate",
-    attrs: {
-      "placeholder": "Uploade Your Image",
-      "type": "text"
-    },
-    domProps: {
-      "value": _vm._s(_vm.imageUrl)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.imageUrl = $event.target.value
-      }
-    }
-  })])])])]), _vm._v(" "), _vm._m(1)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
+  }, [_c('div', {
     staticClass: "btn"
   }, [_c('span', [_vm._v("File")]), _vm._v(" "), _c('input', {
     attrs: {
       "type": "file"
+    },
+    on: {
+      "change": _vm.onFileChange
+    }
+  })]), _vm._v(" "), _vm._m(0)])])]), _vm._v(" "), _vm._m(1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "file-path-wrapper"
+  }, [_c('input', {
+    staticClass: "file-path validate",
+    attrs: {
+      "placeholder": "Upload Your Image",
+      "type": "text"
     }
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -54737,7 +54715,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "right hide-on-med-and-down"
   }, [_vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), (!_vm.user) ? _c('li', [_c('a', {
     attrs: {
-      "href": "/#/register"
+      "href": "/register"
     }
   }, [_vm._v("Login")])]) : _vm._e(), _vm._v(" "), (_vm.user) ? _c('li', [_c('a', {
     attrs: {
@@ -54756,7 +54734,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), (!_vm.user) ? _c('li', [_c('a', {
     attrs: {
-      "href": "/#/register"
+      "href": "/register"
     }
   }, [_vm._v("Login")])]) : _vm._e(), _vm._v(" "), (_vm.user) ? _c('li', [_c('a', {
     attrs: {
@@ -54800,25 +54778,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
-      "href": "/#/projects"
+      "href": "/projects"
     }
   }, [_vm._v("Projects")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
-      "href": "/#/profile"
+      "href": "/profile"
     }
   }, [_vm._v("Profile")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
-      "href": "/#/projects"
+      "href": "/projects"
     }
   }, [_vm._v("Projects")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
-      "href": "/#/profile"
+      "href": "/profile"
     }
   }, [_vm._v("Profile")])])
 }]}
@@ -55123,10 +55101,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "tiny material-icons"
-  }, [_vm._v("monetization_on")])]), _vm._v(" "), _c('span', {
+  }, [_vm._v("monetization_on")])]), _vm._v(" "), _vm._m(0)])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
     staticClass: "project-info"
-  }, [_vm._v("Contribute to " + _vm._s(_vm.project.title))])])])
-},staticRenderFns: []}
+  }, [_c('input', {
+    attrs: {
+      "type": "number",
+      "id": "contribution",
+      "placeholder": "Contribute"
+    }
+  })])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

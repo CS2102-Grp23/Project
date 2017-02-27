@@ -28,6 +28,7 @@ Vue.use(VueResource);
 Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAttribute('value');
 
 const router = new VueRouter({
+  mode: 'history',
   routes: [
     { path: '/projects', name: 'projects', component: Projects, alias: '/', auth: true, },
 		{ path: '/profile', name: 'profile', component: Profile, auth: true, },

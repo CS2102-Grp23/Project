@@ -28,7 +28,7 @@
     </div>
 		<div id="profile-card-action" class="card-action">
 			<a class="btn-floating btn red" @click.stop="contribute"><i class="tiny material-icons">monetization_on</i></a>
-      <span class="project-info">Contribute to {{ project.title }}</span>
+      <span class="project-info"><input type="number" id="contribution" placeholder="Contribute"></span>
 		</div>
   </div>
 </template>
@@ -51,22 +51,9 @@
       };
     },
     methods: {
-      remove() {
-        projectRepository.remove(this.project, (err) => {
-          if (err) {
-            return this.$eventHub.$emit('alert', { type: 'error', message: 'Failed to delete project' });
-          }
-          return this.$eventHub.$emit('alert', { type: 'success', message: 'Project successfully deleted' });
-        });
+      contribute() {
+        console.log()
       },
-			update() {
-				projectRepository.update(this.project, (err) => {
-          if (err) {
-            return this.$eventHub.$emit('alert', { type: 'error', message: 'Failed to update project' });
-          }
-          return this.$eventHub.$emit('alert', { type: 'success', message: 'Project successfully updated' });
-        });
-			},
     },
   };
 </script>

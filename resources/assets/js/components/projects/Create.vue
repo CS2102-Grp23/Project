@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col s12">
 				<div class="input-field">
-					<input id="description" ame="description" v-model="description" placeholder="Project Description">
+					<input id="description" name="description" v-model="description" placeholder="Project Description">
 				</div>
 			</div>
 		</div>
@@ -42,10 +42,10 @@
 				<div class="file-field input-field">
 					<div class="btn">
 		        <span>File</span>
-		        <input type="file">
+		        <input type="file" @change="onFileChange">
 		      </div>
 		      <div class="file-path-wrapper">
-		        <input placeholder="Uploade Your Image" class="file-path validate" type="text"  v-model="imageUrl">
+		        <input placeholder="Upload Your Image" class="file-path validate" type="text">
 		      </div>
 				</div>
 			</div>
@@ -72,6 +72,11 @@
 			};
 		},
 		methods: {
+      onFileChange(e) {
+        let files = e.target.files || e.dataTransfer.files;
+        if (!files.length) return;
+        this.imageUrl = files;
+      },
 			createProject() {
 				const postData = {
           title: this.title,
@@ -82,7 +87,8 @@
 					targetAmount: this.targetAmount,
 					category: this.category,
         }
-				//console.log(postData);
+				console.log(postData);
+        //console.log(postData.imageUrl);
         this.$http.post('/projects/create', postData).then(response => {
           console.log(response.data);
           if(response.data == 'SUCCESS') {
