@@ -55174,12 +55174,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card project",
     attrs: {
       "id": "project-card"
-    },
-    on: {
-      "click": function($event) {
-        $event.preventDefault();
-        _vm.displayProject($event)
-      }
     }
   }, [_c('div', {
     staticClass: "card-image"
@@ -55188,7 +55182,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "src": _vm.project.imageUrl
     }
   })]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
+    staticClass: "card-content",
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.displayProject($event)
+      }
+    }
   }, [_c('div', {
     staticClass: "card-title"
   }, [_vm._v(_vm._s(_vm.project.title))]), _vm._v(" "), _c('div', [_c('span', {

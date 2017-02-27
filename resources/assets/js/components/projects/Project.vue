@@ -1,9 +1,9 @@
 <template>
-  <div id="project-card" class="card project" @click.prevent="displayProject">
+  <div id="project-card" class="card project">
     <div class="card-image">
       <img :src="project.imageUrl">
     </div>
-    <div class="card-content">
+    <div class="card-content" @click.prevent="displayProject">
       <div class="card-title">{{ project.title }}</div>
       <div>
         <span class="info-name">Category: </span>
