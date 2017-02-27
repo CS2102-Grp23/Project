@@ -48,3 +48,15 @@ input[type=text], input[type=password], input[type=email], input[type=url], inpu
 .row {
   margin-bottom: 0;
 }
+
+.modal {
+  display: block;
+  z-index: 2000;
+  top: 150px;
+}
+
+select {
+  display: block;
+  height: 2.3rem;
+  font-weight: 400;
+}

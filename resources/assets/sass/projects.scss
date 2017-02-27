@@ -9,6 +9,7 @@
 .project {
   min-width: 300px;
 	max-width: 300px;
+  cursor: pointer;
 }
 
 .project-info {
@@ -18,6 +19,24 @@
 .info-name {
 	font-weight: bold;
 	color: teal;
+}
+
+#category {
+  position: static;
+  font-weight: 400;
+  margin: 0 5px;
+  font-size: 18px;
+  color: white;
+}
+
+#modal-container {
+  width: 100%;
+  height: 100vh;
+  background: rgba(128, 128, 128, 0.8);
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  transition: background 0.25s ease-in-out;
 }
 
 form.create-project {

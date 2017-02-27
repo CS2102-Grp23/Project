@@ -1,14 +1,10 @@
 <template>
-  <div id="project-card" class="card project">
+  <div id="project-card" class="card project" @click.prevent="displayProject">
     <div class="card-image">
       <img :src="project.imageUrl">
     </div>
     <div class="card-content">
       <div class="card-title">{{ project.title }}</div>
-      <div>
-        <span class="info-name"Short Blurb: </span>
-        <p class="project-info">{{ project.description }}</p>
-      </div>
       <div>
         <span class="info-name">Category: </span>
         <span class="project-info">{{ project.category }}</span>
@@ -26,10 +22,10 @@
         <span class="project-info">{{ project.targetAmount }}</span>
       </div>
     </div>
-		<div id="profile-card-action" class="card-action">
-			<a class="btn-floating btn red" @click.stop="contribute"><i class="tiny material-icons">monetization_on</i></a>
+    <div id="profile-card-action" class="card-action">
+      <a class="btn-floating btn red" @click.stop="contribute"><i class="tiny material-icons">monetization_on</i></a>
       <span class="project-info"><input type="number" id="contribution" placeholder="Contribute"></span>
-		</div>
+    </div>
   </div>
 </template>
 
@@ -53,6 +49,9 @@
     methods: {
       contribute() {
         console.log()
+      },
+      displayProject() {
+        this.$eventHub.$emit('displayProject', this.project);
       },
     },
   };

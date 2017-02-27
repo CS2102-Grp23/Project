@@ -30,12 +30,29 @@
 		<div class="row">
       <div class="col s3">
         <div class="input-field">
-          <input placeholder="Category" id="category" v-model="category" type="text" class="validate">
+          <label id="category">Category</label>
+          <select v-model="category">
+            <option>Art</option>
+            <option>Comic</option>
+            <option>Crafts</option>
+            <option>Dance</option>
+            <option>Design</option>
+            <option>Fashion</option>
+            <option>Film and Video</option>
+            <option>Food</option>
+            <option>Games</option>
+            <option>Journalism</option>
+            <option>Music</option>
+            <option>Photography</option>
+            <option>Publishing</option>
+            <option>Technology</option>
+            <option>Theater</option>
+          </select>
         </div>
       </div>
 			<div class="col s3">
         <div class="input-field">
-          <input placeholder="Target Amount" id="targetAmount" v-model="targetAmount" type="text" class="validate">
+          <input placeholder="Target Amount" id="targetAmount" v-model="targetAmount" type="number" class="validate">
         </div>
       </div>
 			<div class="col s6">

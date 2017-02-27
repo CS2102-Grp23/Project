@@ -21101,40 +21101,80 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
-	components: {
-		Projects: __WEBPACK_IMPORTED_MODULE_0__projects_Index___default.a,
-		CreateProjectForm: __WEBPACK_IMPORTED_MODULE_1__projects_Create___default.a,
-		UpdateModal: __WEBPACK_IMPORTED_MODULE_2__projects_Update___default.a
-	},
-	data: function data() {
-		return {
-			selectedProject: null,
-			projects: []
-		};
-	},
-
-	methods: {
-		getProjects: function getProjects() {
-			var _this = this;
-
-			this.$http.get('/projects/all').then(function (response) {
-				_this.projects = response.data;
-				//console.log(this.projects);
-			});
+		components: {
+				Projects: __WEBPACK_IMPORTED_MODULE_0__projects_Index___default.a,
+				CreateProjectForm: __WEBPACK_IMPORTED_MODULE_1__projects_Create___default.a,
+				UpdateModal: __WEBPACK_IMPORTED_MODULE_2__projects_Update___default.a
 		},
-		selectProject: function selectProject(project) {
-			this.selectedProject = project;
+		data: function data() {
+				return {
+						selectedProject: null,
+						projects: [],
+						isModalShown: false,
+						projectInfo: {}
+				};
+		},
+
+		methods: {
+				getProjects: function getProjects() {
+						var _this = this;
+
+						this.$http.get('/projects/all').then(function (response) {
+								_this.projects = response.data;
+								//console.log(this.projects);
+						});
+				},
+				selectProject: function selectProject(project) {
+						this.selectedProject = project;
+				},
+				createModal: function createModal(project) {
+						this.projectInfo = project;
+						this.isModalShown = true;
+				}
+		},
+		created: function created() {
+				this.$eventHub.$on('displayProject', this.createModal);
+		},
+		mounted: function mounted() {
+				this.getProjects();
 		}
-	},
-	mounted: function mounted() {
-		this.getProjects();
-	}
 };
 
 /***/ }),
@@ -21264,6 +21304,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data_ProjectRepository__ = __webpack_require__(4);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -21533,10 +21590,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 
 /* harmony default export */ __webpack_exports__["default"] = {
@@ -21558,6 +21611,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   methods: {
     contribute: function contribute() {
       console.log();
+    },
+    displayProject: function displayProject() {
+      this.$eventHub.$emit('displayProject', this.project);
     }
   }
 };
@@ -54400,7 +54456,66 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('create-project-form'), _vm._v(" "), _c('projects', {
+  return _c('div', [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isModalShown),
+      expression: "isModalShown"
+    }],
+    attrs: {
+      "id": "modal-container"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.isModalShown = false
+      }
+    }
+  }, [_c('div', {
+    staticClass: "modal",
+    attrs: {
+      "id": "project-modal"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.projectInfo.title))]), _vm._v(" "), _c('div', [_c('p', {
+    staticClass: "project-info"
+  }, [_vm._v(_vm._s(_vm.projectInfo.description))])]), _vm._v(" "), _c('div', [_c('span', {
+    staticClass: "info-name"
+  }, [_vm._v("Category: ")]), _vm._v(" "), _c('span', {
+    staticClass: "project-info"
+  }, [_vm._v(_vm._s(_vm.projectInfo.category))])]), _vm._v(" "), _c('div', [_c('span', {
+    staticClass: "info-name"
+  }, [_vm._v("Start Date: ")]), _vm._v(" "), _c('span', {
+    staticClass: "project-info"
+  }, [_vm._v(_vm._s(_vm.projectInfo.startDate))])]), _vm._v(" "), _c('div', [_c('span', {
+    staticClass: "info-name"
+  }, [_vm._v("End Date: ")]), _vm._v(" "), _c('span', {
+    staticClass: "project-info"
+  }, [_vm._v(_vm._s(_vm.projectInfo.endDate))])]), _vm._v(" "), _c('div', [_c('span', {
+    staticClass: "info-name"
+  }, [_vm._v("Target Amount: ")]), _vm._v(" "), _c('span', {
+    staticClass: "project-info"
+  }, [_vm._v(_vm._s(_vm.projectInfo.targetAmount))])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('a', {
+    staticClass: "modal-action modal-close waves-effect waves-green btn-flat",
+    attrs: {
+      "href": "#!"
+    }
+  }, [_vm._v("Contribute")]), _vm._v(" "), _c('a', {
+    staticClass: "modal-action modal-close waves-effect waves-green btn-flat",
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.isModalShown = false
+      }
+    }
+  }, [_vm._v("Close")])])])]), _vm._v(" "), _c('create-project-form'), _vm._v(" "), _c('projects', {
     attrs: {
       "projects": _vm.projects
     }
@@ -54549,29 +54664,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "col s3"
   }, [_c('div', {
     staticClass: "input-field"
-  }, [_c('input', {
+  }, [_c('label', {
+    attrs: {
+      "id": "category"
+    }
+  }, [_vm._v("Category")]), _vm._v(" "), _c('select', {
     directives: [{
       name: "model",
       rawName: "v-model",
       value: (_vm.category),
       expression: "category"
     }],
-    staticClass: "validate",
-    attrs: {
-      "placeholder": "Category",
-      "id": "category",
-      "type": "text"
-    },
-    domProps: {
-      "value": _vm._s(_vm.category)
-    },
     on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.category = $event.target.value
+      "change": function($event) {
+        _vm.category = Array.prototype.filter.call($event.target.options, function(o) {
+          return o.selected
+        }).map(function(o) {
+          var val = "_value" in o ? o._value : o.value;
+          return val
+        })[0]
       }
     }
-  })])]), _vm._v(" "), _c('div', {
+  }, [_c('option', [_vm._v("Art")]), _vm._v(" "), _c('option', [_vm._v("Comic")]), _vm._v(" "), _c('option', [_vm._v("Crafts")]), _vm._v(" "), _c('option', [_vm._v("Dance")]), _vm._v(" "), _c('option', [_vm._v("Design")]), _vm._v(" "), _c('option', [_vm._v("Fashion")]), _vm._v(" "), _c('option', [_vm._v("Film and Video")]), _vm._v(" "), _c('option', [_vm._v("Food")]), _vm._v(" "), _c('option', [_vm._v("Games")]), _vm._v(" "), _c('option', [_vm._v("Journalism")]), _vm._v(" "), _c('option', [_vm._v("Music")]), _vm._v(" "), _c('option', [_vm._v("Photography")]), _vm._v(" "), _c('option', [_vm._v("Publishing")]), _vm._v(" "), _c('option', [_vm._v("Technology")]), _vm._v(" "), _c('option', [_vm._v("Theater")])])])]), _vm._v(" "), _c('div', {
     staticClass: "col s3"
   }, [_c('div', {
     staticClass: "input-field"
@@ -54586,7 +54700,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "placeholder": "Target Amount",
       "id": "targetAmount",
-      "type": "text"
+      "type": "number"
     },
     domProps: {
       "value": _vm._s(_vm.targetAmount)
@@ -54594,7 +54708,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "input": function($event) {
         if ($event.target.composing) { return; }
-        _vm.targetAmount = $event.target.value
+        _vm.targetAmount = _vm._n($event.target.value)
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
       }
     }
   })])]), _vm._v(" "), _c('div', {
@@ -55057,6 +55174,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card project",
     attrs: {
       "id": "project-card"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.displayProject($event)
+      }
     }
   }, [_c('div', {
     staticClass: "card-image"
@@ -55068,9 +55191,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-content"
   }, [_c('div', {
     staticClass: "card-title"
-  }, [_vm._v(_vm._s(_vm.project.title))]), _vm._v(" "), _c('div', [_c('p', {
-    staticClass: "project-info"
-  }, [_vm._v(_vm._s(_vm.project.description))])]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v(_vm._s(_vm.project.title))]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "info-name"
   }, [_vm._v("Category: ")]), _vm._v(" "), _c('span', {
     staticClass: "project-info"
