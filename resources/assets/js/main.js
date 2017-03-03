@@ -37,15 +37,9 @@ const router = new VueRouter({
 });
 /*
 router.beforeEach((to, from, next) => {
-  if (to.name === 'projects' && !Auth.getEmail()) {
-    next({
-      path: '/register',
-    });
-  } else {
-    next();
-  }
-});*/
-
+  
+});
+*/
 const eventHub = new Vue();
 Vue.prototype.$eventHub = eventHub;
 

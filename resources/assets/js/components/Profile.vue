@@ -2,19 +2,24 @@
 	<div>
 		<div class="row">
 			<div class="col s12 m6 offset-m3">
-				<img :src="user.imageUrl" :alt="user.userTitle" />
+				<img />
 			</div>
 		</div>
 		<div class="row">
 			<div class="col s12 m8 offset-m2">
 				<div id="profile-card" class="card">
 					<div id="profile-name" class="card-title">
-						<h2>{{ user.userTitle }}</h2>
+						<h2>{{ user.username }}</h2>
 					</div>
 					<div class="card-action flow-text">
-						<h5>Email: </h5><span>{{ user.userEmail }}</span>
-						<h5>Description: </h5><span></span>
-						<h5>Contribution: </h5><span></span>
+            <div>
+              <span class="user-info-type">Email:  </span>
+              <span class="user-info">{{ user.email }}</span>
+            </div>
+						<div>
+              <span class="user-info-type">Name:  </span>
+              <span class="user-info">{{ user.name }}</span>
+            </div>
 					</div>
 				</div>
 			</div>
@@ -41,15 +46,14 @@
 </template>
 
 <script>
-	import Auth from '../data/Auth';
-
 	export default {
 		data() {
 			return {
 				user: {
-					userTitle: '',
-					imageUrl: '',
-				},
+          name: '',
+          email: '',
+          username: '',
+        },
 				profiles: [],
 				isOtherProfileShown: false,
 			};
@@ -60,24 +64,20 @@
           this.profiles = response.data;
 					//this.$router.push('/profiles/allUsers');
         });
-			},/*
-			processUser(authed) {
-        if (authed) {
-					this.user = {
-          	userTitle: authed.displayName || authed.email || '',
-          	imageUrl: authed.profileImageURL || '',
-						userEmail: authed.email || '',
-        	};
-				} else {
-					this.user = {
-						userTitle: '',
-						imageUrl: '',
-					}
-				}
-			},*/
+			},
+			processUser() {
+        this.$http.get('/user/getUser').then(response => {
+          if(response.data[0]) {
+            this.user = response.data[0];
+            console.log(this.user.name);
+          } else {
+            this.user = null;
+          }
+        });
+      },
 		},
 		mounted() {
-    //  Auth.onAuth(this.processUser);
+      this.processUser();
     },
 	};
 </script>

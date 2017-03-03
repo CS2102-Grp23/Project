@@ -34,8 +34,6 @@
 </template>
 
 <script>
-  import Auth from '../data/Auth';
-
   export default {
     data() {
       return {
@@ -49,23 +47,27 @@
       },
     },
     methods: {
-			processUser(authed) {
-        if (authed === '') {
-          this.user = null;
-          return;
-        }
-        this.user = {
-          userTitle: authed.displayName || authed || '',
-          //imageUrl: authed.profileImageURL || '',
-        };
-			},
+      processUser() {
+        this.$http.get('/user/getUser').then(response => {
+          if(response.data[0]) {
+            this.user = response.data;
+          } else {
+            this.user = null;
+          }
+        });
+      },
       signOut() {
-        Auth.logout();
-        this.$router.go('/register');
+        this.user = null;
+        this.$http.get('/user/logout');
+        this.$eventHub.$emit('alert', { type: 'success', message: 'Logout successfully' });
+        this.$router.push('/register');
       },
     },
+    created: function () {
+      this.$eventHub.$on('login', this.processUser);
+    },
     mounted() {
-      this.processUser(Auth.getEmail());
+      this.processUser();
     },
   };
 </script>

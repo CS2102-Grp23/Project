@@ -104,8 +104,6 @@
 					targetAmount: this.targetAmount,
 					category: this.category,
         }
-				console.log(postData);
-        //console.log(postData.imageUrl);
         this.$http.post('/projects/create', postData).then(response => {
           console.log(response.data);
           if(response.data == 'SUCCESS') {

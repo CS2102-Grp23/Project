@@ -13,7 +13,7 @@
 						<input type="password" name="password" id="password" placeholder="Password" required v-model="password">
 					</div>
           <div class="clearfix btn-group">
-						<input class="btn waves-effect waves-light" type="submit" name="login" @click="wantsToSignUp = false" value="Login">
+						<button class="btn waves-effect waves-light" type="submit" name="login" @click="wantsToSignUp = false">Login</button>
             <span>Create an account <a @click="wantsToSignUp = true">here</a></span>
 					</div>
         </form>
@@ -40,7 +40,7 @@
 						<input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" v-model="confirmPassword">
 					</div>
           <div class="clearfix btn-group">
-						<input class="btn waves-effect waves-light" type="submit" name="signup" @click="wantsToSignUp = true" value="Sign Up">
+						<button class="btn waves-effect waves-light" type="submit" name="signup" @click="wantsToSignUp = true">Sign Up</button>
             <span>Already have an account? Login <a @click="wantsToSignUp = false">here</a></span>
 					</div>
 				</form>
@@ -50,8 +50,6 @@
 </template>
 
 <script>
-  import Auth from '../data/Auth';
-
   export default {
     data() {
       return {
@@ -65,17 +63,15 @@
     },
     methods: {
       loginUser: function (e) {
-        console.log(this.password);
         const postData = {
           email: this.email,
           password: this.password,
         }
-        this.$http.post('/login', postData).then(response => {
-          //console.log(response.data);
+        this.$http.post('/user/login', postData).then(response => {
           if(response.data == 'SUCCESS') {
             this.$eventHub.$emit('alert', { type: 'success', message: 'Login successfully' });
-            Auth.initializeUser(this.email);
-            this.onSignedIn();
+            this.$eventHub.$emit('login');
+            this.$router.push('/projects');
           } else {
             this.$eventHub.$emit('alert', { type: 'error', message: response.data });
           }
@@ -89,19 +85,15 @@
           password: this.password,
           confirmPassword: this.confirmPassword,
         }
-        this.$http.post('/signup', postData).then(response => {
-          //console.log(response.data);
+        this.$http.post('/user/signup', postData).then(response => {
           if(response.data == 'SUCCESS') {
             this.$eventHub.$emit('alert', { type: 'success', message: 'Signed up successfully' });
-            Auth.initializeUser(this.email);
-            this.onSignedIn();
+            this.$eventHub.$emit('login');
+            this.$router.push('/projects');
           } else {
             this.$eventHub.$emit('alert', { type: 'error', message: response.data })
           }
         });
-      },
-      onSignedIn() {
-        this.$router.push('/projects');
       },
     },
   };

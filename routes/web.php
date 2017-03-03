@@ -27,11 +27,13 @@ Route::get('/profile', function () {
 
 // get routes
 Route::get('/projects/all', 'projectController@getAll');
-Route::get('/profiles/all', 'authController@getAll');
+Route::get('/profiles/all', 'authController@getAllUsers');
+Route::get('/user/getUser', 'authController@getUser');
+Route::get('/user/logout', 'authController@logout');
 
 // post routes
-Route::post('/login', 'authController@login');
-Route::post('/signup', 'authController@signup');
+Route::post('/user/login', 'authController@login');
+Route::post('/user/signup', 'authController@signup');
 Route::post('/projects/create', 'projectController@create');
 
 // test routes

@@ -60,7 +60,6 @@
       getProjects() {
         this.$http.get('/projects/all').then(response => {
           this.projects = response.data;
-          //console.log(this.projects);
         });
       },
 			selectProject(project) {

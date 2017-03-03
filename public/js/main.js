@@ -10306,7 +10306,7 @@ var UserStorage = function () {
   return UserStorage;
 }();
 
-/* harmony default export */ __webpack_exports__["a"] = new UserStorage();
+/* unused harmony default export */ var _unused_webpack_default_export = new UserStorage();
 
 /***/ }),
 /* 4 */
@@ -19983,15 +19983,9 @@ var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router___default.a({
 });
 /*
 router.beforeEach((to, from, next) => {
-  if (to.name === 'projects' && !Auth.getEmail()) {
-    next({
-      path: '/register',
-    });
-  } else {
-    next();
-  }
-});*/
-
+  
+});
+*/
 var eventHub = new __WEBPACK_IMPORTED_MODULE_0_vue___default.a();
 __WEBPACK_IMPORTED_MODULE_0_vue___default.a.prototype.$eventHub = eventHub;
 
@@ -20930,7 +20924,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data_Auth__ = __webpack_require__(3);
 //
 //
 //
@@ -20966,8 +20959,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
@@ -20983,22 +20974,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     }
   },
   methods: {
-    processUser: function processUser(authed) {
-      if (authed === '') {
-        this.user = null;
-        return;
-      }
-      this.user = {
-        userTitle: authed.displayName || authed || ''
-      };
+    processUser: function processUser() {
+      var _this = this;
+
+      this.$http.get('/user/getUser').then(function (response) {
+        if (response.data[0]) {
+          _this.user = response.data;
+        } else {
+          _this.user = null;
+        }
+      });
     },
     signOut: function signOut() {
-      __WEBPACK_IMPORTED_MODULE_0__data_Auth__["a" /* default */].logout();
-      this.$router.go('/register');
+      this.user = null;
+      this.$http.get('/user/logout');
+      this.$eventHub.$emit('alert', { type: 'success', message: 'Logout successfully' });
+      this.$router.push('/register');
     }
   },
+  created: function created() {
+    this.$eventHub.$on('login', this.processUser);
+  },
   mounted: function mounted() {
-    this.processUser(__WEBPACK_IMPORTED_MODULE_0__data_Auth__["a" /* default */].getEmail());
+    this.processUser();
   }
 };
 
@@ -21008,7 +21006,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data_Auth__ = __webpack_require__(3);
 //
 //
 //
@@ -21051,34 +21048,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
-	data: function data() {
-		return {
-			user: {
-				userTitle: '',
-				imageUrl: ''
-			},
-			profiles: [],
-			isOtherProfileShown: false
-		};
-	},
+  data: function data() {
+    return {
+      user: {
+        name: '',
+        email: '',
+        username: ''
+      },
+      profiles: [],
+      isOtherProfileShown: false
+    };
+  },
 
-	methods: {
-		getAllUsers: function getAllUsers() {
-			var _this = this;
+  methods: {
+    getAllUsers: function getAllUsers() {
+      var _this = this;
 
-			this.$http.get('/profiles/all').then(function (response) {
-				_this.profiles = response.data;
-				//this.$router.push('/profiles/allUsers');
-			});
-		}
-	},
-	mounted: function mounted() {
-		//  Auth.onAuth(this.processUser);
-	}
+      this.$http.get('/profiles/all').then(function (response) {
+        _this.profiles = response.data;
+        //this.$router.push('/profiles/allUsers');
+      });
+    },
+    processUser: function processUser() {
+      var _this2 = this;
+
+      this.$http.get('/user/getUser').then(function (response) {
+        if (response.data[0]) {
+          _this2.user = response.data[0];
+          console.log(_this2.user.name);
+        } else {
+          _this2.user = null;
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.processUser();
+  }
 };
 
 /***/ }),
@@ -21158,7 +21171,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 						this.$http.get('/projects/all').then(function (response) {
 								_this.projects = response.data;
-								//console.log(this.projects);
 						});
 				},
 				selectProject: function selectProject(project) {
@@ -21183,7 +21195,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__data_Auth__ = __webpack_require__(3);
 //
 //
 //
@@ -21235,8 +21246,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-
-
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
@@ -21254,17 +21263,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     loginUser: function loginUser(e) {
       var _this = this;
 
-      console.log(this.password);
       var postData = {
         email: this.email,
         password: this.password
       };
-      this.$http.post('/login', postData).then(function (response) {
-        //console.log(response.data);
+      this.$http.post('/user/login', postData).then(function (response) {
         if (response.data == 'SUCCESS') {
           _this.$eventHub.$emit('alert', { type: 'success', message: 'Login successfully' });
-          __WEBPACK_IMPORTED_MODULE_0__data_Auth__["a" /* default */].initializeUser(_this.email);
-          _this.onSignedIn();
+          _this.$eventHub.$emit('login');
+          _this.$router.push('/projects');
         } else {
           _this.$eventHub.$emit('alert', { type: 'error', message: response.data });
         }
@@ -21280,19 +21287,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         password: this.password,
         confirmPassword: this.confirmPassword
       };
-      this.$http.post('/signup', postData).then(function (response) {
-        //console.log(response.data);
+      this.$http.post('/user/signup', postData).then(function (response) {
         if (response.data == 'SUCCESS') {
           _this2.$eventHub.$emit('alert', { type: 'success', message: 'Signed up successfully' });
-          __WEBPACK_IMPORTED_MODULE_0__data_Auth__["a" /* default */].initializeUser(_this2.email);
-          _this2.onSignedIn();
+          _this2.$eventHub.$emit('login');
+          _this2.$router.push('/projects');
         } else {
           _this2.$eventHub.$emit('alert', { type: 'error', message: response.data });
         }
       });
-    },
-    onSignedIn: function onSignedIn() {
-      this.$router.push('/projects');
     }
   }
 };
@@ -21413,8 +21416,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 				targetAmount: this.targetAmount,
 				category: this.category
 			};
-			console.log(postData);
-			//console.log(postData.imageUrl);
 			this.$http.post('/projects/create', postData).then(function (response) {
 				console.log(response.data);
 				if (response.data == 'SUCCESS') {
@@ -55045,16 +55046,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12 m6 offset-m3"
-  }, [_c('img', {
-    attrs: {
-      "src": _vm.user.imageUrl,
-      "alt": _vm.user.userTitle
-    }
-  })])]), _vm._v(" "), _c('div', {
+  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col s12 m8 offset-m2"
@@ -55068,9 +55060,17 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "profile-name"
     }
-  }, [_c('h2', [_vm._v(_vm._s(_vm.user.userTitle))])]), _vm._v(" "), _c('div', {
+  }, [_c('h2', [_vm._v(_vm._s(_vm.user.username))])]), _vm._v(" "), _c('div', {
     staticClass: "card-action flow-text"
-  }, [_c('h5', [_vm._v("Email: ")]), _c('span', [_vm._v(_vm._s(_vm.user.userEmail))]), _vm._v(" "), _c('h5', [_vm._v("Description: ")]), _c('span'), _vm._v(" "), _c('h5', [_vm._v("Contribution: ")]), _c('span')])])])]), _vm._v(" "), _c('div', {
+  }, [_c('div', [_c('span', {
+    staticClass: "user-info-type"
+  }, [_vm._v("Email:  ")]), _vm._v(" "), _c('span', {
+    staticClass: "user-info"
+  }, [_vm._v(_vm._s(_vm.user.email))])]), _vm._v(" "), _c('div', [_c('span', {
+    staticClass: "user-info-type"
+  }, [_vm._v("Name:  ")]), _vm._v(" "), _c('span', {
+    staticClass: "user-info"
+  }, [_vm._v(_vm._s(_vm.user.name))])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "row",
     attrs: {
       "id": "profile-view-others-btn"
@@ -55126,9 +55126,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "name"
     }, [_vm._v(_vm._s(profile.userName))]), _vm._v(" "), _c('div', {
       staticClass: "email"
-    }, [_vm._v(_vm._s(profile.email))]), _vm._v(" "), _vm._m(0, true)])
+    }, [_vm._v(_vm._s(profile.email))]), _vm._v(" "), _vm._m(1, true)])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12 m6 offset-m3"
+  }, [_c('img')])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('a', {
     staticClass: "secondary-content",
     attrs: {
@@ -55337,19 +55343,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "clearfix btn-group"
-  }, [_c('input', {
+  }, [_c('button', {
     staticClass: "btn waves-effect waves-light",
     attrs: {
       "type": "submit",
-      "name": "login",
-      "value": "Login"
+      "name": "login"
     },
     on: {
       "click": function($event) {
         _vm.wantsToSignUp = false
       }
     }
-  }), _vm._v(" "), _c('span', [_vm._v("Create an account "), _c('a', {
+  }, [_vm._v("Login")]), _vm._v(" "), _c('span', [_vm._v("Create an account "), _c('a', {
     on: {
       "click": function($event) {
         _vm.wantsToSignUp = true
@@ -55524,19 +55529,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', {
     staticClass: "clearfix btn-group"
-  }, [_c('input', {
+  }, [_c('button', {
     staticClass: "btn waves-effect waves-light",
     attrs: {
       "type": "submit",
-      "name": "signup",
-      "value": "Sign Up"
+      "name": "signup"
     },
     on: {
       "click": function($event) {
         _vm.wantsToSignUp = true
       }
     }
-  }), _vm._v(" "), _c('span', [_vm._v("Already have an account? Login "), _c('a', {
+  }, [_vm._v("Sign Up")]), _vm._v(" "), _c('span', [_vm._v("Already have an account? Login "), _c('a', {
     on: {
       "click": function($event) {
         _vm.wantsToSignUp = false
