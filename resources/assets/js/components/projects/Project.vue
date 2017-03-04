@@ -24,7 +24,7 @@
     </div>
     <div id="profile-card-action" class="card-action">
       <a class="btn-floating btn red" @click.stop="contribute"><i class="tiny material-icons">monetization_on</i></a>
-      <span class="project-info"><input type="number" id="contribution" placeholder="Contribute"></span>
+      <a class="btn-floating btn red" @click.stop="favorite"><i class="tiny material-icons">favorite</i></a>
     </div>
   </div>
 </template>
@@ -48,7 +48,10 @@
     },
     methods: {
       contribute() {
-        console.log()
+        
+      },
+      favorite() {
+        
       },
       displayProject() {
         this.$eventHub.$emit('displayProject', this.project);

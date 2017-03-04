@@ -21094,7 +21094,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.$http.get('/profiles/all').then(function (response) {
         _this.profiles = response.data;
-        //this.$router.push('/profiles/allUsers');
       });
     },
     processUser: function processUser() {
@@ -21103,7 +21102,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.$http.get('/user/getUser').then(function (response) {
         if (response.data[0]) {
           _this2.user = response.data[0];
-          console.log(_this2.user.name);
         } else {
           _this2.user = null;
         }
@@ -21631,9 +21629,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    contribute: function contribute() {
-      console.log();
-    },
+    contribute: function contribute() {},
+    favorite: function favorite() {},
     displayProject: function displayProject() {
       this.$eventHub.$emit('displayProject', this.project);
     }
@@ -55192,7 +55189,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "title"
     }, [_vm._v(_vm._s(profile.name))]), _vm._v(" "), _c('div', {
       staticClass: "name"
-    }, [_vm._v(_vm._s(profile.userName))]), _vm._v(" "), _c('div', {
+    }, [_vm._v(_vm._s(profile.username))]), _vm._v(" "), _c('div', {
       staticClass: "email"
     }, [_vm._v(_vm._s(profile.email))]), _vm._v(" "), _vm._m(1, true)])
   }))])])])
@@ -55296,18 +55293,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "tiny material-icons"
-  }, [_vm._v("monetization_on")])]), _vm._v(" "), _vm._m(0)])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "project-info"
-  }, [_c('input', {
-    attrs: {
-      "type": "number",
-      "id": "contribution",
-      "placeholder": "Contribute"
+  }, [_vm._v("monetization_on")])]), _vm._v(" "), _c('a', {
+    staticClass: "btn-floating btn red",
+    on: {
+      "click": function($event) {
+        $event.stopPropagation();
+        _vm.favorite($event)
+      }
     }
-  })])
-}]}
+  }, [_c('i', {
+    staticClass: "tiny material-icons"
+  }, [_vm._v("favorite")])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()

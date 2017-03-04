@@ -35,7 +35,7 @@
 			    <li class="collection-item avatar" v-for="profile in profiles">
 			      <img src="" alt="" class="circle">
 			      <div class="title">{{ profile.name }}</div>
-			      <div class="name">{{ profile.userName }}</div>
+			      <div class="name">{{ profile.username }}</div>
 						<div class="email">{{ profile.email }}</div>
 			      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
 			    </li>
@@ -62,14 +62,12 @@
 			getAllUsers() {
         this.$http.get('/profiles/all').then(response => {
           this.profiles = response.data;
-					//this.$router.push('/profiles/allUsers');
         });
 			},
 			processUser() {
         this.$http.get('/user/getUser').then(response => {
           if(response.data[0]) {
             this.user = response.data[0];
-            console.log(this.user.name);
           } else {
             this.user = null;
           }
