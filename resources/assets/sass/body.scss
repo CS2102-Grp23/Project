@@ -7,42 +7,6 @@ html, body {
   margin: 0;
 }
 
-#header-bar {
-  padding: 0 20px;
-}
-
-#header-nav-wrapper {
-	display: flex;
-	justify-content: space-between;
-}
-
-#home-page {
-  padding: 20px;
-}
-
-/*** search and filter ***/
-#search-filter-form {
-  display: flex;
-  justify-content: center;
-	margin: auto;
-}
-
-#search-filter-bar {
-  display: flex;
-  width: 80%;
-  justify-content: center;
-  margin: 8px 0;
-}
-
-#search {
-  border: 3px solid grey;
-  border-radius: 10px 0 0 10px;
-  font: caption;
-  margin: 0;
-	height: 44px;
-	color: grey;
-}
-
 #drawer {
   position: fixed;
   top: 0;
@@ -74,9 +38,19 @@ html, body {
   transition: left .25s ease-in-out;
 }
 
-#filter {
-  border-radius: 0 10px 10px 0px;
-  height: 46px;
+#drawer-toggle:checked {
+  width: 120%;
+  height: 100vh;
+  cursor: pointer;
+  left: 0;
+  z-index: 200;
+}
+
+#drawer-toggle:not(:checked) {
+  left: -30px;
+  width: 60px;
+  height: 64px;
+  cursor: pointer;
 }
 
 #registration-page {

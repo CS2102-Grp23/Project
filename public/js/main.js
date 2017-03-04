@@ -20959,6 +20959,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
@@ -54822,12 +54843,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchQuery = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('a', {
-    staticClass: "dropdown-button btn",
+  }), _vm._v(" "), _vm._m(0), _vm._v(" "), _c('input', {
     attrs: {
-      "id": "filter",
-      "href": "#",
-      "data-activates": "dropdown-filter"
+      "type": "checkbox",
+      "id": "filter-toggle"
+    }
+  }), _vm._v(" "), _c('button', {
+    staticClass: "btn",
+    attrs: {
+      "id": "filter"
     }
   }, [_vm._v("Filter")]), _vm._v(" "), _vm._m(1)])]), _vm._v(" "), _c('ul', {
     staticClass: "right hide-on-med-and-down"
@@ -54876,23 +54900,67 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("search")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('ul', {
-    staticClass: "dropdown-content",
     attrs: {
-      "id": "dropdown-flter"
+      "id": "filter-content"
     }
-  }, [_c('li', [_c('a', {
+  }, [_c('li', {
+    staticClass: "filter-title"
+  }, [_vm._v("Filter by:")]), _vm._v(" "), _c('li', {
+    staticClass: "filter-category"
+  }, [_c('input', {
     attrs: {
-      "href": "#"
+      "type": "checkbox",
+      "id": "your-projects"
     }
-  }, [_vm._v("one")])]), _vm._v(" "), _c('li', [_c('a', {
+  }), _vm._v(" "), _c('label', {
     attrs: {
-      "href": "#"
+      "for": "your-projects"
     }
-  }, [_vm._v("two")])]), _vm._v(" "), _c('li', [_c('a', {
+  }, [_vm._v("Your Projects")])]), _vm._v(" "), _c('li', {
+    staticClass: "filter-category"
+  }, [_c('input', {
     attrs: {
-      "href": "#"
+      "type": "checkbox",
+      "id": "contributed-projects"
     }
-  }, [_vm._v("three")])])])
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "contributed-projects"
+    }
+  }, [_vm._v("Contributed Projects")])]), _vm._v(" "), _c('li', {
+    staticClass: "filter-category"
+  }, [_c('input', {
+    attrs: {
+      "type": "checkbox",
+      "id": "starred-progress"
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "starred-projects"
+    }
+  }, [_vm._v("Starred Projects")])]), _vm._v(" "), _c('li', {
+    staticClass: "sort-title"
+  }, [_vm._v("Sort by:")]), _vm._v(" "), _c('select', {
+    attrs: {
+      "id": "sort-categories"
+    }
+  }, [_c('option', {
+    attrs: {
+      "value": "start-date"
+    }
+  }, [_vm._v("Start Date")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "end-date"
+    }
+  }, [_vm._v("End Date")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "most-contributed"
+    }
+  }, [_vm._v("Most Contributed")]), _vm._v(" "), _c('option', {
+    attrs: {
+      "value": "least-contributed"
+    }
+  }, [_vm._v("Least Contributed")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {

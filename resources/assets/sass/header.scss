@@ -1,0 +1,95 @@
+/*** search and filter ***/
+#search-filter-form {
+  display: flex;
+  justify-content: center;
+	margin: auto;
+}
+
+#search-filter-bar {
+  display: flex;
+  width: 80%;
+  justify-content: center;
+  margin: 8px 0;
+}
+
+#search {
+  border: 3px solid grey;
+  border-radius: 10px 0 0 10px;
+  font: caption;
+  margin: 0;
+	height: 44px;
+	color: grey;
+}
+
+#filter {
+  border-radius: 0 10px 10px 0px;
+  height: 46px;
+}
+
+#header-bar {
+  padding: 0 20px;
+}
+
+#header-nav-wrapper {
+	display: flex;
+	justify-content: space-between;
+}
+
+#home-page {
+  padding: 20px;
+}
+
+.filter-category, .sort-category {
+  height: 30px;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+}
+
+.filter-title, .sort-title {
+  height: 30px;
+  border-bottom: 2px solid teal;
+  font-weight: 600;
+  width: 100%;
+  line-height: 30px;
+}
+
+#filter-content {
+  position: absolute;
+  left: 100px;
+  top: 50px;
+  visibility: hidden;
+  background: white;
+  color: black;
+  padding: 10px;
+  border-radius: 2px;
+  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+  -webkit-overflow-scrolling: touch;
+}
+
+#filter-toggle {
+  opacity: 0;
+  min-width: 100px;
+  height: 46px;
+  position: absolute;
+  z-index: 5;
+  left: 188px;
+}
+
+#filter-toggle:checked ~ #filter {
+  background-color: #86a89a;
+}
+
+#filter-toggle:hover ~ #filter {
+  background-color: #66a89a;
+  border: 1px solid darkseagreen;
+}
+
+#filter-toggle:checked ~ #filter-content {
+  visibility: visible;
+  transition: all .25s ease-in-out;
+}
+
+#filter-toggle:checked {
+  left: 188px;
+}

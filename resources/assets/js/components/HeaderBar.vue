@@ -3,17 +3,38 @@
 		<nav id="header-bar">
 			<div id="header-nav-wrapper" class="nav-wrapper">
 				<a href="#!" class="brand-logo hide-on-med-and-down">CS2102</a>
-				<input type="checkbox" id="drawer-toggle" class="hide-on-large-only" /><i id="drawer-toggle-label" for="drawer-toggle" class="material-icons hide-on-large-only">menu</i>
-				<div id="search-filter-form">
+				
+        <input type="checkbox" id="drawer-toggle" class="hide-on-large-only" /><i id="drawer-toggle-label" for="drawer-toggle" class="material-icons hide-on-large-only">menu</i>
+				
+        <div id="search-filter-form">
 					<div id="search-filter-bar" class="input-field">
 						<input id="search" type="search" placeholder="Search" v-model="searchQuery" debounce="500">
 						<label class="label-icon" for="search"><i class="material-icons">search</i></label>
-						<a id="filter" class='dropdown-button btn' href='#' data-activates='dropdown-filter'>Filter</a>
-						<ul id='dropdown-flter' class='dropdown-content'>
-							<li><a href="#">one</a></li>
-							<li><a href="#">two</a></li>
-							<li><a href="#">three</a></li>
-						</ul>
+						
+            <input type="checkbox" id="filter-toggle" />
+            <button id="filter" class="btn">Filter</button>
+            <ul id="filter-content">
+                <li class="filter-title">Filter by:</li>
+                <li class="filter-category">
+                  <input type="checkbox" id="your-projects" />
+                  <label for="your-projects">Your Projects</label>
+                </li>
+                <li class="filter-category">
+                  <input type="checkbox" id="contributed-projects" />
+                  <label for="contributed-projects">Contributed Projects</label>
+                </li>
+                <li class="filter-category">
+                  <input type="checkbox" id="starred-progress" />
+                  <label for="starred-projects">Starred Projects</label>
+                </li>
+                <li class="sort-title">Sort by:</li>
+                <select id="sort-categories">
+                  <option value="start-date">Start Date</option>
+                  <option value="end-date">End Date</option>
+                  <option value="most-contributed">Most Contributed</option>
+                  <option value="least-contributed">Least Contributed</option>
+                </select>
+            </ul>
 					</div>
 				</div>
 				<ul class="right hide-on-med-and-down">
