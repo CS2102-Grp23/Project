@@ -1,3 +1,6 @@
+------------
+Nationality
+------------
 Plain
 -----
 'Afghan',
@@ -387,3 +390,42 @@ HTML
   <option value="yemenite">Yemenite</option>
   <option value="zambian">Zambian</option>
   <option value="zimbabwean">Zimbabwean</option>
+
+---------
+Category
+---------
+Plain
+-----
+'Art',
+'Comic',
+'Crafts',
+'Dance',
+'Design',
+'Fashion',
+'Film and Video',
+'Food',
+'Games',
+'Journalism',
+'Music',
+'Photography',
+'Publishing',
+'Technology',
+'Theather'
+
+HTML
+----
+<option name="dropdown" value="Art">Art</option>
+<option name="dropdown" value="Comic">Comic</option>
+<option name="dropdown" value="Crafts">Crafts</option>
+<option name="dropdown" value="Dance">Dance</option>
+<option name="dropdown" value="Design">Design</option>
+<option name="dropdown" value="Fashion">Fashion</option>
+<option name="dropdown" value="Film&Video">Film and Video</option>
+<option name="dropdown" value="Food">Food</option>
+<option name="dropdown" value="Games">Games</option>
+<option name="dropdown" value="Journalism">Journalism</option>
+<option name="dropdown" value="Music">Music</option>
+<option name="dropdown" value="Photography">Photography</option>
+<option name="dropdown" value="Publishing">Publishing</option>
+<option name="dropdown" value="Technology">Technology</option>
+<option name="dropdown" value="Theather">Theather</option>
