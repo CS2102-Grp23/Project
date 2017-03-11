@@ -81,34 +81,42 @@
             $error = true;
             $passwordError = "You have entered the wrong password.";
         }
-
-        // password encrypt using SHA256();
-        $password = hash('sha256', $password);
+	else {// password encrypt using SHA256();
+        $hashPassword = hash('sha256', $password);
+        }
 
         // if there's no error, continue to signup
         if( !$error ) {
-            $query = "INSERT INTO \"public\".\"users\" VALUES('$userName', '$password', 'FALSE', '$email','$name')";
+            $query = "INSERT INTO \"public\".\"users\" VALUES('$userName', '$hashPassword', 'FALSE', '$email','$name')";
 
             $res = pg_query($query) or die('Query failed: ' . pg_last_error());
 
             if ($res) {
-                unset($name);
+                header("Location: thank-you-registration.php");
+            } else {
+		unset($name);
                 unset($email); 
                 unset($userName);
                 unset($password);
-                header("Location: thank-you-registration.php");
-            } else {
+		unset($newPassword);
                 $errMSG = "Something went wrong, try again."; 
             } 
 
         }
+	else {
+		unset($name);
+                unset($email); 
+                unset($userName);
+                unset($password);
+		unset($newPassword);
+	}
 
     }
 
     function sanitize($data) {
         $data = trim($data);
         $data = strip_tags($data);
-        $data = htmlspecialchars($data);
+        // $data = htmlspecialchars($data);
         return $data;
     }
 
