@@ -16,8 +16,8 @@
         // clean user inputs to prevent sql injections
         $projectTitle = sanitize($_POST['projectTitle']);
         $shortBlurb = sanitize($_POST['shortBlurb']);
-        $startDate = sanitize($_POST['startDate']);
-        $endDate = sanitize($_POST['endDate']);
+        $startDate = sanitizeDate($_POST['startDate']);
+        $endDate = sanitizeDate($_POST['endDate']);
         $targetAmt = sanitize($_POST['targetAmt']);
         $category = $_POST['category'];
 
@@ -75,7 +75,7 @@
             $error = true;
             $endDateError = "Please enter your project end date.";
         }
-        else if ($endDate < $startDate || $startDate < date("d.m.y")) {
+        else if ($endDate < $startDate || $startDate < date("d/m/Y")) {
             $error = true;
             $endDateError = "Please enter a valid date.";
         }
@@ -119,6 +119,11 @@
         $data = trim($data);
         $data = strip_tags($data);
         $data = htmlspecialchars($data);
+        return $data;
+    }
+    function sanitizeDate($data) {
+        $data = trim($data);
+        $data = strip_tags($data, '/');
         return $data;
     }
 
