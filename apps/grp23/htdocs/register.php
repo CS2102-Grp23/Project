@@ -92,13 +92,13 @@
             $res = pg_query($query) or die('Query failed: ' . pg_last_error());
 
             if ($res) {
-                unset($name);
+                header("Location: thank-you-registration.php");
+            } else {
+		unset($name);
                 unset($email); 
                 unset($userName);
                 unset($password);
 		unset($newPassword);
-                header("Location: thank-you-registration.php");
-            } else {
                 $errMSG = "Something went wrong, try again."; 
             } 
 
