@@ -10,7 +10,8 @@
     $query = "SELECT username, accesslevel, email, name FROM \"public\".\"users\"";
 
     if(isset($_POST['edit'])){
-    	header('Location: /edit_user.php');
+        $username = $_POST['editUser'];
+        header('Location: edit_user.php?id='.$username);
     }
 
     if(isset($_POST['delete'])){
@@ -34,7 +35,6 @@
         	<th>Email</th>
         	<th>Name</th>
         	<th> </th>
-        	<th> </th>
     	</tr>
         
         <?php
@@ -43,24 +43,24 @@
 
             if(pg_num_rows($result) > 0){
 				while($row = pg_fetch_row($result)){?>
-						<tr>
-						<td align="center"><?php echo $row[0]; ?></td>
-						<td align="center"><?php echo $row[1]; ?></td>
-						<td align="center"><?php echo $row[2]; ?></td>
-						<td align="center"><?php echo $row[3]; ?></td>
-						<td align="center">
-							<form method="post" action="<?php echo $_POST['PHP_SELF']; ?>" enctype="multipart/form-data">
-								<input type="submit" name="edit" value="Edit"/>
-								<input type="hidden" name="editUser" value="<?php echo $row[0]?>"/>
-            				</form>
-            			</td>
-            			<td align="center">
-							<form method="post" action="<?php echo $_POST['PHP_SELF']; ?>" enctype="multipart/form-data">
-								<input type="submit" name="delete" value="Delete"/>
-								<input type="hidden" name="deleteUser" value="<?php echo $row[0]?>"/>
-            				</form>
-            			</td>
-            			</tr>
+					<tr>
+					<td align="center"><?php echo $row[0]; ?></td>
+					<td align="center"><?php echo $row[1]; ?></td>
+					<td align="center"><?php echo $row[2]; ?></td>
+					<td align="center"><?php echo $row[3]; ?></td>
+                    <td align="center">
+                        <form method="post" action="<?php echo $_POST['PHP_SELF']; ?>" enctype="multipart/form-data">
+                            <input type="submit" name="edit" value="Edit"/>
+                            <input type="hidden" name="editUser" value="<?php echo $row[0]?>"/>
+                        </form>
+                    </td>
+            		<td align="center">
+						<form method="post" action="<?php echo $_POST['PHP_SELF']; ?>" enctype="multipart/form-data">
+							<input type="submit" name="delete" value="Delete"/>
+							<input type="hidden" name="deleteUser" value="<?php echo $row[0]?>"/>
+            			</form>
+            		</td>
+            		</tr>
             		<?php
             		$i = $i + 1;
         		}
