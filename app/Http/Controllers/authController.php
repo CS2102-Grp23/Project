@@ -16,20 +16,20 @@ class authController extends BaseController {
   public function test() {
     echo 'hello world!';
   }
-  
+
   public function getAllUsers() {
     $query = "SELECT * FROM users";
 
     return DB::select($query);
   }
-  
+
   public function getUser() {
     $value = session('email');
     $query = "SELECT * FROM users WHERE email='$value'";
-    
+
     return  DB::select($query);
   }
-  
+
   public function logout() {
     session()->flush();
   }
@@ -46,7 +46,7 @@ class authController extends BaseController {
 
     if($count > 0) {
       session(['email' => $email]);
-      
+
       return 'SUCCESS';
     } else {
       return 'ERROR';
@@ -133,9 +133,9 @@ class authController extends BaseController {
         unset($email);
         unset($userName);
         unset($password);
-        
-        session(['email' => $email]);
-        
+
+        //session(['email' => $email]);
+
         return 'SUCCESS';
       }
     } else {
