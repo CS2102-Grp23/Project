@@ -45,34 +45,34 @@ SET default_with_oids = false;
 -- Name: contribute; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "contribute" (
+CREATE TABLE contribute (
     "projectID" integer NOT NULL,
     username character varying(254) NOT NULL,
     amount money NOT NULL
 );
 
 
-ALTER TABLE "contribute" OWNER TO postgres;
+ALTER TABLE contribute OWNER TO postgres;
 
 --
--- Name: COLUMN "contribute"."projectID"; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN contribute."projectID"; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "contribute"."projectID" IS 'foreign key constraint';
+COMMENT ON COLUMN contribute."projectID" IS 'foreign key constraint';
 
 
 --
--- Name: COLUMN "contribute".username; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN contribute.username; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "contribute".username IS 'foreign key constraint';
+COMMENT ON COLUMN contribute.username IS 'foreign key constraint';
 
 
 --
 -- Name: project; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "project" (
+CREATE TABLE project (
     "projectID" integer NOT NULL,
     title character varying(254) NOT NULL,
     description character varying(508),
@@ -82,46 +82,46 @@ CREATE TABLE "project" (
     "targetAmount" money NOT NULL,
     "imageURL" character varying(254),
     username character varying(254) NOT NULL,
-    CONSTRAINT chk_category CHECK (((category)::text = ANY ((ARRAY['Art'::character varying, 'Comic'::character varying, 'Crafts'::character varying, 'Dance'::character varying, 'Design'::character varying, 'Film and Video'::character varying, 'Food'::character varying, 'Games'::character varying, 'Journalism'::character varying, 'Music'::character varying, 'Photography'::character varying, 'Publishing'::character varying, 'Technology'::character varying, 'Theather'::character varying])::text[]))),
+    CONSTRAINT chk_category CHECK (((category)::text = ANY (ARRAY[('Art'::character varying)::text, ('Comic'::character varying)::text, ('Crafts'::character varying)::text, ('Dance'::character varying)::text, ('Design'::character varying)::text, ('Film and Video'::character varying)::text, ('Food'::character varying)::text, ('Games'::character varying)::text, ('Journalism'::character varying)::text, ('Music'::character varying)::text, ('Photography'::character varying)::text, ('Publishing'::character varying)::text, ('Technology'::character varying)::text, ('Theather'::character varying)::text]))),
     CONSTRAINT chk_dates CHECK (("startDate" < "endDate"))
 );
 
 
-ALTER TABLE "project" OWNER TO postgres;
+ALTER TABLE project OWNER TO postgres;
 
 --
--- Name: COLUMN "project"."projectID"; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN project."projectID"; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "project"."projectID" IS '4-byte signed integer that is auto-incrementing';
-
-
---
--- Name: COLUMN "project".category; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN "project".category IS 'constraint check if belong to { pre-defined categories }';
+COMMENT ON COLUMN project."projectID" IS '4-byte signed integer that is auto-incrementing';
 
 
 --
--- Name: COLUMN "project"."endDate"; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN project.category; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "project"."endDate" IS 'constraint check if endDate > startDate';
-
-
---
--- Name: COLUMN "project"."imageURL"; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN "project"."imageURL" IS '##during retrieval if null use default image?';
+COMMENT ON COLUMN project.category IS 'constraint check if belong to { pre-defined categories }';
 
 
 --
--- Name: COLUMN "project".username; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN project."endDate"; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "project".username IS 'foreign key constraint';
+COMMENT ON COLUMN project."endDate" IS 'constraint check if endDate > startDate';
+
+
+--
+-- Name: COLUMN project."imageURL"; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN project."imageURL" IS '##during retrieval if null use default image?';
+
+
+--
+-- Name: COLUMN project.username; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN project.username IS 'foreign key constraint';
 
 
 --
@@ -142,14 +142,14 @@ ALTER TABLE "project_projectID_seq" OWNER TO postgres;
 -- Name: project_projectID_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
-ALTER SEQUENCE "project_projectID_seq" OWNED BY "project"."projectID";
+ALTER SEQUENCE "project_projectID_seq" OWNED BY project."projectID";
 
 
 --
 -- Name: users; Type: TABLE; Schema: public; Owner: postgres
 --
 
-CREATE TABLE "users" (
+CREATE TABLE users (
     username character varying(24) NOT NULL,
     password character(64) NOT NULL,
     accesslevel boolean DEFAULT false NOT NULL,
@@ -157,52 +157,52 @@ CREATE TABLE "users" (
     name character varying(254) NOT NULL,
     "creditCard" character varying(19),
     nationality character varying(30),
-    CONSTRAINT chk_nationality CHECK (((nationality)::text = ANY ((ARRAY['Afghan'::character varying, 'Albanian'::character varying, 'Algerian'::character varying, 'American'::character varying, 'Andorran'::character varying, 'Angolan'::character varying, 'Antiguans'::character varying, 'Argentinean'::character varying, 'Armenian'::character varying, 'Australian'::character varying, 'Austrian'::character varying, 'Azerbaijani'::character varying, 'Bahamian'::character varying, 'Bahraini'::character varying, 'Bangladeshi'::character varying, 'Barbadian'::character varying, 'Barbudans'::character varying, 'Batswana'::character varying, 'Belarusian'::character varying, 'Belgian'::character varying, 'Belizean'::character varying, 'Beninese'::character varying, 'Bhutanese'::character varying, 'Bolivian'::character varying, 'Bosnian'::character varying, 'Brazilian'::character varying, 'British'::character varying, 'Bruneian'::character varying, 'Bulgarian'::character varying, 'Burkinabe'::character varying, 'Burmese'::character varying, 'Burundian'::character varying, 'Cambodian'::character varying, 'Cameroonian'::character varying, 'Canadian'::character varying, 'Cape Verdean'::character varying, 'Central African'::character varying, 'Chadian'::character varying, 'Chilean'::character varying, 'Chinese'::character varying, 'Colombian'::character varying, 'Comoran'::character varying, 'Congolese'::character varying, 'Costa Rican'::character varying, 'Croatian'::character varying, 'Cuban'::character varying, 'Cypriot'::character varying, 'Czech'::character varying, 'Danish'::character varying, 'Djibouti'::character varying, 'Dominican'::character varying, 'Dutch'::character varying, 'East Timorese'::character varying, 'Ecuadorean'::character varying, 'Egyptian'::character varying, 'Emirian'::character varying, 'Equatorial Guinean'::character varying, 'Eritrean'::character varying, 'Estonian'::character varying, 'Ethiopian'::character varying, 'Fijian'::character varying, 'Filipino'::character varying, 'Finnish'::character varying, 'French'::character varying, 'Gabonese'::character varying, 'Gambian'::character varying, 'Georgian'::character varying, 'German'::character varying, 'Ghanaian'::character varying, 'Greek'::character varying, 'Grenadian'::character varying, 'Guatemalan'::character varying, 'Guinea-Bissauan'::character varying, 'Guinean'::character varying, 'Guyanese'::character varying, 'Haitian'::character varying, 'Herzegovinian'::character varying, 'Honduran'::character varying, 'Hungarian'::character varying, 'Icelander'::character varying, 'Indian'::character varying, 'Indonesian'::character varying, 'Iranian'::character varying, 'Iraqi'::character varying, 'Irish'::character varying, 'Israeli'::character varying, 'Italian'::character varying, 'Ivorian'::character varying, 'Jamaican'::character varying, 'Japanese'::character varying, 'Jordanian'::character varying, 'Kazakhstani'::character varying, 'Kenyan'::character varying, 'Kittian and Nevisian'::character varying, 'Kuwaiti'::character varying, 'Kyrgyz'::character varying, 'Laotian'::character varying, 'Latvian'::character varying, 'Lebanese'::character varying, 'Liberian'::character varying, 'Libyan'::character varying, 'Liechtensteiner'::character varying, 'Lithuanian'::character varying, 'Luxembourger'::character varying, 'Macedonian'::character varying, 'Malagasy'::character varying, 'Malawian'::character varying, 'Malaysian'::character varying, 'Maldivan'::character varying, 'Malian'::character varying, 'Maltese'::character varying, 'Marshallese'::character varying, 'Mauritanian'::character varying, 'Mauritian'::character varying, 'Mexican'::character varying, 'Micronesian'::character varying, 'Moldovan'::character varying, 'Monacan'::character varying, 'Mongolian'::character varying, 'Moroccan'::character varying, 'Mosotho'::character varying, 'Motswana'::character varying, 'Mozambican'::character varying, 'Namibian'::character varying, 'Nauruan'::character varying, 'Nepalese'::character varying, 'New Zealander'::character varying, 'Ni-Vanuatu'::character varying, 'Nicaraguan'::character varying, 'Nigerien'::character varying, 'North Korean'::character varying, 'Northern Irish'::character varying, 'Norwegian'::character varying, 'Omani'::character varying, 'Pakistani'::character varying, 'Palauan'::character varying, 'Panamanian'::character varying, 'Papua New Guinean'::character varying, 'Paraguayan'::character varying, 'Peruvian'::character varying, 'Polish'::character varying, 'Portuguese'::character varying, 'Qatari'::character varying, 'Romanian'::character varying, 'Russian'::character varying, 'Rwandan'::character varying, 'Saint Lucian'::character varying, 'Salvadoran'::character varying, 'Samoan'::character varying, 'San Marinese'::character varying, 'Sao Tomean'::character varying, 'Saudi'::character varying, 'Scottish'::character varying, 'Senegalese'::character varying, 'Serbian'::character varying, 'Seychellois'::character varying, 'Sierra Leonean'::character varying, 'Singaporean'::character varying, 'Slovakian'::character varying, 'Slovenian'::character varying, 'Solomon Islander'::character varying, 'Somali'::character varying, 'South African'::character varying, 'South Korean'::character varying, 'Spanish'::character varying, 'Sri Lankan'::character varying, 'Sudanese'::character varying, 'Surinamer'::character varying, 'Swazi'::character varying, 'Swedish'::character varying, 'Swiss'::character varying, 'Syrian'::character varying, 'Taiwanese'::character varying, 'Tajik'::character varying, 'Tanzanian'::character varying, 'Thai'::character varying, 'Togolese'::character varying, 'Tongan'::character varying, 'Trinidadian or Tobagonian'::character varying, 'Tunisian'::character varying, 'Turkish'::character varying, 'Tuvaluan'::character varying, 'Ugandan'::character varying, 'Ukrainian'::character varying, 'Uruguayan'::character varying, 'Uzbekistani'::character varying, 'Venezuelan'::character varying, 'Vietnamese'::character varying, 'Welsh'::character varying, 'Yemenite'::character varying, 'Zambian'::character varying, 'Zimbabwean'::character varying])::text[])))
+    CONSTRAINT chk_nationality CHECK (((nationality)::text = ANY (ARRAY[('Afghan'::character varying)::text, ('Albanian'::character varying)::text, ('Algerian'::character varying)::text, ('American'::character varying)::text, ('Andorran'::character varying)::text, ('Angolan'::character varying)::text, ('Antiguans'::character varying)::text, ('Argentinean'::character varying)::text, ('Armenian'::character varying)::text, ('Australian'::character varying)::text, ('Austrian'::character varying)::text, ('Azerbaijani'::character varying)::text, ('Bahamian'::character varying)::text, ('Bahraini'::character varying)::text, ('Bangladeshi'::character varying)::text, ('Barbadian'::character varying)::text, ('Barbudans'::character varying)::text, ('Batswana'::character varying)::text, ('Belarusian'::character varying)::text, ('Belgian'::character varying)::text, ('Belizean'::character varying)::text, ('Beninese'::character varying)::text, ('Bhutanese'::character varying)::text, ('Bolivian'::character varying)::text, ('Bosnian'::character varying)::text, ('Brazilian'::character varying)::text, ('British'::character varying)::text, ('Bruneian'::character varying)::text, ('Bulgarian'::character varying)::text, ('Burkinabe'::character varying)::text, ('Burmese'::character varying)::text, ('Burundian'::character varying)::text, ('Cambodian'::character varying)::text, ('Cameroonian'::character varying)::text, ('Canadian'::character varying)::text, ('Cape Verdean'::character varying)::text, ('Central African'::character varying)::text, ('Chadian'::character varying)::text, ('Chilean'::character varying)::text, ('Chinese'::character varying)::text, ('Colombian'::character varying)::text, ('Comoran'::character varying)::text, ('Congolese'::character varying)::text, ('Costa Rican'::character varying)::text, ('Croatian'::character varying)::text, ('Cuban'::character varying)::text, ('Cypriot'::character varying)::text, ('Czech'::character varying)::text, ('Danish'::character varying)::text, ('Djibouti'::character varying)::text, ('Dominican'::character varying)::text, ('Dutch'::character varying)::text, ('East Timorese'::character varying)::text, ('Ecuadorean'::character varying)::text, ('Egyptian'::character varying)::text, ('Emirian'::character varying)::text, ('Equatorial Guinean'::character varying)::text, ('Eritrean'::character varying)::text, ('Estonian'::character varying)::text, ('Ethiopian'::character varying)::text, ('Fijian'::character varying)::text, ('Filipino'::character varying)::text, ('Finnish'::character varying)::text, ('French'::character varying)::text, ('Gabonese'::character varying)::text, ('Gambian'::character varying)::text, ('Georgian'::character varying)::text, ('German'::character varying)::text, ('Ghanaian'::character varying)::text, ('Greek'::character varying)::text, ('Grenadian'::character varying)::text, ('Guatemalan'::character varying)::text, ('Guinea-Bissauan'::character varying)::text, ('Guinean'::character varying)::text, ('Guyanese'::character varying)::text, ('Haitian'::character varying)::text, ('Herzegovinian'::character varying)::text, ('Honduran'::character varying)::text, ('Hungarian'::character varying)::text, ('Icelander'::character varying)::text, ('Indian'::character varying)::text, ('Indonesian'::character varying)::text, ('Iranian'::character varying)::text, ('Iraqi'::character varying)::text, ('Irish'::character varying)::text, ('Israeli'::character varying)::text, ('Italian'::character varying)::text, ('Ivorian'::character varying)::text, ('Jamaican'::character varying)::text, ('Japanese'::character varying)::text, ('Jordanian'::character varying)::text, ('Kazakhstani'::character varying)::text, ('Kenyan'::character varying)::text, ('Kittian and Nevisian'::character varying)::text, ('Kuwaiti'::character varying)::text, ('Kyrgyz'::character varying)::text, ('Laotian'::character varying)::text, ('Latvian'::character varying)::text, ('Lebanese'::character varying)::text, ('Liberian'::character varying)::text, ('Libyan'::character varying)::text, ('Liechtensteiner'::character varying)::text, ('Lithuanian'::character varying)::text, ('Luxembourger'::character varying)::text, ('Macedonian'::character varying)::text, ('Malagasy'::character varying)::text, ('Malawian'::character varying)::text, ('Malaysian'::character varying)::text, ('Maldivan'::character varying)::text, ('Malian'::character varying)::text, ('Maltese'::character varying)::text, ('Marshallese'::character varying)::text, ('Mauritanian'::character varying)::text, ('Mauritian'::character varying)::text, ('Mexican'::character varying)::text, ('Micronesian'::character varying)::text, ('Moldovan'::character varying)::text, ('Monacan'::character varying)::text, ('Mongolian'::character varying)::text, ('Moroccan'::character varying)::text, ('Mosotho'::character varying)::text, ('Motswana'::character varying)::text, ('Mozambican'::character varying)::text, ('Namibian'::character varying)::text, ('Nauruan'::character varying)::text, ('Nepalese'::character varying)::text, ('New Zealander'::character varying)::text, ('Ni-Vanuatu'::character varying)::text, ('Nicaraguan'::character varying)::text, ('Nigerien'::character varying)::text, ('North Korean'::character varying)::text, ('Northern Irish'::character varying)::text, ('Norwegian'::character varying)::text, ('Omani'::character varying)::text, ('Pakistani'::character varying)::text, ('Palauan'::character varying)::text, ('Panamanian'::character varying)::text, ('Papua New Guinean'::character varying)::text, ('Paraguayan'::character varying)::text, ('Peruvian'::character varying)::text, ('Polish'::character varying)::text, ('Portuguese'::character varying)::text, ('Qatari'::character varying)::text, ('Romanian'::character varying)::text, ('Russian'::character varying)::text, ('Rwandan'::character varying)::text, ('Saint Lucian'::character varying)::text, ('Salvadoran'::character varying)::text, ('Samoan'::character varying)::text, ('San Marinese'::character varying)::text, ('Sao Tomean'::character varying)::text, ('Saudi'::character varying)::text, ('Scottish'::character varying)::text, ('Senegalese'::character varying)::text, ('Serbian'::character varying)::text, ('Seychellois'::character varying)::text, ('Sierra Leonean'::character varying)::text, ('Singaporean'::character varying)::text, ('Slovakian'::character varying)::text, ('Slovenian'::character varying)::text, ('Solomon Islander'::character varying)::text, ('Somali'::character varying)::text, ('South African'::character varying)::text, ('South Korean'::character varying)::text, ('Spanish'::character varying)::text, ('Sri Lankan'::character varying)::text, ('Sudanese'::character varying)::text, ('Surinamer'::character varying)::text, ('Swazi'::character varying)::text, ('Swedish'::character varying)::text, ('Swiss'::character varying)::text, ('Syrian'::character varying)::text, ('Taiwanese'::character varying)::text, ('Tajik'::character varying)::text, ('Tanzanian'::character varying)::text, ('Thai'::character varying)::text, ('Togolese'::character varying)::text, ('Tongan'::character varying)::text, ('Trinidadian or Tobagonian'::character varying)::text, ('Tunisian'::character varying)::text, ('Turkish'::character varying)::text, ('Tuvaluan'::character varying)::text, ('Ugandan'::character varying)::text, ('Ukrainian'::character varying)::text, ('Uruguayan'::character varying)::text, ('Uzbekistani'::character varying)::text, ('Venezuelan'::character varying)::text, ('Vietnamese'::character varying)::text, ('Welsh'::character varying)::text, ('Yemenite'::character varying)::text, ('Zambian'::character varying)::text, ('Zimbabwean'::character varying)::text])))
 );
 
 
-ALTER TABLE "users" OWNER TO postgres;
+ALTER TABLE users OWNER TO postgres;
 
 --
--- Name: TABLE "users"; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: TABLE users; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON TABLE "users" IS 'username, password, accesslevel';
-
-
---
--- Name: COLUMN "users".password; Type: COMMENT; Schema: public; Owner: postgres
---
-
-COMMENT ON COLUMN "users".password IS 'hashed password';
+COMMENT ON TABLE users IS 'username, password, accesslevel';
 
 
 --
--- Name: COLUMN "users".accesslevel; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN users.password; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "users".accesslevel IS 'admin(true) or user(false)';
+COMMENT ON COLUMN users.password IS 'hashed password';
 
 
 --
--- Name: COLUMN "users".nationality; Type: COMMENT; Schema: public; Owner: postgres
+-- Name: COLUMN users.accesslevel; Type: COMMENT; Schema: public; Owner: postgres
 --
 
-COMMENT ON COLUMN "users".nationality IS 'check nationality';
+COMMENT ON COLUMN users.accesslevel IS 'admin(true) or user(false)';
+
+
+--
+-- Name: COLUMN users.nationality; Type: COMMENT; Schema: public; Owner: postgres
+--
+
+COMMENT ON COLUMN users.nationality IS 'check nationality';
 
 
 --
 -- Name: project projectID; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "project" ALTER COLUMN "projectID" SET DEFAULT nextval('"project_projectID_seq"'::regclass);
+ALTER TABLE ONLY project ALTER COLUMN "projectID" SET DEFAULT nextval('"project_projectID_seq"'::regclass);
 
 
 --
 -- Data for Name: contribute; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "contribute" ("projectID", username, amount) FROM stdin;
+COPY contribute ("projectID", username, amount) FROM stdin;
 77	test21	+$6.00
 1	test22	+$4.00
 17	test22	+$7.00
@@ -243,6 +243,11 @@ COPY "contribute" ("projectID", username, amount) FROM stdin;
 82	test23	+$1.00
 116	test14	+$3.00
 93	test18	+$10.00
+15	AdamGan	+$600.00
+14	EricEwe	+$4,624.00
+21	HaoJie	+$332.00
+22	HaoJie	+$961.00
+118	WooJeong	+$6,888.00
 \.
 
 
@@ -250,7 +255,7 @@ COPY "contribute" ("projectID", username, amount) FROM stdin;
 -- Data for Name: project; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "project" ("projectID", title, description, category, "startDate", "endDate", "targetAmount", "imageURL", username) FROM stdin;
+COPY project ("projectID", title, description, category, "startDate", "endDate", "targetAmount", "imageURL", username) FROM stdin;
 55	New project Title by test8	Sample description here!	Technology	2017-08-04	2018-01-04	+$3,651.00	C:\\temp\\proj55.jpg	test8
 72	New project Title by test11	Sample description here!	Technology	2017-08-21	2018-01-21	+$4,182.00	C:\\temp\\proj72.jpg	test11
 3	New project Title by test0	Sample description here!	Technology	2017-08-27	2018-01-27	+$1,070.00	C:\\temp\\proj3.jpg	test0
@@ -386,34 +391,10 @@ SELECT pg_catalog.setval('"project_projectID_seq"', 121, true);
 -- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY "users" (username, password, accesslevel, email, name, "creditCard", nationality) FROM stdin;
-AdamGan	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	adamgan0527@gmail.com	Adam Gan	\N	\N
-HaoJie	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	haojie@nus.edu.sg	Hao Jie	\N	\N
-EricEwe	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	Eric@nus.edu.sg	Eric Ewe	\N	\N
-Joleen	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	Joleen@nus.edu.sg	Joleen	\N	\N
-WooJeong	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	WooJeong@nus.edu.sg	Woo Jeong	\N	\N
+COPY users (username, password, accesslevel, email, name, "creditCard", nationality) FROM stdin;
 admin123	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	admin@crowdfunding.com	admin	\N	\N
 test0	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test0@hotmail.com	test0	\N	\N
 test30	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test30@hotmail.com	test30	\N	\N
-test1	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test1@hotmail.com	test1	\N	\N
-test2	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test2@hotmail.com	test2	\N	\N
-test3	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test3@hotmail.com	test3	\N	\N
-test4	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test4@hotmail.com	test4	\N	\N
-test5	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test5@hotmail.com	test5	\N	\N
-test6	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test6@hotmail.com	test6	\N	\N
-test7	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test7@hotmail.com	test7	\N	\N
-test8	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test8@hotmail.com	test8	\N	\N
-test9	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test9@hotmail.com	test9	\N	\N
-test10	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test10@hotmail.com	test10	\N	\N
-test11	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test11@hotmail.com	test11	\N	\N
-test12	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test12@hotmail.com	test12	\N	\N
-test13	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test13@hotmail.com	test13	\N	\N
-test14	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test14@hotmail.com	test14	\N	\N
-test15	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test15@hotmail.com	test15	\N	\N
-test16	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test16@hotmail.com	test16	\N	\N
-test17	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test17@hotmail.com	test17	\N	\N
-test18	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test18@hotmail.com	test18	\N	\N
-test19	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test19@hotmail.com	test19	\N	\N
 test20	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test20@hotmail.com	test20	\N	\N
 test21	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test21@hotmail.com	test21	\N	\N
 test22	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test22@hotmail.com	test22	\N	\N
@@ -424,6 +405,30 @@ test26	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test26
 test27	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test27@hotmail.com	test27	\N	\N
 test28	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test28@hotmail.com	test28	\N	\N
 test29	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test29@hotmail.com	test29	\N	\N
+AdamGan	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	adamgan0527@gmail.com	Adam Gan	\N	Singaporean
+test1	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test1@hotmail.com	test1	\N	Gabonese
+test2	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test2@hotmail.com	test2	\N	Fijian
+test3	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test3@hotmail.com	test3	\N	Marshallese
+test4	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test4@hotmail.com	test4	\N	German
+test5	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test5@hotmail.com	test5	\N	Motswana
+test6	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test6@hotmail.com	test6	\N	Czech
+test7	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test7@hotmail.com	test7	\N	Chilean
+test8	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test8@hotmail.com	test8	\N	Salvadoran
+test9	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test9@hotmail.com	test9	\N	Japanese
+test10	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test10@hotmail.com	test10	\N	Qatari
+test11	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test11@hotmail.com	test11	\N	Bosnian
+test12	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test12@hotmail.com	test12	\N	Tunisian
+test13	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test13@hotmail.com	test13	\N	Antiguans
+test14	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test14@hotmail.com	test14	\N	Bruneian
+test15	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test15@hotmail.com	test15	\N	Andorran
+test16	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test16@hotmail.com	test16	\N	Eritrean
+test17	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test17@hotmail.com	test17	\N	North Korean
+test18	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test18@hotmail.com	test18	\N	Mexican
+test19	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test19@hotmail.com	test19	\N	Cambodian
+HaoJie	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	haojie@nus.edu.sg	Hao Jie	\N	Singaporean
+EricEwe	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	Eric@nus.edu.sg	Eric Ewe	\N	Malaysian
+Joleen	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	Joleen@nus.edu.sg	Joleen	\N	Singaporean
+WooJeong	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	t	WooJeong@nus.edu.sg	Woo Jeong	\N	South Korean
 \.
 
 
@@ -431,23 +436,23 @@ test29	8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92	f	test29
 -- Name: contribute contribute_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "contribute"
-    ADD CONSTRAINT "contribute_pkey" PRIMARY KEY ("projectID", username);
+ALTER TABLE ONLY contribute
+    ADD CONSTRAINT contribute_pkey PRIMARY KEY ("projectID", username);
 
 
 --
 -- Name: project project_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "project"
-    ADD CONSTRAINT "project_pkey" PRIMARY KEY ("projectID");
+ALTER TABLE ONLY project
+    ADD CONSTRAINT project_pkey PRIMARY KEY ("projectID");
 
 
 --
 -- Name: users user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "users"
+ALTER TABLE ONLY users
     ADD CONSTRAINT user_pkey PRIMARY KEY (username);
 
 
@@ -455,24 +460,24 @@ ALTER TABLE ONLY "users"
 -- Name: contribute fk_contributeproject; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "contribute"
-    ADD CONSTRAINT "fk_contributeproject" FOREIGN KEY ("projectID") REFERENCES "project"("projectID");
+ALTER TABLE ONLY contribute
+    ADD CONSTRAINT fk_contributeproject FOREIGN KEY ("projectID") REFERENCES project("projectID");
 
 
 --
 -- Name: contribute fk_contributeuser; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "contribute"
-    ADD CONSTRAINT fk_contributeuser FOREIGN KEY (username) REFERENCES "users"(username);
+ALTER TABLE ONLY contribute
+    ADD CONSTRAINT fk_contributeuser FOREIGN KEY (username) REFERENCES users(username);
 
 
 --
 -- Name: project fk_userproject; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
-ALTER TABLE ONLY "project"
-    ADD CONSTRAINT fk_userproject FOREIGN KEY (username) REFERENCES "users"(username);
+ALTER TABLE ONLY project
+    ADD CONSTRAINT fk_userproject FOREIGN KEY (username) REFERENCES users(username);
 
 
 --
