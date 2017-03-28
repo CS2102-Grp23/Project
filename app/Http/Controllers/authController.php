@@ -97,7 +97,7 @@ class authController extends BaseController {
     }
 
     //basic email validation
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+    /*if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $error = true;
       $errorMessage = "Please enter your email address.";
     } else {
@@ -109,7 +109,7 @@ class authController extends BaseController {
         $error = true;
         $emailError = "Email is already in use.";
       }
-    }
+    }*/
 
     // password validation
     if (empty($password) || empty($confirmPassword)){
@@ -129,12 +129,7 @@ class authController extends BaseController {
     if(!$error) {
       $query = "INSERT INTO users VALUES('$userName', '$password', 'FALSE', '$email','$name')";
       if (DB::insert($query)) {
-        unset($name);
-        unset($email);
-        unset($userName);
-        unset($password);
-
-        //session(['email' => $email]);
+        session(['email' => $email]);
 
         return 'SUCCESS';
       }
