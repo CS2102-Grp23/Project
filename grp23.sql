@@ -461,7 +461,7 @@ ALTER TABLE ONLY users
 --
 
 ALTER TABLE ONLY contribute
-    ADD CONSTRAINT fk_contributeproject FOREIGN KEY ("projectID") REFERENCES project("projectID");
+    ADD CONSTRAINT fk_contributeproject FOREIGN KEY ("projectID") REFERENCES project("projectID") ON UPDATE CASCADE;
 
 
 --
@@ -469,7 +469,7 @@ ALTER TABLE ONLY contribute
 --
 
 ALTER TABLE ONLY contribute
-    ADD CONSTRAINT fk_contributeuser FOREIGN KEY (username) REFERENCES users(username);
+    ADD CONSTRAINT fk_contributeuser FOREIGN KEY (username) REFERENCES users(username) ON UPDATE CASCADE;
 
 
 --
@@ -477,7 +477,7 @@ ALTER TABLE ONLY contribute
 --
 
 ALTER TABLE ONLY project
-    ADD CONSTRAINT fk_userproject FOREIGN KEY (username) REFERENCES users(username);
+    ADD CONSTRAINT fk_userproject FOREIGN KEY (username) REFERENCES users(username) ON UPDATE CASCADE;
 
 
 --
