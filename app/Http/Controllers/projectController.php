@@ -145,6 +145,33 @@ class projectController extends BaseController {
       return 'ERROR';
     }
   }
+  public function contribute(Request $req) {
+        
+        $contribution = sanitize($req->input('contribution'));
+        $projectID = $req->input('projectID');
+        
+        if (empty($contribution) || $contribution < 0) {
+            $error = true;
+            $errorMessage = "Please enter a valid contribution.";
+        }
+        $query = 'SELECT p.\"currentAmount\" FROM project p WHERE \"projectID\"='.$projectID;
+        $newAmount = $contribution + $query;
+        
+        $query = "INSERT INTO project(\"currentAmount\") VALUES('$newAmount') WHERE \"projectID\" = $projectID"
+        if (DB::insert($query)) {
+                return 'SUCCESS';
+            } else {
+                $errMSG = "Something went wrong, please try again.";
+                return 'ERROR';
+            }
+        
+    }
+    function sanitize($data) {
+        $data = trim($data);
+        $data = strip_tags($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 }
 
 ?>
