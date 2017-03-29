@@ -145,6 +145,78 @@ class authController extends BaseController {
       $data = htmlspecialchars($data);
       return $data;
   }
+ public function creditForm(Request $req) {
+        $error = false;
+        $errorMessage = "none";
+        
+        // Mastercard, visa, Amex 
+        $cardType = $req->input('creditCard');
+        $cardNum = $req->input('cardNum');
+        $cvv = $req->input('cvv');
+        $nameOnCard = $req->input('nameOnCard');
+        $country = $req->input('country');
+        $address = $req->input('address');
+        $contact = $req->input('contact');
+
+        
+        if (empty($cardType)) {
+            $error = true;
+            $errorMessage = "Please select a card type.";
+        }
+        
+        // basic card number validation
+        if (empty($cardNum)) {
+            $error = true;
+            $errorMessage = "Please enter your card number.";
+        } else if (strlen($cardNum) != 16) {
+            $error = true;
+            $errorMessage = "Please enter a valid card number.";
+        } 
+        
+
+        // basic cvv validation
+        if (empty($cvv)) {
+            $error = true;
+            $errorMessage = "Please enter a CVV .";
+        } else if (strlen($cvv) != 3) {
+            $error = true;
+            $errorMessage = "CVV must be 3 digits.";
+        } 
+        
+        // basic name validation
+        if (empty($name)) {
+            $error = true;
+            $errorMessage = "Please enter your full name.";
+        } else if (strlen($name) < 3) {
+            $error = true;
+            $errorMessage = "Name must have at least 3 characters.";
+        } else if (!preg_match("/^[a-zA-Z ]+$/",$name)) {
+            $error = true;
+            $errorMessage = "Name must contain alphabets and space.";
+        }
+        
+        if (empty($country)) {
+            $error = true;
+            $errorMessage = "Please enter your country.";
+        } else if (empty($address)) {
+            $error = true;
+            $errorMessage = "Please enter your address.";
+        } else if (!preg_match("/^[0-9]+$/",$contact)) {
+            $error = true;
+            $errorMessage = "Contact must be numbers.";
+        }
+        
+        if(!$error) {
+            $value = session('email');
+            $query = "INSERT INTO users(\"creditCard\", \"nationality\") VALUES(".$cardNum.", ".$country.") WHERE \"email\" = $value";
+            if (DB::insert($query)) {
+                return 'SUCCESS';
+            }
+        } else {
+            return 'ERROR';
+        }
+        
+    }
 }
 
 ?>
