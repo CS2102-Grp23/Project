@@ -7,7 +7,7 @@
 
     include_once 'dbconnect.php';
 
-    $query = "SELECT username, accesslevel, email, name FROM \"public\".\"users\"";
+    $query = 'SELECT "username", "accesslevel", "email", "name", "creditCard", "nationality" FROM users';
 
     if(isset($_POST['edit'])){
         $username = $_POST['editUser'];
@@ -27,13 +27,15 @@
     <head>
     </head>
     <body>
-        <h1> Manage Users </h1>
+        <h1> Manage User </h1>
         <table class="fTable" align="center">
 		<tr>
         	<th>User Name</th>
         	<th>Access Level</th>
         	<th>Email</th>
         	<th>Name</th>
+            <th>Credit Card</th>
+            <th>Nationality</th>
         	<th> </th>
     	</tr>
         
@@ -48,6 +50,8 @@
 					<td align="center"><?php echo $row[1]; ?></td>
 					<td align="center"><?php echo $row[2]; ?></td>
 					<td align="center"><?php echo $row[3]; ?></td>
+                    <td align="center"><?php echo $row[4]; ?></td>
+                    <td align="center"><?php echo $row[5]; ?></td>
                     <td align="center">
                         <form method="post" action="<?php echo $_POST['PHP_SELF']; ?>" enctype="multipart/form-data">
                             <input type="submit" name="edit" value="Edit"/>

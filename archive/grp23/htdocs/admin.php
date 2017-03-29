@@ -7,7 +7,7 @@
 
     include_once 'dbconnect.php';
 
-    /*if($_SESSION['userName'] == ''){
+    if($_SESSION['userName'] == ''){
     	header('Location: home.php');
     }
     else{
@@ -18,7 +18,7 @@
     	if(pg_fetch_result($result, 'accesslevel') == 'f'){
             	header('Location: /accessDenied.php'); exit();
         }
-    }*/
+    }
 
     if (isset($_POST['logOut'])){
         $_SESSION['userName'] = "";
@@ -38,6 +38,7 @@ hii
         
         <a href='manage_users.php'>Manage Users</a><br>
         <a href='manage_projects.php'>Manage Projects</a><br>
+
 </form>
 
 </body>

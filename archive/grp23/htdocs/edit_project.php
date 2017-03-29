@@ -98,7 +98,7 @@
 
         // if there's no error, continue to signup
         if( !$error ) {
-            $query = "UPDATE \"public\".\"project\" SET title = '$projectTitle', category='$category', startDate='$startDate', endDate='$endDate', description='$shortBlurb', targetAmount='$targetAmt', imageURL = '$newfilename' WHERE projectID = '$id";
+            $query = "UPDATE \"public\".\"project\" SET title = '$projectTitle', category='$category', \"startDate\"='$startDate', \"endDate\"='$endDate', description='$shortBlurb', \"targetAmount\"='$targetAmt', \"imageURL\" = '$newfilename' WHERE \"projectID\" = '$id'";
             
             $res = pg_query($query) or die('Query failed: ' . pg_last_error() . $projectID);
 
@@ -146,13 +146,7 @@
                 Category: 
                 <select name="category">
                 <?php
-                    if($category == "Film&Video"){
-                    ?>
-                        <option name="dropdown" value="Film&Video">Film and Video</option>
-                <?php
-                    }else{ 
-                        echo "<option name = 'dropdown' value=\"".$category."\">".$category."</option>";
-                    }
+                    echo "<option name = 'dropdown' value=\"".$category."\">".$category."</option>";
                 ?>
                     <option name="dropdown" value="Art">Art</option>
                     <option name="dropdown" value="Comic">Comic</option>
