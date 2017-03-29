@@ -96,6 +96,7 @@ class authController extends BaseController {
       }
     }
 
+	
     //basic email validation
     /*if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $error = true;
