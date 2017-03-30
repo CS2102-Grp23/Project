@@ -20,23 +20,29 @@
         <form v-show="wantsToSignUp" class="card-content" action="/signup" method="POST" @submit.prevent="registerUser">
           <span class="card-title">Sign up</span>
           <div class="input-field">
-						<label for="email">Full Name</label>
+						<h6>Full Name</h6>
 						<input type="text" name="name" id="name" placeholder="Full Name" required v-model="name" class="validate">
 					</div>
           <div class="input-field">
-						<label for="email">Username</label>
+						<h6>Username</h6>
 						<input type="text" name="user-name" id="username" placeholder="Username" required v-model="userName" class="validate">
 					</div>
           <div class="input-field">
-						<label for="email">Email</label>
+						<h6>Email</h6>
 						<input type="email" name="email" id="email" placeholder="Email" required v-model="email" class="validate">
 					</div>
 					<div class="input-field">
-						<label for="password">Password</label>
+						<h6>Nationality</h6>
+				    <select id="nationality" v-model="nationality">
+				      <option v-for="nationality in nationalityChoices"  v-bind:value="nationality">{{nationality}}</option>
+				    </select>
+				  </div>
+					<div class="input-field">
+						<h6>Password</h6>
 						<input type="password" name="password" id="password" placeholder="Password" required v-model="password">
 					</div>
 					<div class="input-field">
-						<label for="confirm-password">Confirm Password</label>
+						<h6>Confirm Password</h6>
 						<input type="password" name="confirm-password" id="confirm-password" placeholder="Confirm Password" v-model="confirmPassword">
 					</div>
           <div class="clearfix btn-group">
@@ -50,6 +56,8 @@
 </template>
 
 <script>
+	import nationalities from '../data/nationalities.js';
+
   export default {
     data() {
       return {
@@ -59,6 +67,8 @@
         password: '',
         confirmPassword: '',
         wantsToSignUp: false,
+				nationality: '',
+				nationalityChoices: nationalities,
       };
     },
     methods: {
@@ -82,6 +92,7 @@
           name: this.name,
           userName: this.userName,
           email: this.email,
+					nationality: this.nationality,
           password: this.password,
           confirmPassword: this.confirmPassword,
         }
