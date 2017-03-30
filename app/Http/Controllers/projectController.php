@@ -145,6 +145,40 @@ class projectController extends BaseController {
       return 'ERROR';
     }
   }
+  public function contribute(Request $req) {
+        
+        $contribution = sanitize($req->input('contribution'));
+        $projectID = $req->input('projectID');
+        
+        if (empty($contribution) || $contribution < 0) {
+            $error = true;
+            $errorMessage = "Please enter a valid contribution.";
+        }
+		
+		$username = $_SESSION['userName'];
+		//using stored function in postgres, increments if same user contributing to same project, else insert
+		$query = "DO $$ BEGIN PERFORM add_contribute(integer '".$projectID."', varchar '".$username."', '".$contribution."'::float8::numeric::money); END $$";
+		
+		/*
+        $query = 'SELECT p.\"currentAmount\" FROM project p WHERE \"projectID\"='.$projectID;
+        $newAmount = $contribution + $query;
+        
+        $query = "INSERT INTO project(\"currentAmount\") VALUES('$newAmount') WHERE \"projectID\" = $projectID"
+        if (DB::insert($query)) {
+                return 'SUCCESS';
+            } else {
+                $errMSG = "Something went wrong, please try again.";
+                return 'ERROR';
+            }
+		*/
+        
+    }
+    function sanitize($data) {
+        $data = trim($data);
+        $data = strip_tags($data);
+        $data = htmlspecialchars($data);
+        return $data;
+    }
 }
 
 ?>
