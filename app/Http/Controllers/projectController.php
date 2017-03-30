@@ -154,6 +154,12 @@ class projectController extends BaseController {
             $error = true;
             $errorMessage = "Please enter a valid contribution.";
         }
+		
+		$username = $_SESSION['userName'];
+		//using stored function in postgres, increments if same user contributing to same project, else insert
+		$query = "DO $$ BEGIN PERFORM add_contribute(integer '".$projectID."', varchar '".$username."', '".$contribution."'::float8::numeric::money); END $$";
+		
+		/*
         $query = 'SELECT p.\"currentAmount\" FROM project p WHERE \"projectID\"='.$projectID;
         $newAmount = $contribution + $query;
         
@@ -164,6 +170,7 @@ class projectController extends BaseController {
                 $errMSG = "Something went wrong, please try again.";
                 return 'ERROR';
             }
+		*/
         
     }
     function sanitize($data) {

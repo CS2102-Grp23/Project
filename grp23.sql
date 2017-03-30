@@ -37,6 +37,23 @@ COMMENT ON EXTENSION plpgsql IS 'PL/pgSQL procedural language';
 
 SET search_path = public, pg_catalog;
 
+--
+-- Name: add_contribute(integer, character varying, money); Type: FUNCTION; Schema: public; Owner: postgres
+--
+
+CREATE FUNCTION add_contribute(integer, character varying, money) RETURNS void
+    LANGUAGE plpgsql
+    AS $_$
+    BEGIN
+      INSERT INTO contribute as con VALUES ($1, $2, $3)
+      ON CONFLICT ON CONSTRAINT contribute_pkey
+      DO UPDATE SET amount = con.amount + $3 WHERE con."projectID" = $1 AND con.username = $2;
+    END;
+    $_$;
+
+
+ALTER FUNCTION public.add_contribute(integer, character varying, money) OWNER TO postgres;
+
 SET default_tablespace = '';
 
 SET default_with_oids = false;
@@ -203,7 +220,6 @@ ALTER TABLE ONLY project ALTER COLUMN "projectID" SET DEFAULT nextval('"project_
 --
 
 COPY contribute ("projectID", username, amount) FROM stdin;
-77	test21	+$6.00
 1	test22	+$4.00
 17	test22	+$7.00
 59	test1	+$10.00
@@ -248,6 +264,7 @@ COPY contribute ("projectID", username, amount) FROM stdin;
 21	HaoJie	+$332.00
 22	HaoJie	+$961.00
 118	WooJeong	+$6,888.00
+77	test21	+$13.00
 \.
 
 
