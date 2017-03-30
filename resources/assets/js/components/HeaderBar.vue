@@ -23,10 +23,6 @@
                   <input type="checkbox" id="contributed-projects" />
                   <label for="contributed-projects">Contributed Projects</label>
                 </li>
-                <li class="filter-category">
-                  <input type="checkbox" id="starred-progress" />
-                  <label for="starred-projects">Starred Projects</label>
-                </li>
                 <li class="sort-title">Sort by:</li>
                 <select id="sort-categories">
                   <option value="start-date">Start Date</option>
