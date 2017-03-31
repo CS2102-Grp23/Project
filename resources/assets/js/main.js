@@ -14,6 +14,7 @@ import App from './App';
 import Register from './components/Register';
 import Projects from './components/Projects';
 import Profile from './components/Profile';
+import Contribute from './components/Contribute';
 import Auth from './data/Auth';
 
 /**
@@ -30,14 +31,15 @@ Vue.http.headers.common['X-CSRF-TOKEN'] = document.querySelector('#token').getAt
 const router = new VueRouter({
   mode: 'history',
   routes: [
-    { path: '/projects', name: 'projects', component: Projects, alias: '/', auth: true, },
-		{ path: '/profile', name: 'profile', component: Profile, auth: true, },
+    { path: '/projects/', name: 'projects', component: Projects, alias: '/', auth: true, },
+		{ path: '/profile/:user', name: 'profile', component: Profile, auth: true, },
     { path: '/register', name: 'register', component: Register, auth: true, },
+    { path: '/project/:project', name: 'contribute', component: Contribute, auth: true, },
   ],
 });
 /*
 router.beforeEach((to, from, next) => {
-  
+
 });
 */
 const eventHub = new Vue();
