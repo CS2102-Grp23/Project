@@ -24,6 +24,9 @@ Route::get('/projects', function () {
 Route::get('/profile', function () {
     return view('welcome');
 });
+Route::get('/project/{project}', function () {
+    return view('welcome');
+});
 
 // get routes
 Route::get('/projects/all', 'projectController@getAll');

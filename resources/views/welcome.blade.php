@@ -9,12 +9,12 @@
         <title>Laravel</title>
 
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">        
-        <link href="css/app.css" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="{{ URL::asset('css/app.css') }}" rel="stylesheet" type="text/css">
     </head>
     <body>
         <div id="app"></div>
-        <script src="js/main.js"></script>
+        <script src="{{ URL::asset('js/main.js') }}"></script>
         <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
     </body>
 </html>
