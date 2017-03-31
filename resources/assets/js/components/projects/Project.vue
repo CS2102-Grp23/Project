@@ -3,7 +3,10 @@
     <div class="card-image">
       <img :src="project.imageUrl">
     </div>
-    <div class="card-content" @click.prevent="displayProject">
+    <div>
+      <a v-bind:href="'/project/' + project.title"><i class="material-icons">view_module</i></a>
+    </div>
+    <div class="card-content">
       <div class="card-title">{{ project.title }}</div>
       <div>
         <span class="info-name">Category: </span>
