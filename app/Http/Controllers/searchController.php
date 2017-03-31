@@ -16,7 +16,8 @@ class authController extends BaseController {
   public function test() {
     echo 'hello world!';
   }
-
+  
+  /*
   //search based on input for title/description, order by most popular (most number of contributes, not amount contributed)
   public function searchQuery(Request $req) {
     
@@ -25,6 +26,7 @@ class authController extends BaseController {
 
     return DB::select($query);
   }
+  */
   
   //search based on input for title/description, order by most popular (most number of contributes, not amount contributed)
   //check additional based on UI branch
