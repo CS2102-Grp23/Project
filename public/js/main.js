@@ -55325,7 +55325,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', [_c('a', {
     attrs: {
-      "href": '/project/' + _vm.project.id
+      "href": '/project/' + _vm.project.projectID
     }
   }, [_c('i', {
     staticClass: "material-icons"
