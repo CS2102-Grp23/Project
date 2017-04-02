@@ -45,7 +45,7 @@ class authController extends BaseController {
 		$query = $query . "AND (title LIKE '%".$searchQuery."%' OR description LIKE '%".$searchQuery."%') ";
 	}
 	if($ownProject && $contributedProject) {
-		$query = $query . "AND (p.username = '".$username."' OR c.username = '".$username."') "
+		$query = $query . "AND (p.username = '".$username."' OR c.username = '".$username."') ";
 	}
 	else if(!$ownProject && $contributedProject) {
 		$query = $query . "AND c.username = '".$username."' ";

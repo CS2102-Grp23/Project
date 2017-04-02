@@ -31,10 +31,43 @@ Route::get('/profiles/all', 'authController@getAllUsers');
 Route::get('/user/getUser', 'authController@getUser');
 Route::get('/user/logout', 'authController@logout');
 
+//admin routes
+Route::get('/admin/noAct', 'adminController@getNoActivity');  
+Route::get('/admin/noActSum', 'adminController@getNoActivitySummary');    
+Route::get('/admin/noProj', 'adminController@getNoProject'); 
+Route::get('/admin/noProjSum', 'adminController@getNoProjectSummary');   
+Route::get('/admin/noCon', 'adminController@getNoContribute');   
+Route::get('/admin/noConSum', 'adminController@getNoContributeSummary');  
+Route::get('/admin/topCon', 'adminController@getTopContributors');  
+Route::get('/admin/topConSum', 'adminController@getTopContributorsSummary');  
+Route::get('/admin/TopFull', 'adminController@getTopFulfilledProjects');
+Route::get('/admin/TopFullSum', 'adminController@getTopFulfilledProjectsSummary');
+Route::get('/admin/TopSimilar', 'adminController@getTopPairOfSimilarUsers');
+Route::get('/admin/TopSimilarSum', 'adminController@getTopPairOfSimilarUsersSummary');
+Route::get('/admin/TopNationCon', 'adminController@getTopNationContributor');
+Route::get('/admin/TopNationConSum', 'adminController@getTopNationContributorSummary');
+Route::get('/admin/TopNationProj', 'adminController@getTopNationProjectCount');
+Route::get('/admin/TopNationProjSum', 'adminController@getTopNationProjectCountSummary');
+
+//search routes (get? post?)
+Route::get('/search/category', 'searchController@searchCategory');
+//$searchCategory = $req->input('category');
+
+Route::get('/search/query', 'searchController@searchQuery');
+/*
+$searchQuery = $req->input('search');
+$username = $_SESSION['userName'];
+$ownProject = $req->input('ownProject');
+$contributedProject = $req->input('contributedProject');
+*/
+
+
 // post routes
 Route::post('/user/login', 'authController@login');
 Route::post('/user/signup', 'authController@signup');
 Route::post('/projects/create', 'projectController@create');
+
+
 
 // test routes
 Route::get('/test', 'authController@test');
