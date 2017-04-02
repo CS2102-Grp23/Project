@@ -3,7 +3,7 @@
 		<nav id="header-bar">
 			<div id="header-nav-wrapper" class="nav-wrapper">
 				<a href="#!" class="brand-logo hide-on-med-and-down">CS2102</a>
-        <input type="checkbox" id="drawer-toggle" class="hide-on-large-only" /><i id="drawer-toggle-label" for="drawer-toggle" class="material-icons hide-on-large-only">menu</i>
+				<input type="checkbox" id="drawer-toggle" class="hide-on-large-only" /><i id="drawer-toggle-label" for="drawer-toggle" class="material-icons hide-on-large-only">menu</i>
 
         <div id="search-filter-form">
 					<div id="search-filter-bar" class="input-field">

@@ -30,13 +30,17 @@ Route::get('/project/{project}', function () {
 
 // get routes
 Route::get('/projects/all', 'projectController@getAll');
+Route::get('/projects/oneProject/{id}', 'projectController@getProject');
+
 Route::get('/profiles/all', 'authController@getAllUsers');
+
 Route::get('/user/getUser', 'authController@getUser');
 Route::get('/user/logout', 'authController@logout');
 
 // post routes
 Route::post('/user/login', 'authController@login');
 Route::post('/user/signup', 'authController@signup');
+
 Route::post('/projects/create', 'projectController@create');
 
 // test routes

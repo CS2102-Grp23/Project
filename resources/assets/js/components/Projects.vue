@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!--
     <div v-show="isModalShown" id="modal-container" @click.prevent="isModalShown = false">
       <div class="modal" id="project-modal">
         <div class="modal-content">
@@ -26,11 +27,11 @@
           </div>
         </div>
         <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Contribute</a>
+          <a href="/contribute" class="modal-action waves-effect waves-green btn-flat">Contribute</a>
           <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" @click.prevent="isModalShown = false">Close</a>
         </div>
       </div>
-    </div>
+    </div> -->
     <create-project-form></create-project-form>
     <projects :projects="projects"></projects>
 		<update-modal :project="selectedProject"></update-modal>

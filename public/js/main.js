@@ -19920,7 +19920,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.http.headers.common['X-CSRF-TOKEN'] 
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router___default.a({
   mode: 'history',
-  routes: [{ path: '/projects/', name: 'projects', component: __WEBPACK_IMPORTED_MODULE_5__components_Projects___default.a, alias: '/', auth: true }, { path: '/profile/:user', name: 'profile', component: __WEBPACK_IMPORTED_MODULE_6__components_Profile___default.a, auth: true }, { path: '/register', name: 'register', component: __WEBPACK_IMPORTED_MODULE_4__components_Register___default.a, auth: true }, { path: '/project/:project', name: 'contribute', component: __WEBPACK_IMPORTED_MODULE_7__components_Contribute___default.a, auth: true }]
+  routes: [{ path: '/projects/', name: 'projects', component: __WEBPACK_IMPORTED_MODULE_5__components_Projects___default.a, alias: '/', auth: true }, { path: '/profile/:user', name: 'profile', component: __WEBPACK_IMPORTED_MODULE_6__components_Profile___default.a, auth: true }, { path: '/register', name: 'register', component: __WEBPACK_IMPORTED_MODULE_4__components_Register___default.a, auth: true }, { path: '/project/:id', name: 'contribute', component: __WEBPACK_IMPORTED_MODULE_7__components_Contribute___default.a, auth: true }]
 });
 /*
 router.beforeEach((to, from, next) => {
@@ -20941,8 +20941,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     getProject: function getProject() {
       var _this = this;
 
-      this.$http.get('/project/' + this.title).then(function (response) {
-        _this.project = response.data;
+      this.$http.get('/projects/oneProject/' + this.$route.params.id).then(function (response) {
+        _this.project = response.data[0];
       });
     },
     processUser: function processUser() {
@@ -55325,7 +55325,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })]), _vm._v(" "), _c('div', [_c('a', {
     attrs: {
-      "href": '/project/' + _vm.project.title
+      "href": '/project/' + _vm.project.id
     }
   }, [_c('i', {
     staticClass: "material-icons"
@@ -55714,25 +55714,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "project-info"
     }
-  }, [_c('h4', [_vm._v(_vm._s(_vm.project.title))]), _vm._v(" "), _c('div', [_c('p', {
+  }, [_c('h4', [_vm._v(_vm._s(_vm.project.title))]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "info-name"
-  }, [_vm._v("Short Blurb: ")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Short Blurb: ")]), _vm._v(" "), _c('span', {
     staticClass: "project-info"
-  }, [_vm._v(_vm._s(_vm.project.description))])]), _vm._v(" "), _c('div', [_c('p', {
+  }, [_vm._v(_vm._s(_vm.project.description))])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "info-name"
-  }, [_vm._v("Category: ")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Category: ")]), _vm._v(" "), _c('span', {
     staticClass: "project-info"
-  }, [_vm._v(_vm._s(_vm.project.category))])]), _vm._v(" "), _c('div', [_c('p', {
+  }, [_vm._v(_vm._s(_vm.project.category))])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "info-name"
-  }, [_vm._v("Start Date: ")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Start Date: ")]), _vm._v(" "), _c('span', {
     staticClass: "project-info"
-  }, [_vm._v(_vm._s(_vm.project.startDate))])]), _vm._v(" "), _c('div', [_c('p', {
+  }, [_vm._v(_vm._s(_vm.project.startDate))])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "info-name"
-  }, [_vm._v("End Date: ")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("End Date: ")]), _vm._v(" "), _c('span', {
     staticClass: "project-info"
-  }, [_vm._v(_vm._s(_vm.project.endDate))])]), _vm._v(" "), _c('div', [_c('p', {
+  }, [_vm._v(_vm._s(_vm.project.endDate))])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "info-name"
-  }, [_vm._v("Target Amount: ")]), _vm._v(" "), _c('p', {
+  }, [_vm._v("Target Amount: ")]), _vm._v(" "), _c('span', {
     staticClass: "project-info"
   }, [_vm._v(_vm._s(_vm.project.targetAmount))])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     directives: [{

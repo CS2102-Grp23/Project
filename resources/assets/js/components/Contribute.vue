@@ -3,24 +3,24 @@
     <div id="project-info">
       <h4>{{ project.title }}</h4>
       <div>
-        <p class="info-name">Short Blurb: </p>
-        <p class="project-info">{{ project.description }}</p>
+        <span class="info-name">Short Blurb: </span>
+        <span class="project-info">{{ project.description }}</span>
       </div>
       <div>
-        <p class="info-name">Category: </p>
-        <p class="project-info">{{ project.category }}</p>
+        <span class="info-name">Category: </span>
+        <span class="project-info">{{ project.category }}</span>
       </div>
       <div>
-        <p class="info-name">Start Date: </p>
-        <p class="project-info">{{ project.startDate }}</p>
+        <span class="info-name">Start Date: </span>
+        <span class="project-info">{{ project.startDate }}</span>
       </div>
       <div>
-        <p class="info-name">End Date: </p>
-        <p class="project-info">{{ project.endDate }}</p>
+        <span class="info-name">End Date: </span>
+        <span class="project-info">{{ project.endDate }}</span>
       </div>
       <div>
-        <p class="info-name">Target Amount: </p>
-        <p class="project-info">{{ project.targetAmount }}</p>
+        <span class="info-name">Target Amount: </span>
+        <span class="project-info">{{ project.targetAmount }}</span>
       </div>
     </div>
     <hr />
@@ -73,8 +73,8 @@
 
       },
       getProject() {
-        this.$http.get(`/project/${this.title}`).then(response => {
-          this.project = response.data;
+        this.$http.get(`/projects/oneProject/${this.$route.params.id}`).then(response => {
+          this.project = response.data[0];
         });
       },
       processUser() {

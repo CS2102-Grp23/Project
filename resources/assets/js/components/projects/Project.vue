@@ -4,7 +4,7 @@
       <img :src="project.imageUrl">
     </div>
     <div>
-      <a v-bind:href="'/project/' + project.title"><i class="material-icons">view_module</i></a>
+      <a v-bind:href="'/project/' + project.id"><i class="material-icons">view_module</i></a>
     </div>
     <div class="card-content">
       <div class="card-title">{{ project.title }}</div>
@@ -47,10 +47,10 @@
     },
     methods: {
       contribute() {
-        
+
       },
       favorite() {
-        
+
       },
       displayProject() {
         this.$eventHub.$emit('displayProject', this.project);

@@ -34,7 +34,7 @@ const router = new VueRouter({
     { path: '/projects/', name: 'projects', component: Projects, alias: '/', auth: true, },
 		{ path: '/profile/:user', name: 'profile', component: Profile, auth: true, },
     { path: '/register', name: 'register', component: Register, auth: true, },
-    { path: '/project/:project', name: 'contribute', component: Contribute, auth: true, },
+    { path: '/project/:id', name: 'contribute', component: Contribute, auth: true, },
   ],
 });
 /*
