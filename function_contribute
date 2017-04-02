@@ -1,0 +1,18 @@
+FUNCTION
+---------
+CREATE OR REPLACE FUNCTION add_contribute(integer, varchar(254), money) 
+    RETURNS void AS $$
+    BEGIN
+      INSERT INTO contribute as con VALUES ($1, $2, $3)
+      ON CONFLICT ON CONSTRAINT contribute_pkey
+      DO UPDATE SET amount = con.amount + $3 WHERE con."projectID" = $1 AND con.username = $2;
+    END;
+    $$ LANGUAGE plpgsql;
+    
+    
+    
+USAGE EXAMPLE
+-------------
+DO $$ BEGIN
+    PERFORM add_contribute(integer '77', varchar 'test21', '7'::float8::numeric::money);
+END $$;
