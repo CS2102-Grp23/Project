@@ -22,7 +22,7 @@ class searchController extends BaseController {
   public function searchQuery(Request $req) {
     
 	$searchQuery = $req->input('search');
-	$username = $_SESSION['userName'];
+	$username = app('App\Http\Controllers\authController')->getUsername();
 	//$startDate = $req->input('startDate'); //order by popularity better?
 	
 	//booleans?
@@ -31,7 +31,7 @@ class searchController extends BaseController {
 	
 	/* //test vars
 	$searchQuery = 'test';
-	$username = 'test1';
+	//$username = 'test1';
 	$ownProject = true;
 	$contributedProject = false;
 	*/
