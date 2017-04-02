@@ -19887,7 +19887,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__components_Profile___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__components_Profile__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Contribute__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Contribute___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_Contribute__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__data_Auth__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_Admin__ = __webpack_require__(115);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_Admin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_Admin__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__data_Auth__ = __webpack_require__(47);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -19896,6 +19898,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  */
 
 __webpack_require__(46);
+
 
 
 
@@ -19920,7 +19923,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.http.headers.common['X-CSRF-TOKEN'] 
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router___default.a({
   mode: 'history',
-  routes: [{ path: '/projects/', name: 'projects', component: __WEBPACK_IMPORTED_MODULE_5__components_Projects___default.a, alias: '/', auth: true }, { path: '/profile/:user', name: 'profile', component: __WEBPACK_IMPORTED_MODULE_6__components_Profile___default.a, auth: true }, { path: '/register', name: 'register', component: __WEBPACK_IMPORTED_MODULE_4__components_Register___default.a, auth: true }, { path: '/project/:id', name: 'contribute', component: __WEBPACK_IMPORTED_MODULE_7__components_Contribute___default.a, auth: true }]
+  routes: [{ path: '/projects/', name: 'projects', component: __WEBPACK_IMPORTED_MODULE_5__components_Projects___default.a, alias: '/', auth: true }, { path: '/profile/:user', name: 'profile', component: __WEBPACK_IMPORTED_MODULE_6__components_Profile___default.a, auth: true }, { path: '/register', name: 'register', component: __WEBPACK_IMPORTED_MODULE_4__components_Register___default.a, auth: true }, { path: '/admin', name: 'admin', component: __WEBPACK_IMPORTED_MODULE_8__components_Admin___default.a, auth: true }, { path: '/project/:id', name: 'contribute', component: __WEBPACK_IMPORTED_MODULE_7__components_Contribute___default.a, auth: true }]
 });
 /*
 router.beforeEach((to, from, next) => {
@@ -60007,6 +60010,274 @@ module.exports = function(module) {
 __webpack_require__(15);
 module.exports = __webpack_require__(16);
 
+
+/***/ }),
+/* 92 */,
+/* 93 */,
+/* 94 */,
+/* 95 */,
+/* 96 */,
+/* 97 */,
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */,
+/* 103 */,
+/* 104 */,
+/* 105 */,
+/* 106 */,
+/* 107 */,
+/* 108 */,
+/* 109 */,
+/* 110 */,
+/* 111 */,
+/* 112 */,
+/* 113 */,
+/* 114 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+  data: function data() {
+    return {
+      admin: [],
+      users: [],
+      projects: [],
+      isManageUsers: false,
+      isManageProjects: false
+    };
+  },
+
+  methods: {
+    manageUsers: function manageUsers() {
+      this.isManageUsers = !this.isManageUsers;
+      this.isManageProjects = false;
+    },
+    manageProjects: function manageProjects() {
+      this.isManageUsers = false;
+      this.isManageProjects = !this.isManageProjects;
+    },
+    getProjects: function getProjects() {
+      var _this = this;
+
+      this.$http.get('/projects/all').then(function (response) {
+        _this.projects = response.data;
+      });
+    },
+    getUsers: function getUsers() {
+      var _this2 = this;
+
+      this.$http.get('/profiles/all').then(function (response) {
+        _this2.users = response.data;
+      });
+    },
+    processUser: function processUser() {
+      var _this3 = this;
+
+      this.$http.get('/user/getUser').then(function (response) {
+        if (response.data[0].accesslevel) {
+          _this3.admin = response.data[0];
+        } else {
+          _this3.admin = null;
+        }
+      });
+    }
+  },
+  created: function created() {},
+  mounted: function mounted() {
+    this.getProjects();
+    this.getUsers();
+    this.processUser();
+  }
+};
+
+/***/ }),
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(114),
+  /* template */
+  __webpack_require__(116),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\EricEwe\\Documents\\school_projects\\cs2102\\resources\\assets\\js\\components\\Admin.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Admin.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-7d07aada", Component.options)
+  } else {
+    hotAPI.reload("data-v-7d07aada", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.admin),
+      expression: "admin"
+    }],
+    attrs: {
+      "id": "admin-body"
+    }
+  }, [_c('h2', [_vm._v("Welcome, " + _vm._s(_vm.admin.username))]), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "management-buttons"
+    }
+  }, [_c('a', {
+    staticClass: "waves-effect waves-light btn",
+    on: {
+      "click": _vm.manageUsers
+    }
+  }, [_c('i', {
+    staticClass: "material-icons left"
+  }, [_vm._v("cloud")]), _vm._v("Manage Users\n    ")]), _vm._v(" "), _c('a', {
+    staticClass: "waves-effect waves-light btn",
+    on: {
+      "click": _vm.manageProjects
+    }
+  }, [_c('i', {
+    staticClass: "material-icons left"
+  }, [_vm._v("cloud")]), _vm._v("Manage Projects\n    ")])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isManageProjects),
+      expression: "isManageProjects"
+    }],
+    attrs: {
+      "id": "project-list"
+    }
+  }, _vm._l((_vm.projects), function(project) {
+    return _c('div', {
+      staticClass: "collection"
+    }, [_c('div', {
+      staticClass: "collection-item",
+      attrs: {
+        "project": project
+      }
+    }, [_vm._v("\n        " + _vm._s(project.title) + "\n        "), _c('div', [_vm._m(0, true), _vm._v(" "), _c('a', {
+      staticClass: "waves-effect waves-light btn",
+      attrs: {
+        "href": '/project/' + project.projectID
+      }
+    }, [_c('i', {
+      staticClass: "material-icons left"
+    }, [_vm._v("cloud")]), _vm._v("Visit\n          ")])])])])
+  })), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isManageUsers),
+      expression: "isManageUsers"
+    }],
+    attrs: {
+      "id": "user-list"
+    }
+  }, _vm._l((_vm.users), function(user) {
+    return _c('div', {
+      staticClass: "collection"
+    }, [_c('div', {
+      staticClass: "collection-item",
+      attrs: {
+        "user": user
+      }
+    }, [_vm._v("\n        " + _vm._s(user.username) + "\n        "), _c('div', [_vm._m(1, true), _vm._v(" "), _c('a', {
+      staticClass: "waves-effect waves-light btn",
+      attrs: {
+        "href": '/profile/' + user.username
+      }
+    }, [_c('i', {
+      staticClass: "material-icons left"
+    }, [_vm._v("cloud")]), _vm._v("Visit\n          ")])])])])
+  }))])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "waves-effect waves-light btn"
+  }, [_c('i', {
+    staticClass: "material-icons left"
+  }, [_vm._v("cloud")]), _vm._v("Delete\n          ")])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "waves-effect waves-light btn"
+  }, [_c('i', {
+    staticClass: "material-icons left"
+  }, [_vm._v("cloud")]), _vm._v("Delete\n          ")])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7d07aada", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

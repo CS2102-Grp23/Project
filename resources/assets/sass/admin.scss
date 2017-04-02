@@ -1,0 +1,42 @@
+#admin-body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+  #management-buttons {
+    flex-direction: row;
+  }
+
+  #project-list {
+    width: 80%;
+    margin: 20px auto;
+
+    .collection {
+      margin: 0;
+      text-align: left;
+    }
+
+    .collection-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  #user-list {
+    width: 80%;
+    margin: 20px auto;
+
+    .collection {
+      margin: 0;
+      text-align: left;
+    }
+
+    .collection-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+}

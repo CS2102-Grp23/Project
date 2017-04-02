@@ -24,6 +24,9 @@ Route::get('/projects', function () {
 Route::get('/profile', function () {
     return view('welcome');
 });
+Route::get('/admin', function () {
+    return view('welcome');
+});
 Route::get('/project/{project}', function () {
     return view('welcome');
 });
@@ -35,6 +38,7 @@ Route::get('/projects/oneProject/{id}', 'projectController@getProject');
 Route::get('/profiles/all', 'authController@getAllUsers');
 
 Route::get('/user/getUser', 'authController@getUser');
+Route::get('/user/getAccessLevel', 'authController@getAccessLevel');
 Route::get('/user/logout', 'authController@logout');
 
 // post routes

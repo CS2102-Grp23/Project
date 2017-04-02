@@ -15,6 +15,7 @@ import Register from './components/Register';
 import Projects from './components/Projects';
 import Profile from './components/Profile';
 import Contribute from './components/Contribute';
+import Admin from './components/Admin';
 import Auth from './data/Auth';
 
 /**
@@ -34,6 +35,7 @@ const router = new VueRouter({
     { path: '/projects/', name: 'projects', component: Projects, alias: '/', auth: true, },
 		{ path: '/profile/:user', name: 'profile', component: Profile, auth: true, },
     { path: '/register', name: 'register', component: Register, auth: true, },
+    { path: '/admin', name: 'admin', component: Admin, auth: true, },
     { path: '/project/:id', name: 'contribute', component: Contribute, auth: true, },
   ],
 });
