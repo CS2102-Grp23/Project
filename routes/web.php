@@ -61,10 +61,10 @@ Route::get('/admin/TopNationProj', 'adminController@getTopNationProjectCount');
 Route::get('/admin/TopNationProjSum', 'adminController@getTopNationProjectCountSummary');
 
 //search routes (get? post?)
-Route::get('/search/category', 'searchController@searchCategory');
+Route::get('/search/category/{category}', 'searchController@searchCategory');
 //$searchCategory = $req->input('category');
 
-Route::get('/search/query', 'searchController@searchQuery');
+Route::get('/search/query/{searchQuery}', 'searchController@searchQuery');
 /*
 $searchQuery = $req->input('search');
 $username = $_SESSION['userName'];
