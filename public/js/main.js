@@ -60089,8 +60089,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
@@ -60169,7 +60167,11 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
+  return _c('div', {
+    attrs: {
+      "id": "user-body"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col s12 m8 offset-m2"
@@ -60231,25 +60233,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col s12 m8 offset-m2"
+    staticClass: "col s12 m10 offset-m1"
   }, [_c('ul', {
     staticClass: "collection"
   }, _vm._l((_vm.profiles), function(profile) {
-    return _c('li', {
-      staticClass: "collection-item avatar"
-    }, [_c('img', {
-      staticClass: "circle",
+    return _c('a', {
+      staticClass: "collection-item avatar",
       attrs: {
-        "src": "",
-        "alt": ""
+        "href": '/profile/' + profile.username
       }
-    }), _vm._v(" "), _c('div', {
+    }, [_c('div', {
       staticClass: "title"
     }, [_vm._v(_vm._s(profile.name))]), _vm._v(" "), _c('div', {
       staticClass: "name"
     }, [_vm._v(_vm._s(profile.username))]), _vm._v(" "), _c('div', {
       staticClass: "email"
-    }, [_vm._v(_vm._s(profile.email))]), _vm._v(" "), _vm._m(1, true)])
+    }, [_vm._v(_vm._s(profile.email))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
@@ -60257,15 +60256,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col s12 m6 offset-m3"
   }, [_c('img')])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "secondary-content",
-    attrs: {
-      "href": "#!"
-    }
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("grade")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
