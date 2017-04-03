@@ -36,23 +36,24 @@ class searchController extends BaseController {
   	$contributedProject = false;
   	*/
 
-  	$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", COUNT(c.username), c.\"projectID\" FROM project p, contribute c WHERE p.\"projectID\" = c.\"projectID\" ";
+  	$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", COUNT(c.username) FROM project p, contribute c WHERE p.\"projectID\" = c.\"projectID\" ";
 
   	if(!empty($searchQuery)) {
-  		$query = $query . "AND (title LIKE '%".$searchQuery."%' OR description LIKE '%".$searchQuery."%') ";
+  		$query = $query . "AND (UPPER(title) LIKE UPPER('%".$searchQuery."%') OR UPPER(description) LIKE UPPER('%".$searchQuery."%')) ";
   	}
-  	if($ownProject && $contributedProject) {
+  	if($ownProject == 'true' && $contributedProject == 'true') {
   		$query = $query . "AND (p.username = '".$username."' OR c.username = '".$username."') ";
   	}
-  	else if(!$ownProject && $contributedProject) {
+  	else if($contributedProject == 'true') {
   		$query = $query . "AND c.username = '".$username."' ";
   	}
-  	else if($ownProject && !$contributedProject) {
+  	else if($ownProject == 'true') {
   		$query = $query . "AND p.username = '".$username."' ";
   	}
-
-  	$query = $query . "GROUP BY p.\"projectID\", c.\"projectID\" ORDER BY COUNT(c.username) DESC";
-
+	
+  	$query = $query . "GROUP BY p.\"projectID\" ORDER BY COUNT(c.username) DESC";
+	
+	//return $query;
     return DB::select($query);
   }
 
@@ -64,7 +65,7 @@ class searchController extends BaseController {
 
 	//test vars
 	//$searchCategory = 'Technology';
-    $query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", COUNT(c.username), c.\"projectID\" FROM project p, contribute c WHERE category = '".$category."' AND p.\"projectID\" = c.\"projectID\" GROUP BY p.\"projectID\", c.\"projectID\" ORDER BY COUNT(c.username) DESC";
+    $query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", COUNT(c.username) FROM project p, contribute c WHERE UPPER(category) = UPPER('".$category."') AND p.\"projectID\" = c.\"projectID\" GROUP BY p.\"projectID\" ORDER BY COUNT(c.username) DESC";
 
     return DB::select($query);
   }

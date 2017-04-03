@@ -66,16 +66,11 @@ Route::get('/admin/TopNationProjSum', 'adminController@getTopNationProjectCountS
 
 //search routes (get? post?)
 Route::get('/search/category/{category}', 'searchController@searchCategory');
-//$searchCategory = $req->input('category');
-
 Route::get('/search/query/{searchQuery}/{ownProject}/{contributedProject}', 'searchController@searchQuery');
-/*
-$searchQuery = $req->input('search');
-$username = $_SESSION['userName'];
-$ownProject = $req->input('ownProject');
-$contributedProject = $req->input('contributedProject');
-*/
 
+//contribute
+//returns error msg: "Please enter a valid contribution." OR 'SUCCESS', not a select statement
+Route::get('/user/contribute/{projectID}/{contribution}', 'projectController@contribute');
 
 // post routes
 Route::post('/user/login', 'authController@login');

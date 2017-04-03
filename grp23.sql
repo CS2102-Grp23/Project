@@ -222,7 +222,6 @@ ALTER TABLE ONLY project ALTER COLUMN "projectID" SET DEFAULT nextval('"project_
 COPY contribute ("projectID", username, amount) FROM stdin;
 1	test22	+$4.00
 17	test22	+$7.00
-59	test1	+$10.00
 67	test16	+$3.00
 12	test9	+$4.00
 31	test11	+$3.00
@@ -265,6 +264,7 @@ COPY contribute ("projectID", username, amount) FROM stdin;
 22	HaoJie	+$961.00
 118	WooJeong	+$6,888.00
 77	test21	+$13.00
+59	test1	+$14.30
 \.
 
 

@@ -151,33 +151,23 @@ class projectController extends BaseController {
       return 'ERROR';
     }
   }
-  public function contribute(Request $req) {
+  public function contribute(Request $req, $projectID, $contribution) {
 
-        $contribution = sanitize($req->input('contribution'));
-        $projectID = $req->input('projectID');
-
+        //$contribution = sanitize($req->input('contribution'));
+        //$projectID = $req->input('projectID');
+		
         if (empty($contribution) || $contribution < 0) {
             $error = true;
             $errorMessage = "Please enter a valid contribution.";
+			return $errorMessage;
         }
-
-		$username = $_SESSION['userName'];
+		
+		$username = app('App\Http\Controllers\authController')->getUsername();
 		//using stored function in postgres, increments if same user contributing to same project, else insert
 		$query = "DO $$ BEGIN PERFORM add_contribute(integer '".$projectID."', varchar '".$username."', '".$contribution."'::float8::numeric::money); END $$";
-
-		/*
-        $query = 'SELECT p.\"currentAmount\" FROM project p WHERE \"projectID\"='.$projectID;
-        $newAmount = $contribution + $query;
-
-        $query = "INSERT INTO project(\"currentAmount\") VALUES('$newAmount') WHERE \"projectID\" = $projectID"
-        if (DB::insert($query)) {
-                return 'SUCCESS';
-            } else {
-                $errMSG = "Something went wrong, please try again.";
-                return 'ERROR';
-            }
-		*/
-
+		DB::select($query);
+		
+		return 'SUCCESS';
     }
     function sanitize($data) {
         $data = trim($data);
