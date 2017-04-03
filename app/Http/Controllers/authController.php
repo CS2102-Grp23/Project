@@ -17,23 +17,25 @@ class authController extends BaseController {
     echo 'hello world!';
   }
 
-  public function getAllUsers() {
-    $query = "SELECT * FROM users";
+  public function getUser() {
+    $value = session('email');
+    $query = "SELECT * FROM users WHERE email='$value'";
 
     return DB::select($query);
   }
 
-   public function getUser() {
+  public function getAccessLevel() {
     $value = session('email');
-    $query = "SELECT * FROM users WHERE email='$value'";
-	
-    return  DB::select($query);
+    $query = "SELECT accesslevel FROM users WHERE email='$value'";
+
+    return DB::select($query);
   }
+
   public function getUsername() {
     $value = session('email');
     $query = "SELECT username FROM users WHERE email='$value'";
-	$usernameArr = json_decode(json_encode( DB::select($query)), true);
-	
+	  $usernameArr = json_decode(json_encode( DB::select($query)), true);
+
     return $usernameArr[0]['username'];
   }
 
@@ -103,7 +105,7 @@ class authController extends BaseController {
       }
     }
 
-	
+
     //basic email validation
     /*if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
       $error = true;
@@ -155,8 +157,8 @@ class authController extends BaseController {
  public function creditForm(Request $req) {
         $error = false;
         $errorMessage = "none";
-        
-        // Mastercard, visa, Amex 
+
+        // Mastercard, visa, Amex
         $cardType = $req->input('creditCard');
         $cardNum = $req->input('cardNum');
         $cvv = $req->input('cvv');
@@ -165,12 +167,12 @@ class authController extends BaseController {
         $address = $req->input('address');
         $contact = $req->input('contact');
 
-        
+
         if (empty($cardType)) {
             $error = true;
             $errorMessage = "Please select a card type.";
         }
-        
+
         // basic card number validation
         if (empty($cardNum)) {
             $error = true;
@@ -178,8 +180,8 @@ class authController extends BaseController {
         } else if (strlen($cardNum) != 16) {
             $error = true;
             $errorMessage = "Please enter a valid card number.";
-        } 
-        
+        }
+
 
         // basic cvv validation
         if (empty($cvv)) {
@@ -188,8 +190,8 @@ class authController extends BaseController {
         } else if (strlen($cvv) != 3) {
             $error = true;
             $errorMessage = "CVV must be 3 digits.";
-        } 
-        
+        }
+
         // basic name validation
         if (empty($name)) {
             $error = true;
@@ -201,7 +203,7 @@ class authController extends BaseController {
             $error = true;
             $errorMessage = "Name must contain alphabets and space.";
         }
-        
+
         if (empty($country)) {
             $error = true;
             $errorMessage = "Please enter your country.";
@@ -212,7 +214,7 @@ class authController extends BaseController {
             $error = true;
             $errorMessage = "Contact must be numbers.";
         }
-        
+
         if(!$error) {
             $value = session('email');
             $query = "INSERT INTO users(\"creditCard\", \"nationality\") VALUES(".$cardNum.", ".$country.") WHERE \"email\" = $value";
@@ -222,7 +224,7 @@ class authController extends BaseController {
         } else {
             return 'ERROR';
         }
-        
+
     }
 }
 

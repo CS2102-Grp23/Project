@@ -3,7 +3,10 @@
     <div class="card-image">
       <img :src="project.imageUrl">
     </div>
-    <div class="card-content" @click.prevent="displayProject">
+    <div>
+      <a v-bind:href="'/project/' + project.projectID"><i class="material-icons">view_module</i></a>
+    </div>
+    <div class="card-content">
       <div class="card-title">{{ project.title }}</div>
       <div>
         <span class="info-name">Category: </span>
@@ -21,10 +24,6 @@
         <span class="info-name">Target Amount: </span>
         <span class="project-info">{{ project.targetAmount }}</span>
       </div>
-    </div>
-    <div id="profile-card-action" class="card-action">
-      <a class="btn-floating btn red" @click.stop="contribute"><i class="tiny material-icons">monetization_on</i></a>
-      <a class="btn-floating btn red" @click.stop="favorite"><i class="tiny material-icons">favorite</i></a>
     </div>
   </div>
 </template>
@@ -48,10 +47,10 @@
     },
     methods: {
       contribute() {
-        
+
       },
       favorite() {
-        
+
       },
       displayProject() {
         this.$eventHub.$emit('displayProject', this.project);

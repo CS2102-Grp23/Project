@@ -1,77 +1,94 @@
 <template>
   <div>
-    <div v-show="isModalShown" id="modal-container" @click.prevent="isModalShown = false">
-      <div class="modal" id="project-modal">
-        <div class="modal-content">
-          <h4>{{ projectInfo.title }}</h4>
-          <div>
-            <span class="info-name"Short Blurb: </span>
-            <p class="project-info">{{ projectInfo.description }}</p>
-          </div>
-          <div>
-            <span class="info-name">Category: </span>
-            <span class="project-info">{{ projectInfo.category }}</span>
-          </div>
-          <div>
-            <span class="info-name">Start Date: </span>
-            <span class="project-info">{{ projectInfo.startDate }}</span>
-          </div>
-          <div>
-            <span class="info-name">End Date: </span>
-            <span class="project-info">{{ projectInfo.endDate }}</span>
-          </div>
-          <div>
-            <span class="info-name">Target Amount: </span>
-            <span class="project-info">{{ projectInfo.targetAmount }}</span>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">Contribute</a>
-          <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat" @click.prevent="isModalShown = false">Close</a>
-        </div>
+    <div id="projects-dashboard">
+      <div id="projects-buttons">
+        <a class="waves-effect waves-light btn" v-on:click="manageSearch" :disabled="isSearch">
+          <i class="material-icons left">cloud</i>Search Projects
+        </a>
+        <a class="waves-effect waves-light btn" v-on:click="manageFilter" :disabled="isFilter">
+          <i class="material-icons left">cloud</i>Filter Projects
+        </a>
+        <a class="waves-effect waves-light btn" v-on:click="manageCreate" :disabled="isCreate">
+          <i class="material-icons left">assignment</i>Create Projects
+        </a>
       </div>
+      <div v-show="isSearch" id="search-projects">
+        <input id="search" type="search" v-model="searchQuery">
+        <label class="label-icon" for="search"><i class="material-icons search-icon">search</i></label>
+      </div>
+      <div v-show="isFilter" id="filter-projects">
+        <select id="filter-categories" v-model="filterCategory" @change="filterProjects">
+          <option v-for="filterCategory in categoryList" v-bind:value="filterCategory">{{ filterCategory }}</option>
+        </select>
+      </div>
+      <create-project-form v-show="isCreate"></create-project-form>
     </div>
-    <create-project-form></create-project-form>
     <projects :projects="projects"></projects>
-		<update-modal :project="selectedProject"></update-modal>
 	</div>
 </template>
 
 <script>
 	import Projects from './projects/Index';
 	import CreateProjectForm from './projects/Create';
-	import UpdateModal from './projects/Update';
-	
+  import categoryList from '../data/category';
+
 	export default {
 		components: {
 			Projects,
 			CreateProjectForm,
-			UpdateModal,
 		},
 		data() {
 			return {
-				selectedProject: null,
         projects: [],
-        isModalShown: false,
         projectInfo: {},
+        isModalShown: false,
+        isCreate: false,
+        isFilter: false,
+        isSearch: true,
+        searchQuery: '',
+        filterCategory: 'All',
+        categoryList,
 			};
 		},
 		methods: {
       getProjects() {
         this.$http.get('/projects/all').then(response => {
-          this.projects = response.data;
+          if (response.data) {
+            console.log('hello');
+            this.projects = response.data;
+          }
         });
       },
-			selectProject(project) {
-				this.selectedProject = project;
-			},
-      createModal(project) {
-        this.projectInfo = project;
-        this.isModalShown = true;
-      }
+      manageFilter() {
+        this.isFilter = true;
+        this.isSearch = false;
+        this.isCreate = false;
+        this.filterCategory = 'All';
+        this.filterProjects();
+      },
+      manageSearch() {
+        this.isFilter = false;
+        this.isSearch = true;
+        this.isCreate = false;
+        this.getProjects();
+      },
+      manageCreate() {
+        this.isFilter = false;
+        this.isSearch = false;
+        this.isCreate = true;
+        this.getProjects();
+      },
+      filterProjects() {
+        this.$http.get(`/search/category/${this.filterCategory}`).then(response => {
+          if (response.data) {
+            this.projects = response.data;
+          } else {
+            this.projects = null;
+          }
+        });
+      },
 		},
     created: function () {
-      this.$eventHub.$on('displayProject', this.createModal)
     },
     mounted() {
       this.getProjects();

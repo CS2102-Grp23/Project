@@ -1,0 +1,63 @@
+#admin-body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+
+  #management-buttons {
+    flex-direction: row;
+  }
+
+  #project-list {
+    width: 80%;
+    margin: 20px auto;
+
+    .collection {
+      margin: 0;
+      text-align: left;
+    }
+
+    .collection-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+  }
+
+  #user-list {
+    width: 80%;
+    margin: 20px auto;
+
+    .collection {
+      margin: 0;
+      text-align: left;
+    }
+
+    .collection-item {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .admin-filter {
+      padding: 20px;
+      background-color: lightgrey;
+      margin-bottom: 10px;
+      color: green;
+
+      .filter {
+        margin-right: 30px;
+
+        select {
+          margin-bottom: 10px;
+        }
+
+        label {
+          color: teal;
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
