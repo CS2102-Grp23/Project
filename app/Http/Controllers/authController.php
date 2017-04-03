@@ -17,12 +17,6 @@ class authController extends BaseController {
     echo 'hello world!';
   }
 
-  public function getAllUsers() {
-    $query = "SELECT * FROM users";
-
-    return DB::select($query);
-  }
-
   public function getUser() {
     $value = session('email');
     $query = "SELECT * FROM users WHERE email='$value'";
@@ -40,7 +34,7 @@ class authController extends BaseController {
   public function getUsername() {
     $value = session('email');
     $query = "SELECT username FROM users WHERE email='$value'";
-	$usernameArr = json_decode(json_encode( DB::select($query)), true);
+	  $usernameArr = json_decode(json_encode( DB::select($query)), true);
 
     return $usernameArr[0]['username'];
   }

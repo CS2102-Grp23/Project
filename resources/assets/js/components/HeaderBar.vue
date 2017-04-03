@@ -3,12 +3,12 @@
 		<nav id="header-bar">
 			<div id="header-nav-wrapper" class="nav-wrapper">
 				<div>
-					<a href="#!" class="brand-logo hide-on-med-and-down">CS2102</a>
+					<a href="/" class="brand-logo hide-on-med-and-down">CS2102</a>
 					<input type="checkbox" id="drawer-toggle" class="hide-on-large-only" /><i id="drawer-toggle-label" for="drawer-toggle" class="material-icons hide-on-large-only">menu</i>
 				</div>
 				<ul class="right hide-on-med-and-down">
 					<li><a href="/projects">Projects</a></li>
-					<li><a href="/profile">Profile</a></li>
+					<li><a href="/user">Profile</a></li>
 					<li v-if="!user"><a href="/register">Login</a></li>
 					<li v-if="user"><a href="#" @click.prevent="signOut">Logout</a></li>
 				</ul>

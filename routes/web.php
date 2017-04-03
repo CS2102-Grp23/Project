@@ -21,7 +21,10 @@ Route::get('/register', function () {
 Route::get('/projects', function () {
     return view('welcome');
 });
-Route::get('/profile', function () {
+Route::get('/user', function () {
+    return view('welcome');
+});
+Route::get('/profile/{name}', function () {
     return view('welcome');
 });
 Route::get('/admin', function () {
@@ -35,7 +38,8 @@ Route::get('/project/{project}', function () {
 Route::get('/projects/all', 'projectController@getAll');
 Route::get('/projects/oneProject/{id}', 'projectController@getProject');
 
-Route::get('/profiles/all', 'authController@getAllUsers');
+Route::get('/profiles/all', 'profileController@getAll');
+Route::get('/profiles/oneProfile/{username}', 'profileController@getProfile');
 
 Route::get('/user/getUser', 'authController@getUser');
 Route::get('/user/getAccessLevel', 'authController@getAccessLevel');

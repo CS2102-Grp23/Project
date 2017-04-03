@@ -19889,7 +19889,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__components_Contribute___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__components_Contribute__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_Admin__ = __webpack_require__(115);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__components_Admin___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__components_Admin__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__data_Auth__ = __webpack_require__(47);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_User__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__components_User___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__components_User__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__data_Auth__ = __webpack_require__(47);
 
 /**
  * First we will load all of this project's JavaScript dependencies which
@@ -19898,6 +19900,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
  */
 
 __webpack_require__(46);
+
 
 
 
@@ -19923,7 +19926,7 @@ __WEBPACK_IMPORTED_MODULE_0_vue___default.a.http.headers.common['X-CSRF-TOKEN'] 
 
 var router = new __WEBPACK_IMPORTED_MODULE_1_vue_router___default.a({
   mode: 'history',
-  routes: [{ path: '/projects/', name: 'projects', component: __WEBPACK_IMPORTED_MODULE_5__components_Projects___default.a, alias: '/', auth: true }, { path: '/profile/:user', name: 'profile', component: __WEBPACK_IMPORTED_MODULE_6__components_Profile___default.a, auth: true }, { path: '/register', name: 'register', component: __WEBPACK_IMPORTED_MODULE_4__components_Register___default.a, auth: true }, { path: '/admin', name: 'admin', component: __WEBPACK_IMPORTED_MODULE_8__components_Admin___default.a, auth: true }, { path: '/project/:id', name: 'contribute', component: __WEBPACK_IMPORTED_MODULE_7__components_Contribute___default.a, auth: true }]
+  routes: [{ path: '/projects/', name: 'projects', component: __WEBPACK_IMPORTED_MODULE_5__components_Projects___default.a, alias: '/', auth: true }, { path: '/user', name: 'user', component: __WEBPACK_IMPORTED_MODULE_9__components_User___default.a, auth: true }, { path: '/profile/:name', name: 'profile', component: __WEBPACK_IMPORTED_MODULE_6__components_Profile___default.a, auth: true }, { path: '/register', name: 'register', component: __WEBPACK_IMPORTED_MODULE_4__components_Register___default.a, auth: true }, { path: '/admin', name: 'admin', component: __WEBPACK_IMPORTED_MODULE_8__components_Admin___default.a, auth: true }, { path: '/project/:id', name: 'contribute', component: __WEBPACK_IMPORTED_MODULE_7__components_Contribute___default.a, auth: true }]
 });
 /*
 router.beforeEach((to, from, next) => {
@@ -21075,29 +21078,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
     return {
-      user: {
+      profile: {
         name: '',
         email: '',
         username: ''
@@ -21108,27 +21093,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    getAllUsers: function getAllUsers() {
+    getProfile: function getProfile() {
       var _this = this;
 
-      this.$http.get('/profiles/all').then(function (response) {
-        _this.profiles = response.data;
-      });
-    },
-    processUser: function processUser() {
-      var _this2 = this;
-
-      this.$http.get('/user/getUser').then(function (response) {
+      this.$http.get('/profiles/oneProfile/' + this.$route.params.name).then(function (response) {
         if (response.data[0]) {
-          _this2.user = response.data[0];
+          _this.profile = response.data[0];
         } else {
-          _this2.user = null;
+          _this.profile = null;
         }
       });
     }
   },
   mounted: function mounted() {
-    this.processUser();
+    this.getProfile();
   }
 };
 
@@ -54873,7 +54851,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', [_c('a', {
     staticClass: "brand-logo hide-on-med-and-down",
     attrs: {
-      "href": "#!"
+      "href": "/"
     }
   }, [_vm._v("CS2102")]), _vm._v(" "), _c('input', {
     staticClass: "hide-on-large-only",
@@ -54897,7 +54875,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('li', [_c('a', {
     attrs: {
-      "href": "/profile"
+      "href": "/user"
     }
   }, [_vm._v("Profile")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -54965,89 +54943,23 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "profile-name"
     }
-  }, [_c('h2', [_vm._v(_vm._s(_vm.user.username))])]), _vm._v(" "), _c('div', {
+  }, [_c('h2', [_vm._v(_vm._s(_vm.profile.username))])]), _vm._v(" "), _c('div', {
     staticClass: "card-action flow-text"
   }, [_c('div', [_c('span', {
     staticClass: "user-info-type"
   }, [_vm._v("Email:  ")]), _vm._v(" "), _c('span', {
     staticClass: "user-info"
-  }, [_vm._v(_vm._s(_vm.user.email))])]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v(_vm._s(_vm.profile.email))])]), _vm._v(" "), _c('div', [_c('span', {
     staticClass: "user-info-type"
   }, [_vm._v("Name:  ")]), _vm._v(" "), _c('span', {
     staticClass: "user-info"
-  }, [_vm._v(_vm._s(_vm.user.name))])])])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row",
-    attrs: {
-      "id": "profile-view-others-btn"
-    }
-  }, [_c('form', {
-    staticClass: "card-content",
-    attrs: {
-      "action": "/profiles/all",
-      "method": "POST"
-    },
-    on: {
-      "submit": function($event) {
-        $event.preventDefault();
-        _vm.getAllUsers($event)
-      }
-    }
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    attrs: {
-      "id": "view-other-users-btn",
-      "type": "submit",
-      "name": "viewAllUsers"
-    },
-    on: {
-      "click": function($event) {
-        _vm.isOtherProfileShown = (!_vm.isOtherProfileShown)
-      }
-    }
-  }, [_vm._v("View all other users")])])]), _vm._v(" "), _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.isOtherProfileShown),
-      expression: "isOtherProfileShown"
-    }],
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12 m8 offset-m2"
-  }, [_c('ul', {
-    staticClass: "collection"
-  }, _vm._l((_vm.profiles), function(profile) {
-    return _c('li', {
-      staticClass: "collection-item avatar"
-    }, [_c('img', {
-      staticClass: "circle",
-      attrs: {
-        "src": "",
-        "alt": ""
-      }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "title"
-    }, [_vm._v(_vm._s(profile.name))]), _vm._v(" "), _c('div', {
-      staticClass: "name"
-    }, [_vm._v(_vm._s(profile.username))]), _vm._v(" "), _c('div', {
-      staticClass: "email"
-    }, [_vm._v(_vm._s(profile.email))]), _vm._v(" "), _vm._m(1, true)])
-  }))])])])
+  }, [_vm._v(_vm._s(_vm.profile.name))])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col s12 m6 offset-m3"
   }, [_c('img')])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "secondary-content",
-    attrs: {
-      "href": "#!"
-    }
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("grade")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {
@@ -60125,6 +60037,243 @@ var adminFilter = ["Activity", "Contributions", "Project Number", "Fulfilled Pro
 var categoryList = ["Art", "Comic", "Crafts", "Dance", "Design", "Fashion", "Film and Video", "Food", "Games", "Journalism", "Music", "Photography", "Publishing", "Technology", "Theater"];
 
 /* harmony default export */ __webpack_exports__["a"] = categoryList;
+
+/***/ }),
+/* 119 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+  data: function data() {
+    return {
+      user: {
+        name: '',
+        email: '',
+        username: ''
+      },
+      profiles: [],
+      isOtherProfileShown: false
+    };
+  },
+
+  methods: {
+    getAllUsers: function getAllUsers() {
+      var _this = this;
+
+      this.$http.get('/profiles/all').then(function (response) {
+        _this.profiles = response.data;
+      });
+    },
+    processUser: function processUser() {
+      var _this2 = this;
+
+      this.$http.get('/user/getUser').then(function (response) {
+        if (response.data[0]) {
+          _this2.user = response.data[0];
+        } else {
+          _this2.user = null;
+        }
+      });
+    }
+  },
+  mounted: function mounted() {
+    this.processUser();
+  }
+};
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(1)(
+  /* script */
+  __webpack_require__(119),
+  /* template */
+  __webpack_require__(121),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "C:\\Users\\EricEwe\\Documents\\school_projects\\cs2102\\resources\\assets\\js\\components\\User.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] User.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-469fb210", Component.options)
+  } else {
+    hotAPI.reload("data-v-469fb210", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 121 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12 m8 offset-m2"
+  }, [_c('div', {
+    staticClass: "card",
+    attrs: {
+      "id": "profile-card"
+    }
+  }, [_c('div', {
+    staticClass: "card-title",
+    attrs: {
+      "id": "profile-name"
+    }
+  }, [_c('h2', [_vm._v(_vm._s(_vm.user.username))])]), _vm._v(" "), _c('div', {
+    staticClass: "card-action flow-text"
+  }, [_c('div', [_c('span', {
+    staticClass: "user-info-type"
+  }, [_vm._v("Email:  ")]), _vm._v(" "), _c('span', {
+    staticClass: "user-info"
+  }, [_vm._v(_vm._s(_vm.user.email))])]), _vm._v(" "), _c('div', [_c('span', {
+    staticClass: "user-info-type"
+  }, [_vm._v("Name:  ")]), _vm._v(" "), _c('span', {
+    staticClass: "user-info"
+  }, [_vm._v(_vm._s(_vm.user.name))])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row",
+    attrs: {
+      "id": "profile-view-others-btn"
+    }
+  }, [_c('form', {
+    staticClass: "card-content",
+    attrs: {
+      "action": "/profiles/all",
+      "method": "POST"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.getAllUsers($event)
+      }
+    }
+  }, [_c('button', {
+    staticClass: "btn waves-effect waves-light",
+    attrs: {
+      "id": "view-other-users-btn",
+      "type": "submit",
+      "name": "viewAllUsers"
+    },
+    on: {
+      "click": function($event) {
+        _vm.isOtherProfileShown = (!_vm.isOtherProfileShown)
+      }
+    }
+  }, [_vm._v("View all other users")])])]), _vm._v(" "), _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isOtherProfileShown),
+      expression: "isOtherProfileShown"
+    }],
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12 m8 offset-m2"
+  }, [_c('ul', {
+    staticClass: "collection"
+  }, _vm._l((_vm.profiles), function(profile) {
+    return _c('li', {
+      staticClass: "collection-item avatar"
+    }, [_c('img', {
+      staticClass: "circle",
+      attrs: {
+        "src": "",
+        "alt": ""
+      }
+    }), _vm._v(" "), _c('div', {
+      staticClass: "title"
+    }, [_vm._v(_vm._s(profile.name))]), _vm._v(" "), _c('div', {
+      staticClass: "name"
+    }, [_vm._v(_vm._s(profile.username))]), _vm._v(" "), _c('div', {
+      staticClass: "email"
+    }, [_vm._v(_vm._s(profile.email))]), _vm._v(" "), _vm._m(1, true)])
+  }))])])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12 m6 offset-m3"
+  }, [_c('img')])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    staticClass: "secondary-content",
+    attrs: {
+      "href": "#!"
+    }
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v("grade")])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-469fb210", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);
