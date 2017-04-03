@@ -1,31 +1,8 @@
-/*** search and filter ***/
-#search-filter-form {
-  display: flex;
-  justify-content: center;
-	margin: auto;
-}
-
-#search-filter-bar {
-  display: flex;
-  width: 80%;
-  justify-content: center;
-  margin: 8px 0;
-}
 
 nav .input-field label i {
   color: black;
   position: relative;
   top: -5px;
-}
-
-#search {
-  border: 2px solid grey;
-  border-radius: 10px 0 0 10px;
-  font: caption;
-  margin: 0;
-	height: 44px;
-	color: black;
-  background-color: rgba(255, 255, 255, 0.8);
 }
 
 #header-bar {
@@ -39,11 +16,4 @@ nav .input-field label i {
 
 #home-page {
   padding: 20px;
-}
-
-#filter-categories, #sort-categories {
-  color: black;
-  height: 47px;
-  background-color: rgba(255, 255, 255, 0.8);
-  border: 2px solid grey;
 }

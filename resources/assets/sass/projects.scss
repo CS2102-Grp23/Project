@@ -2,6 +2,59 @@
 	margin: 20px auto;
 }
 
+#projects-dashboard {
+	flex-direction: column;
+  display: flex;
+  justify-content: center;
+  width: 80%;
+  margin: 20px auto;
+  padding: 30px;
+  background-color: whitesmoke;
+
+	#projects-buttons {
+		display: flex;
+		justify-content: space-around;
+	}
+
+	#filter-projects {
+		margin-top: 30px;
+
+		#filter-categories {
+		  color: black;
+			height: 45px;
+		  background-color: rgba(255, 255, 255, 0.8);
+		  border: 1px solid grey;
+		}
+	}
+
+	#search-projects {
+		margin-top: 30px;
+		display: flex;
+
+		label {
+			justify-content: center;
+			align-items: center;
+			display: flex;
+			background-color: rgba(255, 255, 255, 0.8);
+			border-top: 1px solid grey;
+			border-right: 1px solid grey;
+			border-bottom: 1px solid grey;
+			padding: 10px;
+		}
+
+		#search {
+			border-top: 1px solid grey;
+			border-left: 1px solid grey;
+			border-bottom: 1px solid grey;
+		  font: caption;
+		  margin: 0;
+			height: 44px;
+			color: black;
+		  background-color: rgba(255, 255, 255, 0.8);
+		}
+	}
+}
+
 #project-card {
 	padding: 10px;
 }
@@ -41,7 +94,6 @@
 form.create-project {
 	padding: 10px;
   position: relative;
-  width: 90%;
   margin: 40px auto 15px;
   background: lightseagreen;
   border-radius: 2px;
