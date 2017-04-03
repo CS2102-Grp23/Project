@@ -21150,6 +21150,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -21170,8 +21178,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       isSearch: true,
       searchQuery: '',
       filterCategory: 'All',
-      categoryList: __WEBPACK_IMPORTED_MODULE_2__data_category__["a" /* default */]
-    };
+      categoryList: __WEBPACK_IMPORTED_MODULE_2__data_category__["a" /* default */],
+      contributed: false, // projects contributed to
+      own: false };
   },
 
   methods: {
@@ -21180,7 +21189,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.$http.get('/projects/all').then(function (response) {
         if (response.data) {
-          console.log('hello');
           _this.projects = response.data;
         }
       });
@@ -21218,7 +21226,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     searchProjects: function searchProjects() {
       var _this3 = this;
 
-      this.$http.get('/search/query/' + this.searchQuery).then(function (response) {
+      this.$http.get('/search/query/' + this.searchQuery + '/' + this.own + '/' + this.contributed).then(function (response) {
         if (response.data) {
           _this3.projects = response.data;
         } else {
@@ -54496,6 +54504,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchProjects($event)
       }
     }
+  }, [_c('div', {
+    attrs: {
+      "id": "search-input"
+    }
   }, [_vm._m(0), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
@@ -54517,6 +54529,82 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   })]), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "search-checkbox"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.own),
+      expression: "own"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "id": "own"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.own) ? _vm._i(_vm.own, null) > -1 : (_vm.own)
+    },
+    on: {
+      "click": function($event) {
+        var $$a = _vm.own,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$c) {
+            $$i < 0 && (_vm.own = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.own = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.own = $$c
+        }
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "own"
+    }
+  }, [_vm._v("Own Projects")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.contributed),
+      expression: "contributed"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "id": "contributed"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.contributed) ? _vm._i(_vm.contributed, null) > -1 : (_vm.contributed)
+    },
+    on: {
+      "click": function($event) {
+        var $$a = _vm.contributed,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$c) {
+            $$i < 0 && (_vm.contributed = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.contributed = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.contributed = $$c
+        }
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "contributed"
+    }
+  }, [_vm._v("Contributed Projects")])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",

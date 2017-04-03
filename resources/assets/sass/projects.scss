@@ -30,6 +30,7 @@
 	#search-projects {
 		margin-top: 30px;
 		display: flex;
+		flex-direction: column;
 
 		label {
 			justify-content: center;
@@ -38,13 +39,32 @@
 			padding: 10px;
 		}
 
-		#search {
-			border-bottom: 1px solid grey;
-		  font: caption;
-		  margin: 0;
-			height: 44px;
-			color: black;
-			padding: 0 10px;
+		#search-input {
+			display: flex;
+			flex-direction: row;
+
+			#search {
+				border-bottom: 1px solid grey;
+			  font: caption;
+			  margin: 0;
+				height: 44px;
+				color: black;
+				padding: 0 10px;
+			}
+		}
+
+		#search-checkbox {
+			display: flex;
+			flex-direction: row;
+			width: 80%;
+			margin: 10px auto;
+
+			label {
+				padding: 0;
+				color: teal;
+				font-weight: 600;
+				width: 80%;
+			}
 		}
 	}
 }
