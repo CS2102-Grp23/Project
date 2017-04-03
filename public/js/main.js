@@ -21191,7 +21191,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       isFilter: false,
       isSearch: true,
       searchQuery: '',
-      filterCategory: '',
+      filterCategory: 'All',
       categoryList: __WEBPACK_IMPORTED_MODULE_2__data_category__["a" /* default */]
     };
   },
@@ -21202,6 +21202,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.$http.get('/projects/all').then(function (response) {
         if (response.data) {
+          console.log('hello');
           _this.projects = response.data;
         }
       });
@@ -21210,16 +21211,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       this.isFilter = true;
       this.isSearch = false;
       this.isCreate = false;
+      this.filterCategory = 'All';
+      this.filterProjects();
     },
     manageSearch: function manageSearch() {
       this.isFilter = false;
       this.isSearch = true;
       this.isCreate = false;
+      this.getProjects();
     },
     manageCreate: function manageCreate() {
       this.isFilter = false;
       this.isSearch = false;
       this.isCreate = true;
+      this.getProjects();
+    },
+    filterProjects: function filterProjects() {
+      var _this2 = this;
+
+      this.$http.get('/search/category/' + this.filterCategory).then(function (response) {
+        if (response.data) {
+          _this2.projects = response.data;
+        } else {
+          _this2.projects = null;
+        }
+      });
     }
   },
   created: function created() {},
@@ -54526,14 +54542,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "filter-categories"
     },
     on: {
-      "change": function($event) {
+      "change": [function($event) {
         _vm.filterCategory = Array.prototype.filter.call($event.target.options, function(o) {
           return o.selected
         }).map(function(o) {
           var val = "_value" in o ? o._value : o.value;
           return val
         })[0]
-      }
+      }, _vm.filterProjects]
     }
   }, _vm._l((_vm.categoryList), function(filterCategory) {
     return _c('option', {
