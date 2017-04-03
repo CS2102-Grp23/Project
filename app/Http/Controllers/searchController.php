@@ -10,42 +10,39 @@ use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesResources;
 
-class authController extends BaseController {
+class searchController extends BaseController {
   use AuthorizesRequests, DispatchesJobs, ValidatesRequests;
 
   public function test() {
     echo 'hello world!';
   }
-  
-  /*
-  //search based on input for title/description, order by most popular (most number of contributes, not amount contributed)
-  public function searchQuery(Request $req) {
     
-	$searchQuery = $req->input('search');
-	$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\" FROM project p, contribute c WHERE (title LIKE '%".$searchQuery."%' OR description LIKE '%".$searchQuery."%') AND p.\"projectID\" = c.\"projectID\" GROUP BY p.\"projectID\", c.\"projectID\" ORDER BY COUNT(c.username) DESC";
-
-    return DB::select($query);
-  }
-  */
-  
   //search based on input for title/description, order by most popular (most number of contributes, not amount contributed)
   //check additional based on UI branch
   public function searchQuery(Request $req) {
     
 	$searchQuery = $req->input('search');
-	$username = $_SESSION['userName'];
+	$username = app('App\Http\Controllers\authController')->getUsername();
 	//$startDate = $req->input('startDate'); //order by popularity better?
 	
 	//booleans?
 	$ownProject = $req->input('ownProject');
 	$contributedProject = $req->input('contributedProject');
-	$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\" FROM project p, contribute c WHERE p.\"projectID\" = c.\"projectID\" ";
+	
+	/* //test vars
+	$searchQuery = 'test';
+	//$username = 'test1';
+	$ownProject = true;
+	$contributedProject = false;
+	*/
+	
+	$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", COUNT(c.username), c.\"projectID\" FROM project p, contribute c WHERE p.\"projectID\" = c.\"projectID\" ";
 	
 	if(!empty($searchQuery)) {
 		$query = $query . "AND (title LIKE '%".$searchQuery."%' OR description LIKE '%".$searchQuery."%') ";
 	}
 	if($ownProject && $contributedProject) {
-		$query = $query . "AND (p.username = '".$username."' OR c.username = '".$username."') "
+		$query = $query . "AND (p.username = '".$username."' OR c.username = '".$username."') ";
 	}
 	else if(!$ownProject && $contributedProject) {
 		$query = $query . "AND c.username = '".$username."' ";
@@ -55,21 +52,6 @@ class authController extends BaseController {
 	}
 	
 	$query = $query . "GROUP BY p.\"projectID\", c.\"projectID\" ORDER BY COUNT(c.username) DESC";
-	
-	/*
-	if($ownProject && $contributedProject) {	//both created and contributed
-		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\" FROM project p, contribute c WHERE (title LIKE '%".$searchQuery."%' OR description LIKE '%".$searchQuery."%') AND p.\"projectID\" = c.\"projectID\" AND (p.username = '".$username."' or c.username = '".$username."') GROUP BY p.\"projectID\", c.\"projectID\" ORDER BY COUNT(c.username) DESC";
-	}
-	else if(!$ownProject && $contributedProject) {	//only contributed
-		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\" FROM project p, contribute c WHERE (title LIKE '%".$searchQuery."%' OR description LIKE '%".$searchQuery."%') AND p.\"projectID\" = c.\"projectID\" AND c.username = '".$username."' GROUP BY p.\"projectID\", c.\"projectID\" ORDER BY COUNT(c.username) DESC";
-	}
-	else if($ownProject && !$contributedProject) {	//only created
-		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\" FROM project p, contribute c WHERE (title LIKE '%".$searchQuery."%' OR description LIKE '%".$searchQuery."%') AND p.\"projectID\" = c.\"projectID\" AND p.username = '".$username."' GROUP BY p.\"projectID\", c.\"projectID\" ORDER BY COUNT(c.username) DESC";
-	}
-	else {
-		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\" FROM project p, contribute c WHERE (title LIKE '%".$searchQuery."%' OR description LIKE '%".$searchQuery."%') AND p.\"projectID\" = c.\"projectID\" GROUP BY p.\"projectID\", c.\"projectID\" ORDER BY COUNT(c.username) DESC";
-	}
-	*/
 
     return DB::select($query);
   }
@@ -78,8 +60,12 @@ class authController extends BaseController {
   public function searchCategory(Request $req) {
     
 	$searchCategory = $req->input('category');
-	$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\" FROM project p, contribute c WHERE category = '".$searchQuery."' AND p.\"projectID\" = c.\"projectID\" GROUP BY p.\"projectID\", c.\"projectID\" ORDER BY COUNT(c.username) DESC";
-
+	
+	//test vars
+	//$searchCategory = 'Technology';
+	
+	$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", COUNT(c.username), c.\"projectID\" FROM project p, contribute c WHERE category = '".$searchCategory."' AND p.\"projectID\" = c.\"projectID\" GROUP BY p.\"projectID\", c.\"projectID\" ORDER BY COUNT(c.username) DESC";
+	
     return DB::select($query);
   }
 }
