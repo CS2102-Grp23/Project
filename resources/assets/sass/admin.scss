@@ -38,5 +38,26 @@
       flex-direction: row;
       justify-content: space-between;
     }
+
+    .admin-filter {
+      padding: 20px;
+      background-color: lightgrey;
+      margin-bottom: 10px;
+      color: green;
+
+      .filter {
+        margin-right: 30px;
+
+        select {
+          margin-bottom: 10px;
+        }
+
+        label {
+          color: teal;
+          font-size: 14px;
+          font-weight: 600;
+        }
+      }
+    }
   }
 }

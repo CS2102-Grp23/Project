@@ -32,21 +32,7 @@
         <div class="input-field">
           <label id="category">Category</label>
           <select v-model="category">
-            <option>Art</option>
-            <option>Comic</option>
-            <option>Crafts</option>
-            <option>Dance</option>
-            <option>Design</option>
-            <option>Fashion</option>
-            <option>Film and Video</option>
-            <option>Food</option>
-            <option>Games</option>
-            <option>Journalism</option>
-            <option>Music</option>
-            <option>Photography</option>
-            <option>Publishing</option>
-            <option>Technology</option>
-            <option>Theater</option>
+            <option v-for="category in categoryList" v-bind:value="category">{{ category }}</option>
           </select>
         </div>
       </div>
@@ -75,6 +61,7 @@
 
 <script>
 	import projectRepository from '../../data/ProjectRepository';
+	import categoryList from '../../data/category';
 
 	export default {
 		data() {
@@ -86,6 +73,7 @@
 				imageUrl: '',
 				category: '',
 				targetAmount: '',
+				categoryList,
 			};
 		},
 		methods: {
@@ -105,7 +93,6 @@
 					category: this.category,
         }
         this.$http.post('/projects/create', postData).then(response => {
-          console.log(response.data);
           if(response.data == 'SUCCESS') {
 						this.$eventHub.$emit('projectAdded', postData);
             this.$eventHub.$emit('alert', { type: 'success', message: 'project successfully created' })
@@ -113,20 +100,6 @@
             return this.$eventHub.$emit('alert', { type: 'error', message: 'Failed to create project' });
           }
         });
-				/**
-				if (this.title.trim() || this.content.trim()) {
-					projectRepository.create({
-						title: this.title,
-						content: this.content,
-					}, (err) => {
-						if (err) {
-							return this.$eventHub.$emit('alert', { type: 'error', message: 'Failed to create project' });
-						}
-						this.title = '';
-						this.content = '';
-						return this.$eventHub.$emit('alert', { type: 'success', message: 'project successfully created' });
-					});
-				}**/
 			},
 		},
 	};

@@ -42,14 +42,15 @@ Route::get('/user/getAccessLevel', 'authController@getAccessLevel');
 Route::get('/user/logout', 'authController@logout');
 
 //admin routes
-Route::get('/admin/noAct', 'adminController@getNoActivity');  
-Route::get('/admin/noActSum', 'adminController@getNoActivitySummary');    
-Route::get('/admin/noProj', 'adminController@getNoProject'); 
-Route::get('/admin/noProjSum', 'adminController@getNoProjectSummary');   
-Route::get('/admin/noCon', 'adminController@getNoContribute');   
-Route::get('/admin/noConSum', 'adminController@getNoContributeSummary');  
-Route::get('/admin/topCon', 'adminController@getTopContributors');  
-Route::get('/admin/topConSum', 'adminController@getTopContributorsSummary');  
+Route::get('/admin/noAct', 'adminController@getNoActivity');
+Route::get('/admin/noActSum', 'adminController@getNoActivitySummary');
+Route::get('/admin/noProj', 'adminController@getNoProject');
+Route::get('/admin/noProjSum', 'adminController@getNoProjectSummary');
+Route::get('/admin/noCon', 'adminController@getNoContribute');
+Route::get('/admin/noConSum', 'adminController@getNoContributeSummary');
+
+Route::get('/admin/topCon', 'adminController@getTopContributors');
+Route::get('/admin/topConSum', 'adminController@getTopContributorsSummary');
 Route::get('/admin/TopFull', 'adminController@getTopFulfilledProjects');
 Route::get('/admin/TopFullSum', 'adminController@getTopFulfilledProjectsSummary');
 Route::get('/admin/TopSimilar', 'adminController@getTopPairOfSimilarUsers');
@@ -77,8 +78,6 @@ Route::post('/user/login', 'authController@login');
 Route::post('/user/signup', 'authController@signup');
 
 Route::post('/projects/create', 'projectController@create');
-
-
 
 // test routes
 Route::get('/test', 'authController@test');

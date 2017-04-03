@@ -34,7 +34,7 @@
 					<div class="input-field">
 						<h6>Nationality</h6>
 				    <select id="nationality" v-model="nationality">
-				      <option v-for="nationality in nationalityChoices"  v-bind:value="nationality">{{nationality}}</option>
+				      <option v-for="nationality in nationalityChoices" v-bind:value="nationality">{{ nationality }}</option>
 				    </select>
 				  </div>
 					<div class="input-field">
