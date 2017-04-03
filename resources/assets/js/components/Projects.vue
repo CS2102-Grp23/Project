@@ -12,10 +12,18 @@
           <i class="material-icons left">assignment</i>Create Projects
         </a>
       </div>
-      <div v-show="isSearch" id="search-projects">
-        <input id="search" type="search" v-model="searchQuery">
-        <label class="label-icon" for="search"><i class="material-icons search-icon">search</i></label>
-      </div>
+      <form v-show="isSearch" id="search-projects" v-on:submit.prevent="searchProjects">
+        <div id="search-input">
+          <label class="label-icon" for="search"><i class="material-icons search-icon">search</i></label>
+          <input id="search" type="search" v-model="searchQuery">
+        </div>
+        <div id="search-checkbox">
+          <input type="checkbox" id="own" v-model="own"/>
+          <label for="own">Own Projects</label>
+          <input type="checkbox" id="contributed" v-model="contributed"/>
+          <label for="contributed">Contributed Projects</label>
+        </div>
+      </form>
       <div v-show="isFilter" id="filter-projects">
         <select id="filter-categories" v-model="filterCategory" @change="filterProjects">
           <option v-for="filterCategory in categoryList" v-bind:value="filterCategory">{{ filterCategory }}</option>
@@ -48,13 +56,14 @@
         searchQuery: '',
         filterCategory: 'All',
         categoryList,
+        contributed: false, // projects contributed to
+        own: false, // projects owned
 			};
 		},
 		methods: {
       getProjects() {
         this.$http.get('/projects/all').then(response => {
           if (response.data) {
-            console.log('hello');
             this.projects = response.data;
           }
         });
@@ -87,6 +96,15 @@
           }
         });
       },
+      searchProjects() {
+        this.$http.get(`/search/query/${this.searchQuery}/${this.own}/${this.contributed}`).then(response => {
+          if (response.data) {
+            this.projects = response.data;
+          } else {
+            this.projects = null;
+          }
+        });
+      }
 		},
     created: function () {
     },

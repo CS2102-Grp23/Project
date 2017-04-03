@@ -21150,6 +21150,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -21170,8 +21178,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       isSearch: true,
       searchQuery: '',
       filterCategory: 'All',
-      categoryList: __WEBPACK_IMPORTED_MODULE_2__data_category__["a" /* default */]
-    };
+      categoryList: __WEBPACK_IMPORTED_MODULE_2__data_category__["a" /* default */],
+      contributed: false, // projects contributed to
+      own: false };
   },
 
   methods: {
@@ -21180,7 +21189,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.$http.get('/projects/all').then(function (response) {
         if (response.data) {
-          console.log('hello');
           _this.projects = response.data;
         }
       });
@@ -21212,6 +21220,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.projects = response.data;
         } else {
           _this2.projects = null;
+        }
+      });
+    },
+    searchProjects: function searchProjects() {
+      var _this3 = this;
+
+      this.$http.get('/search/query/' + this.searchQuery + '/' + this.own + '/' + this.contributed).then(function (response) {
+        if (response.data) {
+          _this3.projects = response.data;
+        } else {
+          _this3.projects = null;
         }
       });
     }
@@ -54469,7 +54488,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "material-icons left"
-  }, [_vm._v("assignment")]), _vm._v("Create Projects\n        ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("assignment")]), _vm._v("Create Projects\n        ")])]), _vm._v(" "), _c('form', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -54478,8 +54497,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "id": "search-projects"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.searchProjects($event)
+      }
     }
-  }, [_c('input', {
+  }, [_c('div', {
+    attrs: {
+      "id": "search-input"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -54499,7 +54528,83 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchQuery = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": "search-checkbox"
+    }
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.own),
+      expression: "own"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "id": "own"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.own) ? _vm._i(_vm.own, null) > -1 : (_vm.own)
+    },
+    on: {
+      "click": function($event) {
+        var $$a = _vm.own,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$c) {
+            $$i < 0 && (_vm.own = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.own = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.own = $$c
+        }
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "own"
+    }
+  }, [_vm._v("Own Projects")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.contributed),
+      expression: "contributed"
+    }],
+    attrs: {
+      "type": "checkbox",
+      "id": "contributed"
+    },
+    domProps: {
+      "checked": Array.isArray(_vm.contributed) ? _vm._i(_vm.contributed, null) > -1 : (_vm.contributed)
+    },
+    on: {
+      "click": function($event) {
+        var $$a = _vm.contributed,
+          $$el = $event.target,
+          $$c = $$el.checked ? (true) : (false);
+        if (Array.isArray($$a)) {
+          var $$v = null,
+            $$i = _vm._i($$a, $$v);
+          if ($$c) {
+            $$i < 0 && (_vm.contributed = $$a.concat($$v))
+          } else {
+            $$i > -1 && (_vm.contributed = $$a.slice(0, $$i).concat($$a.slice($$i + 1)))
+          }
+        } else {
+          _vm.contributed = $$c
+        }
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "contributed"
+    }
+  }, [_vm._v("Contributed Projects")])])]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -60089,8 +60194,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
@@ -60169,7 +60272,11 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_vm._m(0), _vm._v(" "), _c('div', {
+  return _c('div', {
+    attrs: {
+      "id": "user-body"
+    }
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col s12 m8 offset-m2"
@@ -60231,25 +60338,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col s12 m8 offset-m2"
+    staticClass: "col s12 m10 offset-m1"
   }, [_c('ul', {
     staticClass: "collection"
   }, _vm._l((_vm.profiles), function(profile) {
-    return _c('li', {
-      staticClass: "collection-item avatar"
-    }, [_c('img', {
-      staticClass: "circle",
+    return _c('a', {
+      staticClass: "collection-item avatar",
       attrs: {
-        "src": "",
-        "alt": ""
+        "href": '/profile/' + profile.username
       }
-    }), _vm._v(" "), _c('div', {
+    }, [_c('div', {
       staticClass: "title"
     }, [_vm._v(_vm._s(profile.name))]), _vm._v(" "), _c('div', {
       staticClass: "name"
     }, [_vm._v(_vm._s(profile.username))]), _vm._v(" "), _c('div', {
       staticClass: "email"
-    }, [_vm._v(_vm._s(profile.email))]), _vm._v(" "), _vm._m(1, true)])
+    }, [_vm._v(_vm._s(profile.email))])])
   }))])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
@@ -60257,15 +60361,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "col s12 m6 offset-m3"
   }, [_c('img')])])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    staticClass: "secondary-content",
-    attrs: {
-      "href": "#!"
-    }
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("grade")])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

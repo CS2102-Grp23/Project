@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div id="user-body">
 		<div class="row">
 			<div class="col s12 m6 offset-m3">
 				<img />
@@ -30,15 +30,13 @@
 			</form>
 		</div>
 		<div v-show="isOtherProfileShown" class="row">
-			<div class="col s12 m8 offset-m2">
+			<div class="col s12 m10 offset-m1">
 				<ul class="collection">
-			    <li class="collection-item avatar" v-for="profile in profiles">
-			      <img src="" alt="" class="circle">
+			    <a v-bind:href="'/profile/' + profile.username" class="collection-item avatar" v-for="profile in profiles">
 			      <div class="title">{{ profile.name }}</div>
 			      <div class="name">{{ profile.username }}</div>
 						<div class="email">{{ profile.email }}</div>
-			      <a href="#!" class="secondary-content"><i class="material-icons">grade</i></a>
-			    </li>
+			    </a>
 				</ul>
 			</div>
 		</div>

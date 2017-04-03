@@ -68,7 +68,7 @@ Route::get('/admin/TopNationProjSum', 'adminController@getTopNationProjectCountS
 Route::get('/search/category/{category}', 'searchController@searchCategory');
 //$searchCategory = $req->input('category');
 
-Route::get('/search/query/{searchQuery}', 'searchController@searchQuery');
+Route::get('/search/query/{searchQuery}/{ownProject}/{contributedProject}', 'searchController@searchQuery');
 /*
 $searchQuery = $req->input('search');
 $username = $_SESSION['userName'];
