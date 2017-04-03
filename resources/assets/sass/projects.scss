@@ -35,22 +35,16 @@
 			justify-content: center;
 			align-items: center;
 			display: flex;
-			background-color: rgba(255, 255, 255, 0.8);
-			border-top: 1px solid grey;
-			border-right: 1px solid grey;
-			border-bottom: 1px solid grey;
 			padding: 10px;
 		}
 
 		#search {
-			border-top: 1px solid grey;
-			border-left: 1px solid grey;
 			border-bottom: 1px solid grey;
 		  font: caption;
 		  margin: 0;
 			height: 44px;
 			color: black;
-		  background-color: rgba(255, 255, 255, 0.8);
+			padding: 0 10px;
 		}
 	}
 }

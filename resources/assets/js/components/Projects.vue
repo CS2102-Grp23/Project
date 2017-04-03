@@ -12,10 +12,10 @@
           <i class="material-icons left">assignment</i>Create Projects
         </a>
       </div>
-      <div v-show="isSearch" id="search-projects">
-        <input id="search" type="search" v-model="searchQuery">
+      <form v-show="isSearch" id="search-projects" v-on:submit.prevent="searchProjects">
         <label class="label-icon" for="search"><i class="material-icons search-icon">search</i></label>
-      </div>
+        <input id="search" type="search" v-model="searchQuery">
+      </form>
       <div v-show="isFilter" id="filter-projects">
         <select id="filter-categories" v-model="filterCategory" @change="filterProjects">
           <option v-for="filterCategory in categoryList" v-bind:value="filterCategory">{{ filterCategory }}</option>
@@ -87,6 +87,15 @@
           }
         });
       },
+      searchProjects() {
+        this.$http.get(`/search/query/${this.searchQuery}`).then(response => {
+          if (response.data) {
+            this.projects = response.data;
+          } else {
+            this.projects = null;
+          }
+        });
+      }
 		},
     created: function () {
     },

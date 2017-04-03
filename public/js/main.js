@@ -21214,6 +21214,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
           _this2.projects = null;
         }
       });
+    },
+    searchProjects: function searchProjects() {
+      var _this3 = this;
+
+      this.$http.get('/search/query/' + this.searchQuery).then(function (response) {
+        if (response.data) {
+          _this3.projects = response.data;
+        } else {
+          _this3.projects = null;
+        }
+      });
     }
   },
   created: function created() {},
@@ -54469,7 +54480,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "material-icons left"
-  }, [_vm._v("assignment")]), _vm._v("Create Projects\n        ")])]), _vm._v(" "), _c('div', {
+  }, [_vm._v("assignment")]), _vm._v("Create Projects\n        ")])]), _vm._v(" "), _c('form', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -54478,8 +54489,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     attrs: {
       "id": "search-projects"
+    },
+    on: {
+      "submit": function($event) {
+        $event.preventDefault();
+        _vm.searchProjects($event)
+      }
     }
-  }, [_c('input', {
+  }, [_vm._m(0), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -54499,7 +54516,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.searchQuery = $event.target.value
       }
     }
-  }), _vm._v(" "), _vm._m(0)]), _vm._v(" "), _c('div', {
+  })]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
