@@ -152,10 +152,10 @@ class projectController extends BaseController {
     }
   }
 
-  public function contribute(Request $req) {
+  public function contribute(Request $req, $projectID, $contribution) {
 
-    $contribution = sanitize($req->input('contribution'));
-    $projectID = $req->input('projectID');
+    $contribution = sanitize($contribution);
+    //$projectID = $req->input('projectID');
 
     if (empty($contribution) || $contribution <= 0) {
       $error = true;
@@ -170,12 +170,13 @@ class projectController extends BaseController {
 
 		return 'SUCCESS';
   }
-  function sanitize($data) {
+  
+}
+	function sanitize($data) {
       $data = trim($data);
-      $data = strip_tags($data);
-      $data = htmlspecialchars($data);
+      //$data = strip_tags($data);
+      //$data = htmlspecialchars($data);
       return $data;
   }
-}
 
 ?>
