@@ -42,10 +42,14 @@
         </div>
       </div>
       <div class="row">
-        <div class="input-field col s12">
+        <div class="input-field col s6">
           <i class="material-icons prefix">credit_card</i>
           <input id="card-cvc" type="number" class="validate">
           <label for="card-cvc">CVC</label>
+        </div>
+        <div class="input-field col s6">
+          <i class="material-icons prefix">payment</i>
+          <input id="user-contribution" type="number" class="validate" v-model="contribution">
         </div>
       </div>
       <div class="row">
@@ -55,7 +59,7 @@
           <label for="bill-address">Billing Address</label>
         </div>
       </div>
-      <button type="submit" class="waves-effect waves-light btn" id="contribute-btn">Contribute</button>
+      <button type="submit" class="waves-effect waves-light btn" id="contribute-btn" @click.prevent="contribute">Contribute</button>
     <div>
   </div>
 </template>
@@ -66,11 +70,23 @@
       return {
         project: {},
         user: {},
+        contribution: 0,
       };
     },
     methods: {
       contribute() {
-
+        const postData = {
+          projectID: this.$route.params.id,
+          contribution: this.contribution,
+        };
+        this.$http.post('/project/contribute', postData).then(response => {
+          if(response.data == 'SUCCESS') {
+            this.$eventHub.$emit('alert', { type: 'success', message: `Contribution to ${this.$route.params.id} successful` });
+            this.getProject();
+          } else {
+            this.$eventHub.$emit('alert', { type: 'error', message: response.data })
+          }
+        });
       },
       getProject() {
         this.$http.get(`/projects/oneProject/${this.$route.params.id}`).then(response => {
