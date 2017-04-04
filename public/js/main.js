@@ -20933,32 +20933,52 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
     return {
       project: {},
-      user: {}
+      user: {},
+      contribution: 0
     };
   },
 
   methods: {
-    contribute: function contribute() {},
-    getProject: function getProject() {
+    contribute: function contribute() {
       var _this = this;
 
+      var postData = {
+        projectID: this.$route.params.id,
+        contribution: this.contribution
+      };
+      this.$http.post('/project/contribute', postData).then(function (response) {
+        if (response.data == 'SUCCESS') {
+          _this.$eventHub.$emit('alert', { type: 'success', message: 'Contribution to ' + _this.$route.params.id + ' successful' });
+          _this.getProject();
+        } else {
+          _this.$eventHub.$emit('alert', { type: 'error', message: response.data });
+        }
+      });
+    },
+    getProject: function getProject() {
+      var _this2 = this;
+
       this.$http.get('/projects/oneProject/' + this.$route.params.id).then(function (response) {
-        _this.project = response.data[0];
+        _this2.project = response.data[0];
       });
     },
     processUser: function processUser() {
-      var _this2 = this;
+      var _this3 = this;
 
       this.$http.get('/user/getUser').then(function (response) {
         if (response.data[0]) {
-          _this2.user = response.data;
+          _this3.user = response.data;
         } else {
-          _this2.user = null;
+          _this3.user = null;
         }
       });
     }
@@ -55540,11 +55560,47 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "id": "contribute-title"
     }
-  }, [_vm._v("Contribute")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('button', {
+  }, [_vm._v("Contribute")]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm._m(2), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s6"
+  }, [_c('i', {
+    staticClass: "material-icons prefix"
+  }, [_vm._v("payment")]), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.contribution),
+      expression: "contribution"
+    }],
+    staticClass: "validate",
+    attrs: {
+      "id": "user-contribution",
+      "type": "number"
+    },
+    domProps: {
+      "value": _vm._s(_vm.contribution)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.contribution = _vm._n($event.target.value)
+      },
+      "blur": function($event) {
+        _vm.$forceUpdate()
+      }
+    }
+  })])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('button', {
     staticClass: "waves-effect waves-light btn",
     attrs: {
       "type": "submit",
       "id": "contribute-btn"
+    },
+    on: {
+      "click": function($event) {
+        $event.preventDefault();
+        _vm.contribute($event)
+      }
     }
   }, [_vm._v("Contribute")]), _vm._v(" "), _c('div')])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -55587,9 +55643,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Card Number")])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "input-field col s12"
+    staticClass: "input-field col s6"
   }, [_c('i', {
     staticClass: "material-icons prefix"
   }, [_vm._v("credit_card")]), _vm._v(" "), _c('input', {
@@ -55602,7 +55656,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "card-cvc"
     }
-  }, [_vm._v("CVC")])])])
+  }, [_vm._v("CVC")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
