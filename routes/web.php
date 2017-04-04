@@ -70,7 +70,7 @@ Route::get('/search/query/{searchQuery}/{ownProject}/{contributedProject}', 'sea
 
 //contribute
 //returns error msg: "Please enter a valid contribution." OR 'SUCCESS', not a select statement
-Route::get('/user/contribute/{projectID}/{contribution}', 'projectController@contribute');
+Route::post('/project/contribute', 'projectController@contribute');
 
 // post routes
 Route::post('/user/login', 'authController@login');
