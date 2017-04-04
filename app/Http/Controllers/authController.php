@@ -34,9 +34,14 @@ class authController extends BaseController {
   public function getUsername() {
     $value = session('email');
     $query = "SELECT username FROM users WHERE email='$value'";
-	  $usernameArr = json_decode(json_encode( DB::select($query)), true);
-
-    return $usernameArr[0]['username'];
+	$usernameArr = json_decode(json_encode( DB::select($query)), true);
+	
+	if (empty($usernameArr)) {
+		return '';
+	}
+	else {
+		return $usernameArr[0]['username'];
+	}
   }
 
   public function logout() {

@@ -22,7 +22,7 @@ class searchController extends BaseController {
   public function searchQuery(Request $req, $searchQuery, $ownProject, $contributedProject) {
 
   	//$searchQuery = $req->input('search');
-  	$username = app('App\Http\Controllers\authController')->getUsername();
+  	
   	//$startDate = $req->input('startDate'); //order by popularity better?
 
   	//booleans?
@@ -36,25 +36,38 @@ class searchController extends BaseController {
   	$contributedProject = false;
   	*/
 
+		
   	$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", COUNT(c.username) FROM project p, contribute c WHERE p.\"projectID\" = c.\"projectID\" ";
 
   	if(!empty($searchQuery)) {
   		$query = $query . "AND (UPPER(title) LIKE UPPER('%".$searchQuery."%') OR UPPER(description) LIKE UPPER('%".$searchQuery."%')) ";
   	}
   	if($ownProject == 'true' && $contributedProject == 'true') {
-  		$query = $query . "AND (p.username = '".$username."' OR c.username = '".$username."') ";
+		$username = app('App\Http\Controllers\authController')->getUsername();
+		if (!empty($username)) {
+			$query = $query . "AND (p.username = '".$username."' OR c.username = '".$username."') ";
+		}
+  		
   	}
   	else if($contributedProject == 'true') {
-  		$query = $query . "AND c.username = '".$username."' ";
+		$username = app('App\Http\Controllers\authController')->getUsername();
+		if (!empty($username)) {
+			$query = $query . "AND c.username = '".$username."' ";
+		}
+  		
   	}
   	else if($ownProject == 'true') {
-  		$query = $query . "AND p.username = '".$username."' ";
+		$username = app('App\Http\Controllers\authController')->getUsername();
+		if (!empty($username)) {
+			$query = $query . "AND p.username = '".$username."' ";
+		}
+  		
   	}
 	
   	$query = $query . "GROUP BY p.\"projectID\" ORDER BY COUNT(c.username) DESC";
 	
-	//return $query;
-    return DB::select($query);
+	return $query;
+    //return DB::select($query);
   }
 
   //search based on category, order by most popular (most number of contributes, not amount contributed)
