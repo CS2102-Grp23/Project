@@ -66,8 +66,8 @@ class searchController extends BaseController {
 	
   	$query = $query . "GROUP BY p.\"projectID\" ORDER BY COUNT(c.username) DESC";
 	
-	return $query;
-    //return DB::select($query);
+	//return $query;
+    return DB::select($query);
   }
 
   //search based on category, order by most popular (most number of contributes, not amount contributed)
