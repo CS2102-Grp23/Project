@@ -20,6 +20,10 @@
               <span class="user-info-type">Name:  </span>
               <span class="user-info">{{ profile.name }}</span>
             </div>
+						<div>
+              <span class="user-info-type">Nationality:  </span>
+              <span class="user-info">{{ profile.nationality }}</span>
+            </div>
 					</div>
 				</div>
 			</div>

@@ -20,6 +20,14 @@
               <span class="user-info-type">Name:  </span>
               <span class="user-info">{{ user.name }}</span>
             </div>
+						<div>
+              <span class="user-info-type">Nationality:  </span>
+              <span class="user-info">{{ user.nationality }}</span>
+            </div>
+						<div>
+              <span class="user-info-type">Credit Card:  </span>
+              <span class="user-info">{{ user.creditCard }}</span>
+            </div>
 					</div>
 				</div>
 			</div>

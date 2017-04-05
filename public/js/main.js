@@ -20937,13 +20937,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
     return {
       project: {},
       user: {},
-      contribution: 0
+      contribution: ''
     };
   },
 
@@ -21069,6 +21070,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
 //
 //
 //
@@ -55078,7 +55083,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "user-info-type"
   }, [_vm._v("Name:  ")]), _vm._v(" "), _c('span', {
     staticClass: "user-info"
-  }, [_vm._v(_vm._s(_vm.profile.name))])])])])])])])
+  }, [_vm._v(_vm._s(_vm.profile.name))])]), _vm._v(" "), _c('div', [_c('span', {
+    staticClass: "user-info-type"
+  }, [_vm._v("Nationality:  ")]), _vm._v(" "), _c('span', {
+    staticClass: "user-info"
+  }, [_vm._v(_vm._s(_vm.profile.nationality))])])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "row"
@@ -55576,7 +55585,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "validate",
     attrs: {
       "id": "user-contribution",
-      "type": "number"
+      "type": "number",
+      "step": "0.01"
     },
     domProps: {
       "value": _vm._s(_vm.contribution)
@@ -55590,7 +55600,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$forceUpdate()
       }
     }
-  })])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('button', {
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "user-contribution"
+    }
+  }, [_vm._v("Amount")])])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('button', {
     staticClass: "waves-effect waves-light btn",
     attrs: {
       "type": "submit",
@@ -55602,7 +55616,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.contribute($event)
       }
     }
-  }, [_vm._v("Contribute")]), _vm._v(" "), _c('div')])])
+  }, [_vm._v("Contribute")])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('h5', [_vm._v("Want to contribute? "), _c('a', {
     attrs: {
@@ -60248,6 +60262,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
@@ -60354,7 +60376,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "user-info-type"
   }, [_vm._v("Name:  ")]), _vm._v(" "), _c('span', {
     staticClass: "user-info"
-  }, [_vm._v(_vm._s(_vm.user.name))])])])])])]), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.user.name))])]), _vm._v(" "), _c('div', [_c('span', {
+    staticClass: "user-info-type"
+  }, [_vm._v("Nationality:  ")]), _vm._v(" "), _c('span', {
+    staticClass: "user-info"
+  }, [_vm._v(_vm._s(_vm.user.nationality))])]), _vm._v(" "), _c('div', [_c('span', {
+    staticClass: "user-info-type"
+  }, [_vm._v("Credit Card:  ")]), _vm._v(" "), _c('span', {
+    staticClass: "user-info"
+  }, [_vm._v(_vm._s(_vm.user.creditCard))])])])])])]), _vm._v(" "), _c('div', {
     staticClass: "row",
     attrs: {
       "id": "profile-view-others-btn"

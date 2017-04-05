@@ -71,7 +71,7 @@
       return {
         project: {},
         user: {},
-        contribution: 0,
+        contribution: '',
       };
     },
     methods: {
