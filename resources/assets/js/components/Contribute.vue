@@ -60,7 +60,7 @@
         </div>
       </div>
       <button type="submit" class="waves-effect waves-light btn" id="contribute-btn" @click.prevent="contribute">Contribute</button>
-    <div>
+    </div>
   </div>
 </template>
 
