@@ -77,7 +77,7 @@ class projectController extends BaseController {
     //$userName = 'turkey'; // make sure your database has a user named turkey
 	
 	$username = app('App\Http\Controllers\authController')->getUsername();
-	if (!empty($username)) {
+	if (empty($username)) {
 		return "Please login first.";
 	}
 
@@ -116,11 +116,13 @@ class projectController extends BaseController {
     // project title validation
     if (empty($projectTitle)) {
         $error = true;
+		
         return "Please enter your project title.";
     }
     // project description validation
     if (empty($shortBlurb)) {
         $error = true;
+		
         return "Please enter your project description.";
     }
 
@@ -141,10 +143,12 @@ class projectController extends BaseController {
     // project description validation
     if (empty($targetAmt)) {
         $error = true;
+		
         return "Please enter an amount.";
     }
     else if (!preg_match("/^[1-9][0-9]*$/", $targetAmt)) {
         $error = true;
+		
         return "Please enter a valid amount";
     }
 
@@ -160,6 +164,7 @@ class projectController extends BaseController {
     // if there's no error, continue to signup
     if( !$error ) {
         $query = "INSERT INTO project VALUES('$projectID', '$projectTitle','$shortBlurb','$category','$startDate', '$endDate', '$targetAmt', '$imgUrl', '$userName')";
+		
         if (DB::insert($query)) {
             /*
             move_uploaded_file($file_tmp,"./image/".$newfilename);
