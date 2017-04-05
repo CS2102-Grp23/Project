@@ -185,7 +185,7 @@ class projectController extends BaseController {
     $contribution = sanitize($contribution);
     //$projectID = $req->input('projectID');
 
-    if ($contribution <= 0) {
+    if (empty($contribution) || $contribution <= 0) {
       $error = true;
       $errorMessage = "Please enter a valid contribution.";
       return $errorMessage;
