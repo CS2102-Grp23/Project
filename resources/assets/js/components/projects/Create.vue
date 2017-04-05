@@ -95,7 +95,7 @@
         this.$http.post('/projects/create', postData).then(response => {
           if(response.data == 'SUCCESS') {
 						this.$eventHub.$emit('projectAdded', postData);
-            this.$eventHub.$emit('alert', { type: 'success', message: 'project successfully created' })
+            this.$eventHub.$emit('alert', { type: 'success', message: 'project successfully created' });
           } else {
             return this.$eventHub.$emit('alert', { type: 'error', message: 'Failed to create project' });
           }
