@@ -41,8 +41,25 @@ class projectController extends BaseController {
   }
 
   public function getProject(Request $req, $id) {
-    $query = "SELECT * FROM project where \"projectID\"='$id'";
-
+	 
+	$username = app('App\Http\Controllers\authController')->getUsername();
+	$checkContribute = "SELECT * FROM contribute c WHERE c.\"projectID\" = '".$id."'";
+	$hasContribute = DB::select($checkContribute);
+	
+	//project no contribution, regardless of login
+	if (empty($username) && empty($hasContribute) || !empty($username) && empty($hasContribute)) {
+		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", ('0'::float8::numeric::money), ('0'::float8::numeric::money) FROM project p where p.\"projectID\"='".$id."' GROUP BY p.\"projectID\"";	
+	}
+	//not logged in, has contributions
+	else if(empty($username) && !empty($hasContribute)) {
+		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", SUM(c1.amount), ('0'::float8::numeric::money) FROM contribute c1, project p where p.\"projectID\"='".$id."' AND p.\"projectID\" = c1.\"projectID\" GROUP BY p.\"projectID\"";	
+	}
+	//logged in, has contribution
+	else if(!empty($username) && !empty($hasContribute)) {
+		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", SUM(c1.amount), coalesce(c2.amount, '0'::float8::numeric::money) FROM contribute c1, project p LEFT OUTER JOIN contribute c2 ON c2.username = '".$username."' AND p.\"projectID\" = c2.\"projectID\" where p.\"projectID\"='".$id."' AND p.\"projectID\" = c1.\"projectID\" GROUP BY p.\"projectID\", c2.amount";	
+	}
+	
+	//return $query;
     return DB::select($query);
   }
 
@@ -57,7 +74,12 @@ class projectController extends BaseController {
     $targetAmt = $req->input('targetAmount');
     $category = $req->input('category');
     $imgUrl = $req->input('imageUrl');
-    $userName = 'turkey'; // make sure your database has a user named turkey
+    //$userName = 'turkey'; // make sure your database has a user named turkey
+	
+	$username = app('App\Http\Controllers\authController')->getUsername();
+	if (!empty($username)) {
+		return "Please login first.";
+	}
 
     $getProjectID = 'SELECT "projectID" FROM project ORDER BY "projectID" DESC LIMIT 1';
     $resID = DB::select($getProjectID);
