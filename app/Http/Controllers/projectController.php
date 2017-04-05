@@ -163,8 +163,9 @@ class projectController extends BaseController {
 
     // if there's no error, continue to signup
     if( !$error ) {
-        $query = "INSERT INTO project VALUES('$projectID', '$projectTitle','$shortBlurb','$category','$startDate', '$endDate', '$targetAmt', '$imgUrl', '$userName')";
-		
+
+		$query = "INSERT INTO project (\"title\", \"description\", \"category\", \"startDate\", \"endDate\", \"targetAmount\", \"imageURL\", \"username\") VALUES('".$projectTitle."','".$shortBlurb."','".$category."','".$startDate."', '".$endDate."', '".$targetAmt."', '".$imgUrl."', '".$username."')";
+
         if (DB::insert($query)) {
             /*
             move_uploaded_file($file_tmp,"./image/".$newfilename);
