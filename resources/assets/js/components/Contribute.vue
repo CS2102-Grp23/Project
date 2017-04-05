@@ -49,7 +49,7 @@
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">payment</i>
-          <input id="user-contribution" type="number" class="validate" v-model="contribution">
+          <input id="user-contribution" type="number" step="0.01" class="validate" v-model="contribution">
         </div>
       </div>
       <div class="row">
