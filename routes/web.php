@@ -64,11 +64,15 @@ Route::get('/admin/TopNationConSum', 'adminController@getTopNationContributorSum
 Route::get('/admin/TopNationProj', 'adminController@getTopNationProjectCount');
 Route::get('/admin/TopNationProjSum', 'adminController@getTopNationProjectCountSummary');
 
-//search routes (get? post?)
+//search routes
 Route::get('/search/category/{category}', 'searchController@searchCategory');
 Route::get('/search/query/{searchQuery}/{ownProject}/{contributedProject}', 'searchController@searchQuery');
 
-//contribute
+//contribute get
+//returns error msg: "Please enter a valid contribution." OR 'SUCCESS', not a select statement
+Route::get('/user/contribute/{projectID}/{contribution}', 'projectController@contributeGet');
+
+//contribute post
 //returns error msg: "Please enter a valid contribution." OR 'SUCCESS', not a select statement
 Route::post('/project/contribute', 'projectController@contribute');
 
@@ -77,6 +81,8 @@ Route::post('/user/login', 'authController@login');
 Route::post('/user/signup', 'authController@signup');
 
 Route::post('/projects/create', 'projectController@create');
+
+
 
 // test routes
 Route::get('/test', 'authController@test');

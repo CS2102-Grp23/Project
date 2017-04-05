@@ -179,32 +179,64 @@ class projectController extends BaseController {
       return 'ERROR';
     }
   }
+  
+	function sanitize($data) {
+		$data = trim($data);
+		$data = strip_tags($data);
+		$data = htmlspecialchars($data);
+		return $data;
+	}
 
-  public function contribute(Request $req, $projectID, $contribution) {
+	public function contributeGet(Request $req, $projectID, $contribution) {
 
-    $contribution = sanitize($contribution);
-    //$projectID = $req->input('projectID');
+		$contribution = $this->sanitize($contribution);
+		//$contribution = $this->sanitize($req->input('contribution'));
+		//$projectID = $req->input('projectID');
 
-    if (empty($contribution) || $contribution <= 0) {
-      $error = true;
-      $errorMessage = "Please enter a valid contribution.";
-      return $errorMessage;
-    }
+		if (empty($contribution) || $contribution <= 0) {
+		  $error = true;
+		  $errorMessage = "Please enter a valid contribution.";
+		  return $errorMessage;
+		}
 
 		$username = app('App\Http\Controllers\authController')->getUsername();
-		//using stored function in postgres, increments if same user contributing to same project, else insert
-		$query = "DO $$ BEGIN PERFORM add_contribute(integer '".$projectID."', varchar '".$username."', '".$contribution."'::float8::numeric::money); END $$";
-		DB::select($query);
+		if (!empty($username)) {
+			//using stored function in postgres, increments if same user contributing to same project, else insert
+			$query = "DO $$ BEGIN PERFORM add_contribute(integer '".$projectID."', varchar '".$username."', '".$contribution."'::float8::numeric::money); END $$";
+			DB::select($query);
 
-		return 'SUCCESS';
-  }
+			return 'SUCCESS';
+		}
+		else {
+			return 'Please log in.';
+		}
+	}
   
+	public function contribute(Request $req) {
+
+		$contribution = $this->sanitize($req->input('contribution'));
+		$projectID = $req->input('projectID');
+
+		if (empty($contribution) || $contribution <= 0) {
+		  $error = true;
+		  $errorMessage = "Please enter a valid contribution.";
+		  return $errorMessage;
+		}
+
+		$username = app('App\Http\Controllers\authController')->getUsername();
+		if (!empty($username)) {
+			//using stored function in postgres, increments if same user contributing to same project, else insert
+			$query = "DO $$ BEGIN PERFORM add_contribute(integer '".$projectID."', varchar '".$username."', '".$contribution."'::float8::numeric::money); END $$";
+			DB::select($query);
+
+			return 'SUCCESS';
+		}
+		else {
+			return 'Please log in.';
+		}
+  
+	}
+	
 }
-	function sanitize($data) {
-      $data = trim($data);
-      //$data = strip_tags($data);
-      //$data = htmlspecialchars($data);
-      return $data;
-  }
 
 ?>
