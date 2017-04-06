@@ -21031,6 +21031,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
@@ -21038,7 +21039,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       user: null,
       searchQuery: '',
       filterCategory: 'All',
-      sortCategory: 'Most Recent'
+      sortCategory: 'Most Recent',
+      isAdmin: false
     };
   },
 
@@ -21053,14 +21055,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.$http.get('/user/getUser').then(function (response) {
         if (response.data[0]) {
-          _this.user = response.data;
+          _this.user = response.data[0];
+          if (_this.user.accesslevel) {
+
+            _this.isAdmin = true;
+          }
         } else {
           _this.user = null;
+          _this.isAdmin = false;
         }
       });
     },
     signOut: function signOut() {
       this.user = null;
+      this.isAdmin = false;
       this.$http.get('/user/logout');
       this.$eventHub.$emit('alert', { type: 'success', message: 'Logout successfully' });
       this.$router.push('/register');
@@ -21358,13 +21366,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    loginUser: function loginUser(e) {
+    loginUser: function loginUser() {
       var _this = this;
 
       var postData = {
         email: this.email,
         password: this.password
       };
+      console.log(postData);
       this.$http.post('/user/login', postData).then(function (response) {
         if (response.data == 'SUCCESS') {
           _this.$eventHub.$emit('alert', { type: 'success', message: 'Login successfully' });
@@ -21375,7 +21384,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    registerUser: function registerUser(e) {
+    registerUser: function registerUser() {
       var _this2 = this;
 
       var postData = {
@@ -54953,7 +54962,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._m(0), _vm._v(" "), _c('ul', {
     staticClass: "right hide-on-med-and-down"
-  }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), (!_vm.user) ? _c('li', [_c('a', {
+  }, [_c('li', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isAdmin),
+      expression: "isAdmin"
+    }]
+  }, [_c('a', {
+    attrs: {
+      "href": "/admin"
+    }
+  }, [_vm._v("Admin")])]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), (!_vm.user) ? _c('li', [_c('a', {
     attrs: {
       "href": "/register"
     }
