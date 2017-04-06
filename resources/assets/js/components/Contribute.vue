@@ -37,7 +37,7 @@
     <div class="contribute-info" v-show="!user">
       <h5>Want to contribute? <a href="/register">Register </a> here.</h5>
     </div>
-		<div class="contribute-info" v-show="user">
+	<div class="contribute-info" v-show="user">
       <h5 id="contribute-title">Contribute</h5>
       <div class="row">
         <div class="input-field col s6">
