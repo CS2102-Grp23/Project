@@ -37,6 +37,33 @@
       display: flex;
       flex-direction: row;
       justify-content: space-between;
+      padding: 0;
+      align-items: center;
+    }
+
+    #user-container {
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+      padding: 5px 10px;
+    }
+
+    #pair-container {
+      display: flex;
+      width: 100%;
+
+      .col {
+        display: flex;
+        justify-content: space-between;
+        border-right: 1px solid lightgrey;
+        padding: 10px;
+        align-items: center;
+
+        .count-label {
+          font-weight: 500;
+          color: teal;
+        }
+      }
     }
 
     .admin-filter {

@@ -62,11 +62,34 @@
       </form>
       <div class="collection" v-for="user in users">
         <div class="collection-item" :user="user">
-          {{ user.username }}
-          <div>
-            <a class="waves-effect waves-light btn" v-bind:href="'/profile/' + user.username">
-              <i class="material-icons left">pageview</i>View
-            </a>
+          <div id="user-container" v-show="user.username">
+            {{ user.username }}
+            <div>
+              <a class="waves-effect waves-light btn" v-bind:href="'/profile/' + user.username">
+                <i class="material-icons left">pageview</i>View
+              </a>
+            </div>
+          </div>
+          <div id="pair-container" class="row" v-show="user.user1">
+            <div class="col s5">
+              {{ user.user1 }}
+              <div>
+                <a class="waves-effect waves-light btn" v-bind:href="'/profile/' + user.user1">
+                  <i class="material-icons left">pageview</i>View
+                </a>
+              </div>
+            </div>
+            <div class="col s5">
+              {{ user.user2 }}
+              <div>
+                <a class="waves-effect waves-light btn" v-bind:href="'/profile/' + user.user2">
+                  <i class="material-icons left">pageview</i>View
+                </a>
+              </div>
+            </div>
+            <div class="col s2">
+              <span class="count-label">Count: </span>{{ user.count }}
+            </div>
           </div>
         </div>
       </div>

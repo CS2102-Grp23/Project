@@ -59728,6 +59728,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -60367,14 +60390,57 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "user": user
       }
-    }, [_vm._v("\n        " + _vm._s(user.username) + "\n        "), _c('div', [_c('a', {
+    }, [_c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (user.username),
+        expression: "user.username"
+      }],
+      attrs: {
+        "id": "user-container"
+      }
+    }, [_vm._v("\n          " + _vm._s(user.username) + "\n          "), _c('div', [_c('a', {
       staticClass: "waves-effect waves-light btn",
       attrs: {
         "href": '/profile/' + user.username
       }
     }, [_c('i', {
       staticClass: "material-icons left"
-    }, [_vm._v("pageview")]), _vm._v("View\n          ")])])])])
+    }, [_vm._v("pageview")]), _vm._v("View\n            ")])])]), _vm._v(" "), _c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (user.user1),
+        expression: "user.user1"
+      }],
+      staticClass: "row",
+      attrs: {
+        "id": "pair-container"
+      }
+    }, [_c('div', {
+      staticClass: "col s5"
+    }, [_vm._v("\n            " + _vm._s(user.user1) + "\n            "), _c('div', [_c('a', {
+      staticClass: "waves-effect waves-light btn",
+      attrs: {
+        "href": '/profile/' + user.user1
+      }
+    }, [_c('i', {
+      staticClass: "material-icons left"
+    }, [_vm._v("pageview")]), _vm._v("View\n              ")])])]), _vm._v(" "), _c('div', {
+      staticClass: "col s5"
+    }, [_vm._v("\n            " + _vm._s(user.user2) + "\n            "), _c('div', [_c('a', {
+      staticClass: "waves-effect waves-light btn",
+      attrs: {
+        "href": '/profile/' + user.user2
+      }
+    }, [_c('i', {
+      staticClass: "material-icons left"
+    }, [_vm._v("pageview")]), _vm._v("View\n              ")])])]), _vm._v(" "), _c('div', {
+      staticClass: "col s2"
+    }, [_c('span', {
+      staticClass: "count-label"
+    }, [_vm._v("Count: ")]), _vm._v(_vm._s(user.count) + "\n          ")])])])])
   }), _vm._v(" "), _vm._l((_vm.nations), function(nation) {
     return _c('div', {
       staticClass: "collection"
