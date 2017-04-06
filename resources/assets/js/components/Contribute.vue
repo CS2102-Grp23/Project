@@ -18,9 +18,19 @@
         <span class="info-name">End Date: </span>
         <span class="project-info">{{ project.endDate }}</span>
       </div>
-      <div>
-        <span class="info-name">Target Amount: </span>
-        <span class="project-info">{{ project.targetAmount }}</span>
+      <div class="row">
+        <div class="col s4" v-show="user">
+          <span class="info-name">My Contribution: </span>
+          <span class="project-info">{{ project.coalesce }}</span>
+        </div>
+        <div class="col s4">
+          <span class="info-name">Current Amount: </span>
+          <span class="project-info">{{ project.sum }}</span>
+        </div>
+        <div class="col s4">
+          <span class="info-name">Target Amount: </span>
+          <span class="project-info">{{ project.targetAmount }}</span>
+        </div>
       </div>
     </div>
     <hr />
@@ -49,8 +59,7 @@
         </div>
         <div class="input-field col s6">
           <i class="material-icons prefix">payment</i>
-          <input id="user-contribution" type="number" step="0.01" class="validate" v-model="contribution">
-		  <label for="user-contribution">Amount</label>
+          <input id="user-contribution" type="number" class="validate" v-model="contribution">
         </div>
       </div>
       <div class="row">
@@ -61,7 +70,7 @@
         </div>
       </div>
       <button type="submit" class="waves-effect waves-light btn" id="contribute-btn" @click.prevent="contribute">Contribute</button>
-    </div>
+    <div>
   </div>
 </template>
 
@@ -71,7 +80,8 @@
       return {
         project: {},
         user: {},
-        contribution: '',
+        contribution: 0,
+        currentAmount: 0,
       };
     },
     methods: {

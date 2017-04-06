@@ -20938,13 +20938,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
     return {
       project: {},
       user: {},
-      contribution: ''
+      contribution: 0,
+      currentAmount: 0
     };
   },
 
@@ -21021,6 +21031,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
@@ -21028,7 +21039,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       user: null,
       searchQuery: '',
       filterCategory: 'All',
-      sortCategory: 'Most Recent'
+      sortCategory: 'Most Recent',
+      isAdmin: false
     };
   },
 
@@ -21043,14 +21055,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
       this.$http.get('/user/getUser').then(function (response) {
         if (response.data[0]) {
-          _this.user = response.data;
+          _this.user = response.data[0];
+          if (_this.user.accesslevel) {
+
+            _this.isAdmin = true;
+          }
         } else {
           _this.user = null;
+          _this.isAdmin = false;
         }
       });
     },
     signOut: function signOut() {
       this.user = null;
+      this.isAdmin = false;
       this.$http.get('/user/logout');
       this.$eventHub.$emit('alert', { type: 'success', message: 'Logout successfully' });
       this.$router.push('/register');
@@ -21348,7 +21366,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
   },
 
   methods: {
-    loginUser: function loginUser(e) {
+    loginUser: function loginUser() {
       var _this = this;
 
       var postData = {
@@ -21365,7 +21383,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
       });
     },
-    registerUser: function registerUser(e) {
+    registerUser: function registerUser() {
       var _this2 = this;
 
       var postData = {
@@ -54943,7 +54961,18 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._m(0), _vm._v(" "), _c('ul', {
     staticClass: "right hide-on-med-and-down"
-  }, [_vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), (!_vm.user) ? _c('li', [_c('a', {
+  }, [_c('li', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isAdmin),
+      expression: "isAdmin"
+    }]
+  }, [_c('a', {
+    attrs: {
+      "href": "/admin"
+    }
+  }, [_vm._v("Admin")])]), _vm._v(" "), _vm._m(1), _vm._v(" "), _vm._m(2), _vm._v(" "), (!_vm.user) ? _c('li', [_c('a', {
     attrs: {
       "href": "/register"
     }
@@ -55545,11 +55574,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "info-name"
   }, [_vm._v("End Date: ")]), _vm._v(" "), _c('span', {
     staticClass: "project-info"
-  }, [_vm._v(_vm._s(_vm.project.endDate))])]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v(_vm._s(_vm.project.endDate))])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.user),
+      expression: "user"
+    }],
+    staticClass: "col s4"
+  }, [_c('span', {
+    staticClass: "info-name"
+  }, [_vm._v("My Contribution: ")]), _vm._v(" "), _c('span', {
+    staticClass: "project-info"
+  }, [_vm._v(_vm._s(_vm.project.coalesce))])]), _vm._v(" "), _c('div', {
+    staticClass: "col s4"
+  }, [_c('span', {
+    staticClass: "info-name"
+  }, [_vm._v("Current Amount: ")]), _vm._v(" "), _c('span', {
+    staticClass: "project-info"
+  }, [_vm._v(_vm._s(_vm.project.sum))])]), _vm._v(" "), _c('div', {
+    staticClass: "col s4"
+  }, [_c('span', {
     staticClass: "info-name"
   }, [_vm._v("Target Amount: ")]), _vm._v(" "), _c('span', {
     staticClass: "project-info"
-  }, [_vm._v(_vm._s(_vm.project.targetAmount))])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.project.targetAmount))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -55585,8 +55636,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "validate",
     attrs: {
       "id": "user-contribution",
-      "type": "number",
-      "step": "0.01"
+      "type": "number"
     },
     domProps: {
       "value": _vm._s(_vm.contribution)
@@ -55600,11 +55650,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$forceUpdate()
       }
     }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "user-contribution"
-    }
-  }, [_vm._v("Amount")])])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('button', {
+  })])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('button', {
     staticClass: "waves-effect waves-light btn",
     attrs: {
       "type": "submit",
@@ -55616,7 +55662,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.contribute($event)
       }
     }
-  }, [_vm._v("Contribute")])])])
+  }, [_vm._v("Contribute")]), _vm._v(" "), _c('div')])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('h5', [_vm._v("Want to contribute? "), _c('a', {
     attrs: {
@@ -59665,6 +59711,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -59674,14 +59737,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       admin: [],
       users: [],
       projects: [],
+      nations: [],
       adminFilter: __WEBPACK_IMPORTED_MODULE_0__data_admin_js__["a" /* default */],
       filterChoice: "All",
       isTopNoneRadio: false,
       isLimitOn: false,
+      isNationFilter: false,
       isManageUsers: false,
       isManageProjects: false,
       toggleFilter: false,
-      radioFilter: 'Top'
+      toggleRadioFilter: 'Top',
+      toggleNationFilter: 'Project'
     };
   },
 
@@ -59726,6 +59792,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // No Activity
         this.isTopNoneRadio = false;
         this.isLimitOn = true;
+        this.isNationFilter = false;
+        this.nations = null;
 
         if (!this.toggleFilter) {
           this.$http.get('/admin/noAct').then(function (response) {
@@ -59735,6 +59803,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               _this4.users = null;
               _this4.isTopNoneRadio = false;
               _this4.isLimitOn = false;
+              _this4.isNationFilter = false;
             }
           });
         } else if (this.toggleFilter) {
@@ -59745,6 +59814,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               _this4.users = null;
               _this4.isTopNoneRadio = false;
               _this4.isLimitOn = false;
+              _this4.isNationFilter = false;
             }
           });
         }
@@ -59752,8 +59822,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // Contributions
         this.isTopNoneRadio = true;
         this.isLimitOn = true;
+        this.isNationFilter = false;
+        this.nations = null;
 
-        if (this.radioFilter === 'Top') {
+        if (this.toggleRadioFilter === 'Top') {
           if (!this.toggleFilter) {
             this.$http.get('/admin/topCon').then(function (response) {
               if (response.data) {
@@ -59762,6 +59834,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this4.users = null;
                 _this4.isTopNoneRadio = false;
                 _this4.isLimitOn = false;
+                _this4.isNationFilter = false;
               }
             });
           } else if (this.toggleFilter) {
@@ -59772,10 +59845,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this4.users = null;
                 _this4.isTopNoneRadio = false;
                 _this4.isLimitOn = false;
+                _this4.isNationFilter = false;
               }
             });
           }
-        } else if (this.radioFilter === 'None') {
+        } else if (this.toggleRadioFilter === 'None') {
           if (!this.toggleFilter) {
             this.$http.get('/admin/noCon').then(function (response) {
               if (response.data) {
@@ -59784,6 +59858,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this4.users = null;
                 _this4.isTopNoneRadio = false;
                 _this4.isLimitOn = false;
+                _this4.isNationFilter = false;
               }
             });
           } else if (this.toggleFilter) {
@@ -59794,6 +59869,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 _this4.users = null;
                 _this4.isTopNoneRadio = false;
                 _this4.isLimitOn = false;
+                _this4.isNationFilter = false;
               }
             });
           }
@@ -59802,6 +59878,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // No Projects
         this.isTopNoneRadio = false;
         this.isLimitOn = true;
+        this.isNationFilter = false;
+        this.nations = null;
 
         if (!this.toggleFilter) {
           this.$http.get('/admin/noProj').then(function (response) {
@@ -59811,6 +59889,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               _this4.users = null;
               _this4.isTopNoneRadio = false;
               _this4.isLimitOn = false;
+              _this4.isNationFilter = false;
             }
           });
         } else if (this.toggleFilter) {
@@ -59821,6 +59900,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               _this4.users = null;
               _this4.isTopNoneRadio = false;
               _this4.isLimitOn = false;
+              _this4.isNationFilter = false;
             }
           });
         }
@@ -59828,6 +59908,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // Fulfilled Projects
         this.isTopNoneRadio = false;
         this.isLimitOn = true;
+        this.isNationFilter = false;
+        this.nations = null;
 
         if (!this.toggleFilter) {
           this.$http.get('/admin/TopFull').then(function (response) {
@@ -59837,6 +59919,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               _this4.users = null;
               _this4.isTopNoneRadio = false;
               _this4.isLimitOn = false;
+              _this4.isNationFilter = false;
             }
           });
         } else if (this.toggleFilter) {
@@ -59847,6 +59930,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               _this4.users = null;
               _this4.isTopNoneRadio = false;
               _this4.isLimitOn = false;
+              _this4.isNationFilter = false;
             }
           });
         }
@@ -59854,6 +59938,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         // Similar Users
         this.isTopNoneRadio = false;
         this.isLimitOn = true;
+        this.isNationFilter = false;
+        this.nations = null;
 
         if (!this.toggleFilter) {
           this.$http.get('/admin/TopSimilar').then(function (response) {
@@ -59863,6 +59949,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               _this4.users = null;
               _this4.isTopNoneRadio = false;
               _this4.isLimitOn = false;
+              _this4.isNationFilter = false;
             }
           });
         } else if (this.toggleFilter) {
@@ -59873,38 +59960,70 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
               _this4.users = null;
               _this4.isTopNoneRadio = false;
               _this4.isLimitOn = false;
+              _this4.isNationFilter = false;
             }
           });
         }
       } else if (this.filterChoice === __WEBPACK_IMPORTED_MODULE_0__data_admin_js__["a" /* default */][5]) {
         // Nation
         this.isTopNoneRadio = false;
-        this.isLimitOn = false;
+        this.isLimitOn = true;
+        this.isNationFilter = true;
+        this.users = null;
 
-        if (!this.toggleFilter) {
-          this.$http.get('/admin/TopNationCon').then(function (response) {
-            if (response.data) {
-              _this4.users = response.data;
-            } else {
-              _this4.users = null;
-              _this4.isTopNoneRadio = false;
-              _this4.isLimitOn = false;
-            }
-          });
-        } else if (this.toggleFilter) {
-          this.$http.get('/admin/TopNationConSum').then(function (response) {
-            if (response.data) {
-              _this4.users = response.data;
-            } else {
-              _this4.users = null;
-              _this4.isTopNoneRadio = false;
-              _this4.isLimitOn = false;
-            }
-          });
+        if (this.toggleNationFilter === 'Project') {
+          if (!this.toggleFilter) {
+            this.$http.get('/admin/TopNationProj').then(function (response) {
+              if (response.data) {
+                _this4.nations = response.data;
+              } else {
+                _this4.nations = null;
+                _this4.isTopNoneRadio = false;
+                _this4.isLimitOn = false;
+                _this4.isNationFilter = false;
+              }
+            });
+          } else if (this.toggleFilter) {
+            this.$http.get('/admin/TopNationProjSum').then(function (response) {
+              if (response.data) {
+                _this4.nations = response.data;
+              } else {
+                _this4.nations = null;
+                _this4.isTopNoneRadio = false;
+                _this4.isLimitOn = false;
+                _this4.isNationFilter = false;
+              }
+            });
+          }
+        } else if (this.toggleNationFilter === 'Contribution') {
+          if (!this.toggleFilter) {
+            this.$http.get('/admin/TopNationCon').then(function (response) {
+              if (response.data) {
+                _this4.nations = response.data;
+              } else {
+                _this4.nations = null;
+                _this4.isTopNoneRadio = false;
+                _this4.isLimitOn = false;
+                _this4.isNationFilter = false;
+              }
+            });
+          } else if (this.toggleFilter) {
+            this.$http.get('/admin/TopNationConSum').then(function (response) {
+              if (response.data) {
+                _this4.nations = response.data;
+              } else {
+                _this4.nations = null;
+                _this4.isTopNoneRadio = false;
+                _this4.isLimitOn = false;
+                _this4.isNationFilter = false;
+              }
+            });
+          }
         }
       } else {
         this.isTopNoneRadio = false;
         this.isLimitOn = false;
+        this.isNationFilter = false;
         this.getUsers();
       }
     }
@@ -60069,8 +60188,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.radioFilter),
-      expression: "radioFilter"
+      value: (_vm.toggleRadioFilter),
+      expression: "toggleRadioFilter"
     }],
     attrs: {
       "type": "radio",
@@ -60078,12 +60197,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "Top"
     },
     domProps: {
-      "checked": _vm._q(_vm.radioFilter, "Top")
+      "checked": _vm._q(_vm.toggleRadioFilter, "Top")
     },
     on: {
       "change": _vm.filterUser,
       "click": function($event) {
-        _vm.radioFilter = "Top"
+        _vm.toggleRadioFilter = "Top"
       }
     }
   }), _vm._v(" "), _c('label', {
@@ -60102,8 +60221,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "model",
       rawName: "v-model",
-      value: (_vm.radioFilter),
-      expression: "radioFilter"
+      value: (_vm.toggleRadioFilter),
+      expression: "toggleRadioFilter"
     }],
     attrs: {
       "type": "radio",
@@ -60111,12 +60230,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "value": "None"
     },
     domProps: {
-      "checked": _vm._q(_vm.radioFilter, "None")
+      "checked": _vm._q(_vm.toggleRadioFilter, "None")
     },
     on: {
       "change": _vm.filterUser,
       "click": function($event) {
-        _vm.radioFilter = "None"
+        _vm.toggleRadioFilter = "None"
       }
     }
   }), _vm._v(" "), _c('label', {
@@ -60124,6 +60243,79 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "for": "none"
     }
   }, [_vm._v("None")])])]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.isNationFilter),
+      expression: "isNationFilter"
+    }]
+  }, [_c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: ((_vm.filterChoice !== 'All')),
+      expression: "(filterChoice !== 'All')"
+    }],
+    staticClass: "filter"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.toggleNationFilter),
+      expression: "toggleNationFilter"
+    }],
+    attrs: {
+      "type": "radio",
+      "id": "nation-project",
+      "value": "Project"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.toggleNationFilter, "Project")
+    },
+    on: {
+      "change": _vm.filterUser,
+      "click": function($event) {
+        _vm.toggleNationFilter = "Project"
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "nation-project"
+    }
+  }, [_vm._v("Most Project")])]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: ((_vm.filterChoice !== 'All')),
+      expression: "(filterChoice !== 'All')"
+    }],
+    staticClass: "filter"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.toggleNationFilter),
+      expression: "toggleNationFilter"
+    }],
+    attrs: {
+      "type": "radio",
+      "id": "nation-contribution",
+      "value": "Contribution"
+    },
+    domProps: {
+      "checked": _vm._q(_vm.toggleNationFilter, "Contribution")
+    },
+    on: {
+      "change": _vm.filterUser,
+      "click": function($event) {
+        _vm.toggleNationFilter = "Contribution"
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "nation-contribution"
+    }
+  }, [_vm._v("Highest Contribution")])])]), _vm._v(" "), _c('span', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -60183,6 +60375,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('i', {
       staticClass: "material-icons left"
     }, [_vm._v("pageview")]), _vm._v("View\n          ")])])])])
+  }), _vm._v(" "), _vm._l((_vm.nations), function(nation) {
+    return _c('div', {
+      staticClass: "collection"
+    }, [_c('div', {
+      staticClass: "collection-item",
+      attrs: {
+        "nation": nation
+      }
+    }, [_c('div', [_vm._v(_vm._s(nation.nationality))]), _vm._v(" "), _c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (nation.sum),
+        expression: "nation.sum"
+      }]
+    }, [_vm._v(_vm._s(nation.sum))]), _vm._v(" "), _c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (nation.count),
+        expression: "nation.count"
+      }]
+    }, [_vm._v(_vm._s(nation.count))])])])
   })], 2)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true

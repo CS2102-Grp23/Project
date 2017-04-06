@@ -41,24 +41,24 @@ class projectController extends BaseController {
   }
 
   public function getProject(Request $req, $id) {
-	 
+
 	$username = app('App\Http\Controllers\authController')->getUsername();
 	$checkContribute = "SELECT * FROM contribute c WHERE c.\"projectID\" = '".$id."'";
 	$hasContribute = DB::select($checkContribute);
-	
+
 	//project no contribution, regardless of login
 	if (empty($username) && empty($hasContribute) || !empty($username) && empty($hasContribute)) {
-		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", ('0'::float8::numeric::money), ('0'::float8::numeric::money) FROM project p where p.\"projectID\"='".$id."' GROUP BY p.\"projectID\"";	
+		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.description, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", ('0'::float8::numeric::money), ('0'::float8::numeric::money) FROM project p where p.\"projectID\"='".$id."' GROUP BY p.\"projectID\"";	
 	}
 	//not logged in, has contributions
 	else if(empty($username) && !empty($hasContribute)) {
-		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", SUM(c1.amount), ('0'::float8::numeric::money) FROM contribute c1, project p where p.\"projectID\"='".$id."' AND p.\"projectID\" = c1.\"projectID\" GROUP BY p.\"projectID\"";	
+		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.description, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", SUM(c1.amount), ('0'::float8::numeric::money) FROM contribute c1, project p where p.\"projectID\"='".$id."' AND p.\"projectID\" = c1.\"projectID\" GROUP BY p.\"projectID\"";
 	}
 	//logged in, has contribution
 	else if(!empty($username) && !empty($hasContribute)) {
-		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", SUM(c1.amount), coalesce(c2.amount, '0'::float8::numeric::money) FROM contribute c1, project p LEFT OUTER JOIN contribute c2 ON c2.username = '".$username."' AND p.\"projectID\" = c2.\"projectID\" where p.\"projectID\"='".$id."' AND p.\"projectID\" = c1.\"projectID\" GROUP BY p.\"projectID\", c2.amount";	
+		$query = "SELECT DISTINCT(p.\"projectID\"), p.title, p.description, p.category, p.\"startDate\", p.\"endDate\", p.\"targetAmount\", SUM(c1.amount), coalesce(c2.amount, '0'::float8::numeric::money) FROM contribute c1, project p LEFT OUTER JOIN contribute c2 ON c2.username = '".$username."' AND p.\"projectID\" = c2.\"projectID\" where p.\"projectID\"='".$id."' AND p.\"projectID\" = c1.\"projectID\" GROUP BY p.\"projectID\", c2.amount";
 	}
-	
+
 	//return $query;
     return DB::select($query);
   }
@@ -75,7 +75,7 @@ class projectController extends BaseController {
     $category = $req->input('category');
     $imgUrl = $req->input('imageUrl');
     //$userName = 'turkey'; // make sure your database has a user named turkey
-	
+
 	$username = app('App\Http\Controllers\authController')->getUsername();
 	if (empty($username)) {
 		return "Please login first.";
@@ -116,13 +116,13 @@ class projectController extends BaseController {
     // project title validation
     if (empty($projectTitle)) {
         $error = true;
-		
+
         return "Please enter your project title.";
     }
     // project description validation
     if (empty($shortBlurb)) {
         $error = true;
-		
+
         return "Please enter your project description.";
     }
 
@@ -143,12 +143,12 @@ class projectController extends BaseController {
     // project description validation
     if (empty($targetAmt)) {
         $error = true;
-		
+
         return "Please enter an amount.";
     }
     else if (!preg_match("/^[1-9][0-9]*$/", $targetAmt)) {
         $error = true;
-		
+
         return "Please enter a valid amount";
     }
 
@@ -179,7 +179,7 @@ class projectController extends BaseController {
       return 'ERROR';
     }
   }
-  
+
 	function sanitize($data) {
 		$data = trim($data);
 		$data = strip_tags($data);
@@ -211,7 +211,7 @@ class projectController extends BaseController {
 			return 'Please log in.';
 		}
 	}
-  
+
 	public function contribute(Request $req) {
 
 		$contribution = $this->sanitize($req->input('contribution'));
@@ -234,9 +234,9 @@ class projectController extends BaseController {
 		else {
 			return 'Please log in.';
 		}
-  
+
 	}
-	
+
 }
 
 ?>
