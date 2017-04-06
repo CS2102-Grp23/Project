@@ -92,7 +92,7 @@ class adminController extends BaseController {
   }
   
   public function getTopPairOfSimilarUsersSummary() {
-	$query = 'SELECT u1.username, u2.username, COUNT(*) FROM public.users u1 LEFT JOIN public.contribute c1 ON c1.username = u1.username, public.users u2 LEFT JOIN public.contribute c2 ON c2.username = u2.username WHERE u1.email < u2.email AND c1."projectID" = c2."projectID" GROUP BY u1.username, u2.username ORDER BY COUNT(*) DESC LIMIT 10';
+	$query = 'SELECT u1.username AS user1, u2.username AS user2, COUNT(*) FROM public.users u1 LEFT JOIN public.contribute c1 ON c1.username = u1.username, public.users u2 LEFT JOIN public.contribute c2 ON c2.username = u2.username WHERE u1.email < u2.email AND c1."projectID" = c2."projectID" GROUP BY u1.username, u2.username ORDER BY COUNT(*) DESC LIMIT 10';
 
     return DB::select($query);
   }
