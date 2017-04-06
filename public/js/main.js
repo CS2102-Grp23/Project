@@ -20938,13 +20938,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
   data: function data() {
     return {
       project: {},
       user: {},
-      contribution: ''
+      contribution: 0,
+      currentAmount: 0
     };
   },
 
@@ -55545,11 +55555,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "info-name"
   }, [_vm._v("End Date: ")]), _vm._v(" "), _c('span', {
     staticClass: "project-info"
-  }, [_vm._v(_vm._s(_vm.project.endDate))])]), _vm._v(" "), _c('div', [_c('span', {
+  }, [_vm._v(_vm._s(_vm.project.endDate))])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.user),
+      expression: "user"
+    }],
+    staticClass: "col s4"
+  }, [_c('span', {
+    staticClass: "info-name"
+  }, [_vm._v("My Contribution: ")]), _vm._v(" "), _c('span', {
+    staticClass: "project-info"
+  }, [_vm._v(_vm._s(_vm.project.coalesce))])]), _vm._v(" "), _c('div', {
+    staticClass: "col s4"
+  }, [_c('span', {
+    staticClass: "info-name"
+  }, [_vm._v("Current Amount: ")]), _vm._v(" "), _c('span', {
+    staticClass: "project-info"
+  }, [_vm._v(_vm._s(_vm.project.sum))])]), _vm._v(" "), _c('div', {
+    staticClass: "col s4"
+  }, [_c('span', {
     staticClass: "info-name"
   }, [_vm._v("Target Amount: ")]), _vm._v(" "), _c('span', {
     staticClass: "project-info"
-  }, [_vm._v(_vm._s(_vm.project.targetAmount))])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.project.targetAmount))])])])]), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -55585,8 +55617,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "validate",
     attrs: {
       "id": "user-contribution",
-      "type": "number",
-      "step": "0.01"
+      "type": "number"
     },
     domProps: {
       "value": _vm._s(_vm.contribution)
@@ -55600,11 +55631,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.$forceUpdate()
       }
     }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "user-contribution"
-    }
-  }, [_vm._v("Amount")])])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('button', {
+  })])]), _vm._v(" "), _vm._m(3), _vm._v(" "), _c('button', {
     staticClass: "waves-effect waves-light btn",
     attrs: {
       "type": "submit",
@@ -55616,7 +55643,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         _vm.contribute($event)
       }
     }
-  }, [_vm._v("Contribute")])])])
+  }, [_vm._v("Contribute")]), _vm._v(" "), _c('div')])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('h5', [_vm._v("Want to contribute? "), _c('a', {
     attrs: {
