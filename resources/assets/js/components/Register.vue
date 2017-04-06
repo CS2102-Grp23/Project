@@ -72,7 +72,7 @@
       };
     },
     methods: {
-      loginUser: function (e) {
+      loginUser() {
         const postData = {
           email: this.email,
           password: this.password,
@@ -87,7 +87,7 @@
           }
         });
       },
-      registerUser: function (e) {
+      registerUser() {
         const postData = {
           name: this.name,
           userName: this.userName,
