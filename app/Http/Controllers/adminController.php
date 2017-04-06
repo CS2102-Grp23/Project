@@ -86,7 +86,7 @@ class adminController extends BaseController {
   
   //pairs of user with most similar project contribution
   public function getTopPairOfSimilarUsers() {
-	$query = 'SELECT u1.username, u2.username, COUNT(*) FROM public.users u1 LEFT JOIN public.contribute c1 ON c1.username = u1.username, public.users u2 LEFT JOIN public.contribute c2 ON c2.username = u2.username WHERE u1.email < u2.email AND c1."projectID" = c2."projectID" GROUP BY u1.username, u2.username ORDER BY COUNT(*) DESC';
+	$query = 'SELECT u1.username AS user1, u2.username AS user2, COUNT(*) FROM public.users u1 LEFT JOIN public.contribute c1 ON c1.username = u1.username, public.users u2 LEFT JOIN public.contribute c2 ON c2.username = u2.username WHERE u1.email < u2.email AND c1."projectID" = c2."projectID" GROUP BY u1.username, u2.username ORDER BY COUNT(*) DESC';
 
     return DB::select($query);
   }
